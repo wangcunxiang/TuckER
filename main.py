@@ -1,19 +1,21 @@
-from load_data import Data
+from load_data import DataText, read_json
 import numpy as np
 import torch
 import time
 from collections import defaultdict
 from model import *
 from torch.optim.lr_scheduler import ExponentialLR
+from Transformer import TextTucker, load_openai_pretrained_model, prepare_position_embeddings
+from config import config
 import argparse
 
-    
+
 class Experiment:
 
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200, 
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False, 
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0.):
+                 label_smoothing=0., maxlength = 30):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -22,14 +24,34 @@ class Experiment:
         self.decay_rate = decay_rate
         self.label_smoothing = label_smoothing
         self.cuda = cuda
+        self.maxlength = maxlength
+        self.textdata = None
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
-        
+
+    def strings_to_ids(self, data, vocab=['NULL', ]):
+        data_ids = []
+        for triple in data:
+            triple_ids = []
+            for i in triple:
+                words = i.strip().split()
+                word_ids = []
+                for word in words:
+                    if word not in vocab:
+                        vocab.append(word)
+                    word_ids.append(vocab.index(word))
+                triple_ids.append(word_ids)
+            data_ids.append(triple_ids)
+        id2vocab = {}
+        for i, word in enumerate(vocab):
+            id2vocab[word] = i
+        return data_ids, vocab, id2vocab
+
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
                       self.entity_idxs[data[i][2]]) for i in range(len(data))]
         return data_idxs
-    
+
     def get_er_vocab(self, data):
         er_vocab = defaultdict(list)
         for triple in data:
@@ -53,16 +75,21 @@ class Experiment:
         for i in range(10):
             hits.append([])
 
-        test_data_idxs = self.get_data_idxs(data)
+        test_data_idxs= self.get_data_idxs(data)
         er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
 
         print("Number of data points: %d" % len(test_data_idxs))
-        
+
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.tensor(data_batch[:,0])
-            r_idx = torch.tensor(data_batch[:,1])
-            e2_idx = torch.tensor(data_batch[:,2])
+            e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]][:, :, np.newaxis])
+            r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]][:, :, np.newaxis])
+            e1_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=e1_idx)
+            r_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=r_idx)
+            e1_idx = torch.tensor(d.data[data_batch[:,0]])
+            r_idx = torch.tensor(d.data[data_batch[:,1]])
+            e2_idx = torch.tensor(d.data[data_batch[:,2]])
+            print(e1_idx)
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
@@ -102,10 +129,26 @@ class Experiment:
         self.entity_idxs = {d.entities[i]:i for i in range(len(d.entities))}
         self.relation_idxs = {d.relations[i]:i for i in range(len(d.relations))}
 
-        train_data_idxs = self.get_data_idxs(d.train_data)
+        train_data_idxs= self.get_data_idxs(d.train_data)
         print("Number of training data points: %d" % len(train_data_idxs))
 
-        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
+
+
+        ########
+        data_ids, vocab, id2vocab = self.strings_to_ids(data=d.data)
+        print("read vocab ready.")
+        d.textdata = d.get_index(data_ids,self.maxlength, id2vocab)
+        self.textdata = np.array(d.textdata)
+        print("text data ready")
+        cfg = config(dict(read_json(args.config)))
+        print(cfg)
+        model = TextTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40530, n_ctx = 52, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        print("model ready")
+        load_openai_pretrained_model(
+            model.transformer, n_ctx=52)
+        print("loading model ready")
+
+        ########
         if self.cuda:
             model.cuda()
         model.init()
@@ -119,14 +162,21 @@ class Experiment:
         print("Starting training...")
         for it in range(1, self.num_iterations+1):
             start_train = time.time()
-            model.train()    
+            model.train()
             losses = []
             np.random.shuffle(er_vocab_pairs)
             for j in range(0, len(er_vocab_pairs), self.batch_size):
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 opt.zero_grad()
-                e1_idx = torch.tensor(data_batch[:,0])
-                r_idx = torch.tensor(data_batch[:,1])  
+                #print(data_batch[:,0].reshape(-1, 1))
+
+                #print(textdata)
+                #print(textdata[data_batch[:,0].reshape(-1, 1)])
+                e1_idx = torch.LongTensor(self.textdata[data_batch[:,0]][:,:,np.newaxis])
+                r_idx = torch.LongTensor(self.textdata[data_batch[:,1]][:,:,np.newaxis])
+                e1_idx = prepare_position_embeddings(encoder_vocab = vocab, sequences=e1_idx)
+                r_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=r_idx)
+
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
@@ -160,6 +210,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, default="FB15k-237", nargs="?",
                     help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
+    parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
+                        help="the config file path")
     parser.add_argument("--num_iterations", type=int, default=500, nargs="?",
                     help="Number of iterations.")
     parser.add_argument("--batch_size", type=int, default=128, nargs="?",
@@ -183,6 +235,7 @@ if __name__ == '__main__':
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
                     help="Amount of label smoothing.")
 
+
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset
@@ -192,7 +245,7 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     if torch.cuda.is_available:
         torch.cuda.manual_seed_all(seed) 
-    d = Data(data_dir=data_dir, reverse=False)
+    d = DataText(data_dir=data_dir, reverse=False)
     experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr, 
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
                             input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1, 

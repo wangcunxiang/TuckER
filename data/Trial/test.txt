@@ -1,0 +1,160 @@
+PersonX brings ___ to the people	oReact	well happy and satisfied
+PersonX brings ___ to the people	xIntent	solve people problems
+PersonX brings ___ to the people	xReact	like achieve
+PersonX brings ___ to the people	oReact	grateful & appreciative.
+PersonX brings ___ to the people	xIntent	materially contribute to own community growth, well-being & progress.
+PersonX brings ___ to the people	xReact	satisfied, proud to materially contributing to own community growth, well-being & progress.
+PersonX brings ___ to the people	oEffect	benefit materially
+PersonX brings ___ to the people	oEffect	improve lifestyle
+PersonX brings ___ to the people	xEffect	praised
+PersonX brings ___ to the people	xEffect	thanked
+PersonX brings ___ to the people	oEffect	Have better lives
+PersonX brings ___ to the people	oEffect	Grows
+PersonX brings ___ to the people	xEffect	Stops from the rich
+PersonX brings ___ to the people	xEffect	Gives to the poor
+PersonX brings ___ to the people	oEffect	none
+PersonX brings ___ to the people	xEffect	is admired
+PersonX brings ___ to the people	xEffect	is called upon
+PersonX brings ___ to the people	oWant	to be thankful
+PersonX brings ___ to the people	oWant	to put the things away which they received
+PersonX brings ___ to the people	xNeed	to decide who needs help
+PersonX brings ___ to the people	xNeed	to buy supplies
+PersonX brings ___ to the people	xWant	to go home
+PersonX brings ___ to the people	xWant	to unload their vehicle
+PersonX brings ___ to the people	oWant	to work hard
+PersonX brings ___ to the people	oWant	to get new jobs
+PersonX brings ___ to the people	xNeed	to build an economic policy
+PersonX brings ___ to the people	xNeed	to create jobs
+PersonX brings ___ to the people	xWant	to see affluence
+PersonX brings ___ to the people	xWant	to make the people well again
+PersonX brings ___ to the people	oWant	none
+PersonX brings ___ to the people	xNeed	to want to help
+PersonX brings ___ to the people	xNeed	to care about people
+PersonX brings ___ to the people	xWant	to see the people are happy
+PersonX brings ___ to the people	xWant	to make sure everyone has everything they need
+PersonX brings ___ to the people	xAttr	kind
+PersonX brings ___ to the people	xAttr	generous
+PersonX brings ___ to the people	xAttr	respected
+PersonX brings ___ to the people	xAttr	caring
+PersonX brings ___ to the people	xAttr	caring
+PersonX brings ___ to the people	xAttr	helpful
+PersonX starves the ___ into submission	oReact	fearful
+PersonX starves the ___ into submission	xIntent	to be the conqueror
+PersonX starves the ___ into submission	xReact	powerful
+PersonX starves the ___ into submission	oReact	none
+PersonX starves the ___ into submission	xIntent	people into submission
+PersonX starves the ___ into submission	xReact	happy
+PersonX starves the ___ into submission	oEffect	Mane people will try to avoid the starvation.
+PersonX starves the ___ into submission	oEffect	Many people will fight back the punishment.
+PersonX starves the ___ into submission	xEffect	It receives submissively from a bunch of people, it means person X will not do things because other will do it for him/her.
+PersonX starves the ___ into submission	xEffect	Things that Person X wanted to do and was not allowed to do, will be available to be done once the submission is reached.
+PersonX starves the ___ into submission	oEffect	have grumbling stomachs
+PersonX starves the ___ into submission	oEffect	become weak in their bodies
+PersonX starves the ___ into submission	xEffect	walks confidently
+PersonX starves the ___ into submission	xEffect	waits expectantly
+PersonX starves the ___ into submission	xNeed	love people
+PersonX starves the ___ into submission	xNeed	attract people
+PersonX starves the ___ into submission	oWant	Freedom
+PersonX starves the ___ into submission	oWant	Mercy
+PersonX starves the ___ into submission	xWant	Victory
+PersonX starves the ___ into submission	xWant	To defeat the other people
+PersonX starves the ___ into submission	xWant	Power
+PersonX starves the ___ into submission	oWant	to speak out against PersonX
+PersonX starves the ___ into submission	oWant	to revolt
+PersonX starves the ___ into submission	xWant	to become king
+PersonX starves the ___ into submission	xWant	people to follow his orders
+PersonX starves the ___ into submission	oWant	food
+PersonX starves the ___ into submission	oWant	freedom
+PersonX starves the ___ into submission	xWant	to exert his will
+PersonX starves the ___ into submission	xWant	to have an easy win
+PersonX starves the ___ into submission	xAttr	aggressive
+PersonX starves the ___ into submission	xAttr	dominant
+PersonX starves the ___ into submission	xAttr	evil
+PersonX starves the ___ into submission	xAttr	unkind
+PersonX starves the ___ into submission	xAttr	cutthroat
+PersonX starves the ___ into submission	xAttr	dangerous
+PersonX starves the ___ into submission	xAttr	cruel
+PersonX starves the ___ into submission	xAttr	efficient
+PersonX convinces every ___	oReact	persuaded
+PersonX convinces every ___	xIntent	to persuade
+PersonX convinces every ___	xReact	accomplished
+PersonX convinces every ___	oReact	none
+PersonX convinces every ___	xIntent	to be nice
+PersonX convinces every ___	xReact	good
+PersonX convinces every ___	oEffect	receive new skills
+PersonX convinces every ___	oEffect	receive new knowledge
+PersonX convinces every ___	xEffect	gets confident in his skills
+PersonX convinces every ___	xEffect	receives praise for his work
+PersonX convinces every ___	oWant	none
+PersonX convinces every ___	xNeed	to have the facts
+PersonX convinces every ___	xNeed	to be able to talk sweetly
+PersonX convinces every ___	xWant	to take everyone's money and run
+PersonX convinces every ___	xWant	to tell everyone that peace is the best
+PersonX convinces every ___	oWant	to ask questions
+PersonX convinces every ___	oWant	to digest the information
+PersonX convinces every ___	xNeed	to talk to someone
+PersonX convinces every ___	xNeed	to think of an argument
+PersonX convinces every ___	xWant	to carry out something
+PersonX convinces every ___	xWant	to continue talking
+PersonX convinces every ___	xWant	to part ways
+PersonX convinces every ___	oWant	none
+PersonX convinces every ___	xNeed	none
+PersonX convinces every ___	xWant	to be seen as a leader
+PersonX convinces every ___	xWant	to persuade
+PersonX convinces every ___	xAttr	Decisive
+PersonX convinces every ___	xAttr	Persuasive
+PersonX convinces every ___	xAttr	persuasive
+PersonX convinces every ___	xAttr	influential
+PersonX convinces every ___	xAttr	convincing
+PersonX convinces every ___	xAttr	smart
+PersonX obtains a ___ as possible	oReact	none
+PersonX obtains a ___ as possible	xIntent	help from someone because want to go tour
+PersonX obtains a ___ as possible	xReact	poor
+PersonX obtains a ___ as possible	xReact	sad
+PersonX obtains a ___ as possible	oEffect	none
+PersonX obtains a ___ as possible	xEffect	has hope
+PersonX obtains a ___ as possible	xEffect	gets a verdict
+PersonX obtains a ___ as possible	oEffect	none
+PersonX obtains a ___ as possible	xEffect	none
+PersonX obtains a ___ as possible	oEffect	none
+PersonX obtains a ___ as possible	xEffect	none
+PersonX obtains a ___ as possible	oWant	none
+PersonX obtains a ___ as possible	xNeed	to have looked for it
+PersonX obtains a ___ as possible	xNeed	to have been asked to read it
+PersonX obtains a ___ as possible	xNeed	to have a test on it
+PersonX obtains a ___ as possible	xWant	to ask questions about it
+PersonX obtains a ___ as possible	xWant	to sell it
+PersonX obtains a ___ as possible	xWant	to study it
+PersonX obtains a ___ as possible	oWant	none
+PersonX obtains a ___ as possible	xNeed	none
+PersonX obtains a ___ as possible	xWant	to take possession
+PersonX obtains a ___ as possible	xWant	to show off
+PersonX obtains a ___ as possible	oWant	none
+PersonX obtains a ___ as possible	xNeed	to find a art museum
+PersonX obtains a ___ as possible	xNeed	pay for a picture
+PersonX obtains a ___ as possible	xWant	to paste the picture in the home
+PersonX obtains a ___ as possible	xWant	to hang the picture in the office
+PersonX obtains a ___ as possible	xAttr	demanding
+PersonX obtains a ___ as possible	xAttr	competitive
+PersonX obtains a ___ as possible	xAttr	Quick
+PersonX obtains a ___ as possible	xAttr	Proactive
+PersonX obtains a ___ as possible	xAttr	resourceful
+PersonX obtains a ___ as possible	xAttr	careful
+PersonX persuades the ___ to allow	oReact	thankful
+PersonX persuades the ___ to allow	oReact	better
+PersonX persuades the ___ to allow	xIntent	another person to give permission
+PersonX persuades the ___ to allow	xReact	relieved
+PersonX persuades the ___ to allow	xReact	happy
+PersonX persuades the ___ to allow	oEffect	none
+PersonX persuades the ___ to allow	xEffect	none
+PersonX persuades the ___ to allow	oEffect	none
+PersonX persuades the ___ to allow	xEffect	Thanked
+PersonX persuades the ___ to allow	xEffect	Rewarded
+PersonX persuades the ___ to allow	oWant	none
+PersonX persuades the ___ to allow	xNeed	to know what they want
+PersonX persuades the ___ to allow	xNeed	to have a plan
+PersonX persuades the ___ to allow	xWant	to achieve their goal
+PersonX persuades the ___ to allow	xWant	to get their way
+PersonX persuades the ___ to allow	oWant	to apprehend personX
+PersonX persuades the ___ to allow	oWant	to leave personX be
+PersonX persuades the ___ to allow	xNeed	to convince the officer

@@ -9,7 +9,7 @@ class TuckER(torch.nn.Module):
 
         self.E = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
         self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
-        self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)), 
+        self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                     dtype=torch.float, device="cuda", requires_grad=True))
 
         self.input_dropout = torch.nn.Dropout(kwargs["input_dropout"])
@@ -32,11 +32,11 @@ class TuckER(torch.nn.Module):
         x = x.view(-1, 1, e1.size(1))
 
         r = self.R(r_idx)
-        W_mat = torch.mm(r, self.W.view(r.size(1), -1))
+        W_mat = torch.mm(r, self.W.view(r.size(1), -1))#torch.mm() 矩阵相乘
         W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
         W_mat = self.hidden_dropout1(W_mat)
 
-        x = torch.bmm(x, W_mat) 
+        x = torch.bmm(x, W_mat) #torch.mm() batch矩阵相乘
         x = x.view(-1, e1.size(1))      
         x = self.bn1(x)
         x = self.hidden_dropout2(x)
