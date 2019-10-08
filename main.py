@@ -92,7 +92,7 @@ class Experiment:
                 r_idx = r_idx.cuda()
                 e2_idx = e2_idx.cuda()
             predictions = model.forward(e1_idx, r_idx)
-            print("predictions size:"+str(predictions.size()))
+            #print("predictions size:"+str(predictions.size()))
 
             for j in range(data_batch.shape[0]):
                 filt = er_vocab[(data_batch[j][0], data_batch[j][1])]

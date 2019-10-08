@@ -25,7 +25,7 @@ class TuckER(torch.nn.Module):
         self.hidden_dropout2 = torch.nn.Dropout(kwargs["hidden_dropout2"])
         self.loss = torch.nn.BCELoss()
 
-        print("d1="+str(d1))
+        #print("d1="+str(d1))
         self.bn0 = torch.nn.BatchNorm1d(d1)
         self.bn1 = torch.nn.BatchNorm1d(d1)
 
@@ -34,7 +34,7 @@ class TuckER(torch.nn.Module):
         xavier_normal_(self.R.weight.data)
 
     def forward(self, e1, r):
-        print("e1 size:"+str(e1.size()))
+        #print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
@@ -360,5 +360,5 @@ def prepare_position_embeddings(encoder_vocab, sequences):
         range(vocab_size, vocab_size + num_positions)).to(sequences.device)
     sequences = sequences.repeat(1, 1, 2)
     sequences[:, :, 1] = position_embeddings
-    print(sequences.size())
+    #print(sequences.size())
     return sequences
