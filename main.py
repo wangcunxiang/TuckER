@@ -26,6 +26,7 @@ class Experiment:
         self.cuda = cuda
         self.maxlength = maxlength
         self.textdata = None
+        self.vocab = ['NULL', ]
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
 
@@ -42,10 +43,7 @@ class Experiment:
                     word_ids.append(vocab.index(word))
                 triple_ids.append(word_ids)
             data_ids.append(triple_ids)
-        id2vocab = {}
-        for i, word in enumerate(vocab):
-            id2vocab[word] = i
-        return data_ids, vocab, id2vocab
+        return data_ids, vocab
 
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
@@ -84,17 +82,17 @@ class Experiment:
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
             e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]][:, :, np.newaxis])
             r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]][:, :, np.newaxis])
-            e1_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=e1_idx)
-            r_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=r_idx)
-            e1_idx = torch.tensor(d.data[data_batch[:,0]])
-            r_idx = torch.tensor(d.data[data_batch[:,1]])
-            e2_idx = torch.tensor(d.data[data_batch[:,2]])
-            print(e1_idx)
+            #e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
+            e1_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e1_idx)
+            r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
+            #e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
+            e2_idx = torch.tensor(data_batch[:, 2]) #e2 are not used for model forward
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
                 e2_idx = e2_idx.cuda()
             predictions = model.forward(e1_idx, r_idx)
+            print("predictions size:"+str(predictions.size()))
 
             for j in range(data_batch.shape[0]):
                 filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
@@ -135,17 +133,17 @@ class Experiment:
 
 
         ########
-        data_ids, vocab, id2vocab = self.strings_to_ids(data=d.data)
+        data_ids, self.vocab = self.strings_to_ids(data=d.data)
         print("read vocab ready.")
-        d.textdata = d.get_index(data_ids,self.maxlength, id2vocab)
+        d.textdata = d.get_index(data_ids,self.maxlength)
         self.textdata = np.array(d.textdata)
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
-        print(cfg)
-        model = TextTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40530, n_ctx = 52, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        #print(cfg)
+        model = TextTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40508, n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
         print("model ready")
         load_openai_pretrained_model(
-            model.transformer, n_ctx=52)
+            model.transformer, n_ctx=self.maxlength)
         print("loading model ready")
 
         ########
@@ -174,8 +172,8 @@ class Experiment:
                 #print(textdata[data_batch[:,0].reshape(-1, 1)])
                 e1_idx = torch.LongTensor(self.textdata[data_batch[:,0]][:,:,np.newaxis])
                 r_idx = torch.LongTensor(self.textdata[data_batch[:,1]][:,:,np.newaxis])
-                e1_idx = prepare_position_embeddings(encoder_vocab = vocab, sequences=e1_idx)
-                r_idx = prepare_position_embeddings(encoder_vocab=vocab, sequences=r_idx)
+                e1_idx = prepare_position_embeddings(encoder_vocab = self.vocab, sequences=e1_idx)
+                r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()

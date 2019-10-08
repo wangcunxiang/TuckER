@@ -55,7 +55,7 @@ class DataText():
                 data += [[i[2], i[1]+"_reverse", i[0]] for i in data]
         return data
 
-    def get_index(self, data, maxlength, id2vocab):
+    def get_index(self, data, maxlength):
         textdata = []
         for i in data:
             for j in i:

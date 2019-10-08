@@ -25,6 +25,7 @@ class TuckER(torch.nn.Module):
         self.hidden_dropout2 = torch.nn.Dropout(kwargs["hidden_dropout2"])
         self.loss = torch.nn.BCELoss()
 
+        print("d1="+str(d1))
         self.bn0 = torch.nn.BatchNorm1d(d1)
         self.bn1 = torch.nn.BatchNorm1d(d1)
 
@@ -33,6 +34,7 @@ class TuckER(torch.nn.Module):
         xavier_normal_(self.R.weight.data)
 
     def forward(self, e1, r):
+        print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
@@ -222,11 +224,15 @@ class TransformerModel(nn.Module):
 
     def forward(self, x, sequence_mask):
         x = x.view(-1, x.size(-2), x.size(-1))
+        #print("x size:"+str(x.size()))
         e = self.embed(x)
+        #print("e size:" + str(e.size()))
         # Add the position information to the input embeddings
         h = e.sum(dim=2)
+        #print("h size before block:" + str(h.size()))
         for block in self.h:
             h = block(h, sequence_mask)
+        #print("h size after block:" + str(h.size()))
         return h
 
 class TextTucker(nn.Module):
@@ -237,10 +243,11 @@ class TextTucker(nn.Module):
         self.n_ctx = n_ctx
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.transformer = TransformerModel(cfg, vocab=vocab, n_ctx=n_ctx)
-        self.translationE = Conv1D(ent_vec_dim, 1, cfg.hSize)
-        self.translationR = Conv1D(rel_vec_dim, 1, cfg.hSize)
+        self.translationE = Conv1D(ent_vec_dim, 1, n_ctx * cfg.hSize)#last layer into one vector
+        self.translationR = Conv1D(rel_vec_dim, 1, n_ctx * cfg.hSize)
         self.E = torch.nn.Embedding(len(d.entities), ent_vec_dim, padding_idx=0)
         self.R = torch.nn.Embedding(len(d.relations), rel_vec_dim, padding_idx=0)
+        self.loss = torch.nn.BCELoss()
 
 
     def init(self):
@@ -249,11 +256,16 @@ class TextTucker(nn.Module):
 
     def forward(self, e, r, n_special=0, sequence_mask = None):
 
-
+        #print('e size:'+str(e.size()))
         he = self.transformer(e, sequence_mask)
+        he = he.reshape(he.size(0), he.size(-2) * he.size(-1))
+        #print('he size:' + str(he.size()))
         te = self.translationE(he)
+        #print('te size:' + str(te.size()))
+
 
         hr = self.transformer(r, sequence_mask)
+        hr = hr.reshape(hr.size(0), hr.size(-2) * hr.size(-1))
         tr = self.translationR(hr)
 
         return self.tucker(te, tr)
@@ -341,11 +353,12 @@ DEFAULT_CONFIG = dotdict({
 
 def prepare_position_embeddings(encoder_vocab, sequences):
     vocab_size = len(encoder_vocab)
-    print(sequences)
-    print(sequences.size())
+    #print('sequences size:')
+    #print(sequences.size())
     num_positions = sequences.size(-2)
     position_embeddings = torch.LongTensor(
         range(vocab_size, vocab_size + num_positions)).to(sequences.device)
     sequences = sequences.repeat(1, 1, 2)
     sequences[:, :, 1] = position_embeddings
+    print(sequences.size())
     return sequences
