@@ -140,7 +140,7 @@ class Experiment:
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
         #print(cfg)
-        model = TextTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40508, n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        model = TextTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=len(self.vocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
         print("model ready")
         load_openai_pretrained_model(
             model.transformer, n_ctx=self.maxlength)
