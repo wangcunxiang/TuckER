@@ -1,1 +1,1 @@
-{"model" : "transformer", "nL": 12, "nH": 12, "hSize": 60, "edpt": 0.1, "adpt": 0.1, "rdpt": 0.1, "odpt": 0.1, "pt": "gpt", "afn": "gelu", "init": "pt", "vSize": 40542}
+{"model" : "transformer", "nL": 12, "nH": 12, "hSize": 768, "edpt": 0.1, "adpt": 0.1, "rdpt": 0.1, "odpt": 0.1, "pt": "gpt", "afn": "gelu", "init": "pt", "vSize": 40542}
