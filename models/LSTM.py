@@ -10,7 +10,7 @@ class TuckER(torch.nn.Module):
     def __init__(self, d, d1, d2, **kwargs):
         super(TuckER, self).__init__()
 
-        self.E = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
+        self.E = torch.nn.Embedding(len(d.entities), d1)#, padding_idx=0)
         #self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                                  dtype=torch.float, device="cuda", requires_grad=True))
@@ -66,8 +66,16 @@ class LSTMTuckER(nn.Module):
 
     def cal_es(self, es):
         es = self.embed(es)
-        es_encoded, tmp = self.elstm(es)
+        #print("es size:"+str(es.size()))
+        #print("es[0] size:" + str(es[0].size()))
+        #print("torch.unsqueeze(es[0], 0):"+str(torch.unsqueeze(es[0], 0).size()))
+        es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
         es_encoded = es_encoded[:, -1, :]
+        for i in range(1, es.size(0)):
+            i_tmp, tmp = self.elstm(torch.unsqueeze(es[i],0))
+            i_tmp = i_tmp[:, -1, :]
+            es_encoded = torch.cat((es_encoded, i_tmp),0)
+        #print("es_encoded size:"+str(es_encoded.size()))
 
         self.tucker.update_es(es_encoded)
 
