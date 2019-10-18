@@ -38,8 +38,10 @@ class DataText():
         self.valid_data = self.load_data(data_dir, "valid", reverse=reverse)
         self.test_data = self.load_data(data_dir, "test", reverse=reverse)
         self.data = self.train_data + self.valid_data + self.test_data
-        self.textdata = None
-        self.entities = self.get_entities(self.data)
+        self.textdata = None # = Etextdata + Rtextdata; list,=get_index()
+        self.Etextdata = None
+        self.Rtextdata = None
+        self.entities = self.get_entities(self.data) # list[string]
         self.train_relations = self.get_relations(self.train_data)
         self.valid_relations = self.get_relations(self.valid_data)
         self.test_relations = self.get_relations(self.test_data)
@@ -55,15 +57,25 @@ class DataText():
                 data += [[i[2], i[1]+"_reverse", i[0]] for i in data]
         return data
 
-    def get_index(self, data, maxlength):
+    # def get_index(self, data, maxlength): #return [triples, sentences, ids],designed for  [triples, sentences, words]
+    #     textdata = []
+    #     for i in data:
+    #         for j in i:
+    #             while(len(j)<maxlength):
+    #                 j.append(0)
+    #             if(len(j)>maxlength):
+    #                 raise ("sentence length error")
+    #             textdata.append(j)
+    #     return textdata
+
+    def get_index(self, data, maxlength):#return [tsentences, ids],designed for  [sentences, words]
         textdata = []
         for i in data:
-            for j in i:
-                while(len(j)<maxlength):
-                    j.append(0)
-                if(len(j)>maxlength):
-                    raise ("sentence length error")
-                textdata.append(j)
+            while(len(i)<maxlength):
+                i.append(0)
+            if(len(i)>maxlength):
+                raise ("sentence length error")
+            textdata.append(i)
         return textdata
 
     def get_relations(self, data):

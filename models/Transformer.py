@@ -6,17 +6,16 @@ import re
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.nn.parameter import Parameter
-from model import TuckER
 from torch.nn.init import xavier_normal_
+
 
 class TuckER(torch.nn.Module):
     def __init__(self, d, d1, d2, **kwargs):
         super(TuckER, self).__init__()
 
-        self.E = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
-        self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
+        # self.E = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
+        # self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                                  dtype=torch.float, device="cuda", requires_grad=True))
 
@@ -34,7 +33,7 @@ class TuckER(torch.nn.Module):
         xavier_normal_(self.R.weight.data)
 
     def forward(self, e1, r):
-        #print("e1 size:"+str(e1.size()))
+        print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
@@ -213,7 +212,7 @@ class TransformerModel(nn.Module):
     def __init__(self, cfg, vocab=40990, n_ctx=512):
         super(TransformerModel, self).__init__()
         self.vocab = vocab
-        self.embed = nn.Embedding(vocab, cfg.hSize)
+        self.embed = nn.Embedding(vocab, cfg.hSize, padding_idx=0)
         self.drop = nn.Dropout(cfg.edpt)
         block = Block(n_ctx, cfg, scale=True)
         self.h = nn.ModuleList([copy.deepcopy(block)
@@ -235,37 +234,41 @@ class TransformerModel(nn.Module):
         #print("h size after block:" + str(h.size()))
         return h
 
-class TextTucker(nn.Module):
+
+
+class TransformerTucker(nn.Module):
     """Text Encoding Model"""
 
     def __init__(self, d, ent_vec_dim, rel_vec_dim, cfg, vocab=40990, n_ctx=512, **kwargs):
-        super(TextTucker, self).__init__()
+        super(TransformerTucker, self).__init__()
         self.n_ctx = n_ctx
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.transformer = TransformerModel(cfg, vocab=vocab, n_ctx=n_ctx)
-        self.translationE = Conv1D(ent_vec_dim, 1, n_ctx * cfg.hSize)#last layer into one vector
-        self.translationR = Conv1D(rel_vec_dim, 1, n_ctx * cfg.hSize)
+        self.translationE = Conv1D(ent_vec_dim, 1, cfg.hSize)#last layer into one vector
+        self.translationR = Conv1D(rel_vec_dim, 1, cfg.hSize)
         self.E = torch.nn.Embedding(len(d.entities), ent_vec_dim, padding_idx=0)
         self.R = torch.nn.Embedding(len(d.relations), rel_vec_dim, padding_idx=0)
         self.loss = torch.nn.BCELoss()
 
 
-    def init(self):
-        xavier_normal_(self.E.weight.data)
-        xavier_normal_(self.R.weight.data)
+    # def init(self):
+    #     xavier_normal_(self.E.weight.data)
+    #     xavier_normal_(self.R.weight.data)
 
     def forward(self, e, r, n_special=0, sequence_mask = None):
 
         #print('e size:'+str(e.size()))
         he = self.transformer(e, sequence_mask)
-        he = he.reshape(he.size(0), he.size(-2) * he.size(-1))
+        he = he[:,0,:]#get the first word's hidden layer
+        #he = he.reshape(he.size(0), he.size(-2) * he.size(-1))
         #print('he size:' + str(he.size()))
         te = self.translationE(he)
         #print('te size:' + str(te.size()))
 
 
         hr = self.transformer(r, sequence_mask)
-        hr = hr.reshape(hr.size(0), hr.size(-2) * hr.size(-1))
+        hr = hr[:,0,:]#get the first word's hidden layer
+        #hr = hr.reshape(hr.size(0), hr.size(-2) * hr.size(-1))
         tr = self.translationR(hr)
 
         return self.tucker(te, tr)

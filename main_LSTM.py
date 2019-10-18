@@ -3,10 +3,10 @@ import time
 from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
-from models.Transformer import TransformerTucker, load_openai_pretrained_model, prepare_position_embeddings
+from models.LSTM import LSTMTuckER
 from config.config import config
 import argparse
-
+import torch.tensor
 
 class Experiment:
 
@@ -23,27 +23,40 @@ class Experiment:
         self.label_smoothing = label_smoothing
         self.cuda = cuda
         self.maxlength = maxlength
-        self.textdata = None
-        self.vocab = ['NULL', ] #padding_idx=0
+        self.textdata = None  # = Etextdata + Rtextdata; np.array()
+        self.Etextdata = None
+        self.Rtextdata = None
+        self.vocab = ['NULL', ]#padding_idx=0
         self.vocab_size = vocab_size
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
 
-    def strings_to_ids(self, data, vocab=['NULL', ]):
-        data_ids = []
-        for triple in data:
-            triple_ids = []
-            for i in triple:
-                words = i.strip().split()
-                word_ids = []
-                for word in words:
-                    if word not in vocab:
-                        vocab.append(word)
-                    word_ids.append(vocab.index(word))
-                triple_ids.append(word_ids)
-            data_ids.append(triple_ids)
-        return data_ids, vocab
+    # def strings_to_ids(self, data, vocab=['NULL', ]):#padding_idx=0; designed for [triples, sentences, words]
+    #     data_ids = []
+    #     for triple in data:
+    #         triple_ids = []
+    #         for i in triple:
+    #             words = i.strip().split()
+    #             word_ids = []
+    #             for word in words:
+    #                 if word not in vocab:
+    #                     vocab.append(word)
+    #                 word_ids.append(vocab.index(word))
+    #             triple_ids.append(word_ids)
+    #         data_ids.append(triple_ids)
+    #     return data_ids, vocab
 
+    def strings_to_ids(self, data, vocab=['NULL', ]):#padding_idx=0; designed for [sentences, words]
+        data_ids = []
+        for sent in data:
+            sent = sent.strip().split()
+            word_ids = []
+            for word in sent:
+                if word not in vocab:
+                    vocab.append(word)
+                word_ids.append(vocab.index(word))
+            data_ids.append(word_ids)
+        return data_ids, vocab
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
                       self.entity_idxs[data[i][2]]) for i in range(len(data))]
@@ -79,11 +92,9 @@ class Experiment:
 
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]][:, :, np.newaxis])
-            r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]][:, :, np.newaxis])
+            e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]])
+            r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]])
             #e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
-            e1_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e1_idx)
-            r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
             #e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
             e2_idx = torch.tensor(data_batch[:, 2]) #e2 are not used for model forward
             if self.cuda:
@@ -127,24 +138,31 @@ class Experiment:
         self.relation_idxs = {d.relations[i]:i for i in range(len(d.relations))}
 
         train_data_idxs= self.get_data_idxs(d.train_data)
-        data_idxs = self.get_data_idxs(d.data)
+        #data_idxs = self.get_data_idxs(d.data)
         print("Number of training data points: %d" % len(train_data_idxs))
+        #print("Number of all data points: %d" % len(data_idxs))
 
 
 
         ########
-        data_ids, self.vocab = self.strings_to_ids(data=d.data, vocab=self.vocab)
+        #data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
+        #print(d.entities)
+        entities_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.entities)
+        print(entities_ids)
+        relation_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.relations)
+        print("entities_ids len=%d"%len(entities_ids))
+        print("relation_ids len=%d" % len(relation_ids))
         print("read vocab ready.")
-        d.textdata = d.get_index(data_ids,self.maxlength)
-        self.textdata = np.array(d.textdata)
+        d.Etextdata = d.get_index(entities_ids,self.maxlength) # list, contained padding entities
+        self.Etextdata = np.array(d.Etextdata)
+        d.Rtextdata = d.get_index(relation_ids, self.maxlength)
+        self.Rtextdata = np.array(d.Rtextdata)
+        self.textdata = np.array(d.Etextdata + d.Rtextdata)
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
         #print(cfg)
-        model = TransformerTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40508, n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=len(self.vocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
         print("model ready")
-        load_openai_pretrained_model(
-            model.transformer, n_ctx=self.maxlength)
-        print("loading model ready")
 
         ########
         if self.cuda:
@@ -154,8 +172,10 @@ class Experiment:
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
 
-        er_vocab = self.get_er_vocab(train_data_idxs)
-        er_vocab_pairs = list(er_vocab.keys())
+        er_vocab = self.get_er_vocab(train_data_idxs)#dict (e1,r)->e2
+        er_vocab_pairs = list(er_vocab.keys())#list [...,(e1,r),...]
+
+
 
         print("Starting training...")
         for it in range(1, self.num_iterations+1):
@@ -163,17 +183,23 @@ class Experiment:
             model.train()
             losses = []
             np.random.shuffle(er_vocab_pairs)
+            #print(er_vocab_pairs[:])
+            es_idx = torch.LongTensor(self.Etextdata)
+            if self.cuda:
+                es_idx = es_idx.cuda()
+            print(es_idx.size())
             for j in range(0, len(er_vocab_pairs), self.batch_size):
+                model.cal_es(es_idx)
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
+                #target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
                 #print(data_batch[:,0].reshape(-1, 1))
 
                 #print(textdata)
                 #print(textdata[data_batch[:,0].reshape(-1, 1)])
-                e1_idx = torch.LongTensor(self.textdata[data_batch[:,0]][:,:,np.newaxis])
-                r_idx = torch.LongTensor(self.textdata[data_batch[:,1]][:,:,np.newaxis])
-                e1_idx = prepare_position_embeddings(encoder_vocab = self.vocab, sequences=e1_idx)
-                r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
+                e1_idx = torch.LongTensor(self.textdata[data_batch[:,0]])
+                r_idx = torch.LongTensor(self.textdata[data_batch[:,1]])
+
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
