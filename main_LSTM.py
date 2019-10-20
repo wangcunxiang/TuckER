@@ -90,6 +90,10 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
+        es_idx = torch.LongTensor(self.Etextdata)
+        if self.cuda:
+            es_idx = es_idx.cuda()
+        model.cal_es(es_idx)
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
             e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]])
@@ -131,6 +135,12 @@ class Experiment:
 
 
 
+    def check_textdata(self):
+        for i in range(0, len(self.Etextdata)):
+            #print(self.Etextdata[i])
+            if self.Etextdata[i].all() != self.textdata[i].all():
+                print(i)
+
 
     def train_and_eval(self):
         print("Training the TuckER model...")
@@ -158,6 +168,7 @@ class Experiment:
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
         self.Rtextdata = np.array(d.Rtextdata)
         self.textdata = np.array(d.Etextdata + d.Rtextdata)
+        self.check_textdata()
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
         #print(cfg)
@@ -188,8 +199,9 @@ class Experiment:
             if self.cuda:
                 es_idx = es_idx.cuda()
             print(es_idx.size())
+            model.cal_es(es_idx)
             for j in range(0, len(er_vocab_pairs), self.batch_size):
-                model.cal_es(es_idx)
+
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 #target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()

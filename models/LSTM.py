@@ -65,20 +65,25 @@ class LSTMTuckER(nn.Module):
         self.loss = torch.nn.BCELoss()
 
     def cal_es(self, es):
-        es = self.embed(es).detach()#.detach()
-        #print("es size:"+str(es.size()))
-        #print("es[0] size:" + str(es[0].size()))
-        #print("torch.unsqueeze(es[0], 0):"+str(torch.unsqueeze(es[0], 0).size()))
-        es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0)).detach()
-        es_encoded = es_encoded[:, -1, :]
-        for i in range(1, es.size(0)):
-            i_tmp, tmp = self.elstm(torch.unsqueeze(es[i],0)).detach()
-            i_tmp = i_tmp[:, -1, :].cpu()
-            es_encoded = torch.cat((es_encoded, i_tmp),0)
-            del i_tmp, tmp
-        #print("es_encoded size:"+str(es_encoded.size()))
-        del es
-        self.tucker.update_es(es_encoded)
+        with torch.no_grad():
+            es = self.embed(es)
+            # print("es size:"+str(es.size()))
+            # print("es[0] size:" + str(es[0].size()))
+            # print("torch.unsqueeze(es[0], 0):"+str(torch.unsqueeze(es[0], 0).size()))
+            es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
+            # es_encoded, tmp = self.elstm(es)
+            es_encoded = es_encoded[:, -1, :]
+            length = es.size(0)
+            for i in range(1, length, int(length / 10)):
+                es_tmp = es[i:min(i + int(length / 10), length)]
+                # print("i="+str(i))
+                es_tmp, tmp = self.elstm(es_tmp)
+                es_tmp = es_tmp[:, -1, :]
+                es_encoded = torch.cat((es_encoded, es_tmp), 0)
+                del es_tmp, tmp
+            # print("es_encoded size:"+str(es_encoded.size()))
+            del es
+            self.tucker.update_es(es_encoded)
 
 
     def forward(self, e, r):
