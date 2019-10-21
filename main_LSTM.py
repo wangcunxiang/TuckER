@@ -26,7 +26,8 @@ class Experiment:
         self.textdata = None  # = Etextdata + Rtextdata; np.array()
         self.Etextdata = None
         self.Rtextdata = None
-        self.vocab = ['NULL', ]#padding_idx=0
+        self.Evocab = ['NULL', ]#padding_idx=0
+        self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
@@ -57,6 +58,7 @@ class Experiment:
                 word_ids.append(vocab.index(word))
             data_ids.append(word_ids)
         return data_ids, vocab
+
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
                       self.entity_idxs[data[i][2]]) for i in range(len(data))]
@@ -96,17 +98,18 @@ class Experiment:
         model.cal_es(es_idx)
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]])
-            r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]])
+            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
             #e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
             #e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
-            e2_idx = torch.tensor(data_batch[:, 2]) #e2 are not used for model forward
+            e2_idx = torch.LongTensor(data_batch[:, 2]) #e2 are not used for model forward
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
                 e2_idx = e2_idx.cuda()
             predictions = model.forward(e1_idx, r_idx)
             #print("predictions size:"+str(predictions.size()))
+            #print("e2_idx = "+str(e2_idx))
 
             for j in range(data_batch.shape[0]):
                 filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
@@ -157,9 +160,10 @@ class Experiment:
         ########
         #data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
         #print(d.entities)
-        entities_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.entities)
-        #print(entities_ids)
-        relation_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.relations)
+        print("entities="+str(d.entities))
+        entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
+        print("entities_ids = "+str(entities_ids))
+        relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
         print("entities_ids len=%d"%len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
         print("read vocab ready.")
@@ -167,12 +171,12 @@ class Experiment:
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
         self.Rtextdata = np.array(d.Rtextdata)
-        self.textdata = np.array(d.Etextdata + d.Rtextdata)
-        self.check_textdata()
+        # self.textdata = np.array(d.Etextdata + d.Rtextdata)
+        # self.check_textdata()
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
         #print(cfg)
-        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=len(self.vocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
         print("model ready")
 
         ########
@@ -198,7 +202,7 @@ class Experiment:
             es_idx = torch.LongTensor(self.Etextdata)
             if self.cuda:
                 es_idx = es_idx.cuda()
-            print(es_idx.size())
+            #print(es_idx.size())
             model.cal_es(es_idx)
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
@@ -209,8 +213,8 @@ class Experiment:
 
                 #print(textdata)
                 #print(textdata[data_batch[:,0].reshape(-1, 1)])
-                e1_idx = torch.LongTensor(self.textdata[data_batch[:,0]])
-                r_idx = torch.LongTensor(self.textdata[data_batch[:,1]])
+                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:,0]])
+                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:,1]])
 
 
                 if self.cuda:
