@@ -1,160 +1,640 @@
-PersonX plays a ___ in the war	oReact	none
-PersonX plays a ___ in the war	xIntent	to participate
-PersonX plays a ___ in the war	xReact	tired
-PersonX plays a ___ in the war	oReact	sad
-PersonX plays a ___ in the war	xIntent	to help out
-PersonX plays a ___ in the war	xReact	tired
-PersonX plays a ___ in the war	oEffect	none
-PersonX plays a ___ in the war	xEffect	gets hurt
-PersonX plays a ___ in the war	xEffect	has surgery
-PersonX plays a ___ in the war	oEffect	none
-PersonX plays a ___ in the war	xEffect	PersonX is injured from war
-PersonX plays a ___ in the war	xEffect	PersonX is considered a hero
-PersonX plays a ___ in the war	oEffect	Helped
-PersonX plays a ___ in the war	oEffect	Won
-PersonX plays a ___ in the war	xEffect	He's honorable
-PersonX plays a ___ in the war	xEffect	Selfless
-PersonX plays a ___ in the war	oWant	none
-PersonX plays a ___ in the war	xNeed	to fight
-PersonX plays a ___ in the war	xNeed	to be in battle
-PersonX plays a ___ in the war	xWant	to win
-PersonX plays a ___ in the war	xWant	to shoot
-PersonX plays a ___ in the war	oWant	throw a parade
-PersonX plays a ___ in the war	oWant	give orders
-PersonX plays a ___ in the war	xNeed	enlist in army
-PersonX plays a ___ in the war	xNeed	go through training
-PersonX plays a ___ in the war	xWant	return home
-PersonX plays a ___ in the war	xWant	collect benefits
-PersonX plays a ___ in the war	oWant	to end the war
-PersonX plays a ___ in the war	oWant	to live peacefully
-PersonX plays a ___ in the war	xNeed	for  their to be a war
-PersonX plays a ___ in the war	xNeed	for of them to play a part in it
-PersonX plays a ___ in the war	xWant	to do their best
-PersonX plays a ___ in the war	xWant	for the war to be over
-PersonX plays a ___ in the war	xAttr	Combative
-PersonX plays a ___ in the war	xAttr	Angry
-PersonX plays a ___ in the war	xAttr	hardened
-PersonX plays a ___ in the war	xAttr	tough
-PersonX plays a ___ in the war	xAttr	authoritative
-PersonX plays a ___ in the war	xAttr	commanding
-PersonX plays a ___ in the economy	oReact	none
-PersonX plays a ___ in the economy	xIntent	to be a productive citizen
-PersonX plays a ___ in the economy	xReact	accomplished
-PersonX plays a ___ in the economy	xReact	like belonging to a bigger picture
-PersonX plays a ___ in the economy	oReact	none
-PersonX plays a ___ in the economy	xIntent	to help
-PersonX plays a ___ in the economy	xReact	good
-PersonX plays a ___ in the economy	oEffect	none
-PersonX plays a ___ in the economy	xEffect	Loses job
-PersonX plays a ___ in the economy	xEffect	Makes money
-PersonX plays a ___ in the economy	oEffect	none
-PersonX plays a ___ in the economy	xEffect	gets a job
-PersonX plays a ___ in the economy	xEffect	learns about stocks and bonds
-PersonX plays a ___ in the economy	oEffect	none
-PersonX plays a ___ in the economy	xEffect	buys
-PersonX plays a ___ in the economy	xEffect	sells
-PersonX plays a ___ in the economy	oWant	to give thanks
-PersonX plays a ___ in the economy	oWant	to rebel against PersonX
-PersonX plays a ___ in the economy	xNeed	to gather information
-PersonX plays a ___ in the economy	xNeed	to get in a position of power
-PersonX plays a ___ in the economy	xWant	to carry out duties
-PersonX plays a ___ in the economy	xWant	to continue boosting the economy
-PersonX plays a ___ in the economy	oWant	none
-PersonX plays a ___ in the economy	xNeed	to get an economics education.
-PersonX plays a ___ in the economy	xNeed	to get an influencial job.
-PersonX plays a ___ in the economy	xWant	appear on cable news shows for money.
-PersonX plays a ___ in the economy	xWant	to take a high paying job as a consultant.
-PersonX plays a ___ in the economy	oWant	to sell him things
-PersonX plays a ___ in the economy	oWant	to buy things they need
-PersonX plays a ___ in the economy	xNeed	to of gotten a job
-PersonX plays a ___ in the economy	xNeed	to spend some of his money
-PersonX plays a ___ in the economy	xWant	to earn more finances
-PersonX plays a ___ in the economy	xWant	to save some of it
-PersonX plays a ___ in the economy	xAttr	powerful
-PersonX plays a ___ in the economy	xAttr	dominant
-PersonX plays a ___ in the economy	xAttr	responsible
-PersonX plays a ___ in the economy	xAttr	participating
-PersonX plays a ___ in the economy	xAttr	secure
-PersonX plays a ___ in the economy	xAttr	talented
-PersonX focuses ___ on issues	oReact	none
-PersonX focuses ___ on issues	xIntent	to show appreciation
-PersonX focuses ___ on issues	xReact	satisfied
-PersonX focuses ___ on issues	oEffect	none
-PersonX focuses ___ on issues	xEffect	Wins the debate
-PersonX focuses ___ on issues	xEffect	Loses the debate
-PersonX focuses ___ on issues	oWant	none
-PersonX focuses ___ on issues	xNeed	none
-PersonX focuses ___ on issues	xWant	to solve the issue
-PersonX focuses ___ on issues	xWant	to help others
-PersonX focuses ___ on issues	oWant	to support PersonX
-PersonX focuses ___ on issues	oWant	to oppose PersonX
-PersonX focuses ___ on issues	xNeed	to gather information
-PersonX focuses ___ on issues	xNeed	to make a decision
-PersonX focuses ___ on issues	xWant	to carry out decisions
-PersonX focuses ___ on issues	xWant	to gather support
-PersonX focuses ___ on issues	xAttr	thoughtful
-PersonX focuses ___ on issues	xAttr	analytical
-PersonX focuses ___ on issues	xAttr	observant
-PersonX focuses ___ on issues	xAttr	watchful
-PersonX focuses ___ on issues	xAttr	attentive
-PersonX focuses ___ on issues	xAttr	motivated
-PersonX focuses ___ on issues	xAttr	disciplined
-PersonX hardens pharaoh 's ___	oReact	scared
-PersonX hardens pharaoh 's ___	oReact	upset
-PersonX hardens pharaoh 's ___	oReact	confused
-PersonX hardens pharaoh 's ___	xIntent	events to play out a certain way
-PersonX hardens pharaoh 's ___	xReact	wise
-PersonX hardens pharaoh 's ___	xReact	powerful
-PersonX hardens pharaoh 's ___	oEffect	The pharaoh screams in extraordinary pain
-PersonX hardens pharaoh 's ___	oEffect	The pharaoh dies
-PersonX hardens pharaoh 's ___	xEffect	none
-PersonX hardens pharaoh 's ___	oEffect	none
-PersonX hardens pharaoh 's ___	xEffect	gets beaten up
-PersonX hardens pharaoh 's ___	xEffect	gets executed
-PersonX hardens pharaoh 's ___	oWant	execute PersonX
-PersonX hardens pharaoh 's ___	oWant	imprison PersonX
-PersonX hardens pharaoh 's ___	xNeed	meet the leader
-PersonX hardens pharaoh 's ___	xNeed	pledge loyalty
-PersonX hardens pharaoh 's ___	xWant	flee the kingdom
-PersonX hardens pharaoh 's ___	xWant	beg for mercy
-PersonX hardens pharaoh 's ___	oWant	PersonX to let them be
-PersonX hardens pharaoh 's ___	oWant	to destroy the lands of others
-PersonX hardens pharaoh 's ___	xNeed	to have power over Pharaoh
-PersonX hardens pharaoh 's ___	xNeed	to tell Pharaoh lies
-PersonX hardens pharaoh 's ___	xWant	to make Pharaoh punish people
-PersonX hardens pharaoh 's ___	xWant	to send Pharaoh to hell
-PersonX hardens pharaoh 's ___	oWant	To not let the people go
-PersonX hardens pharaoh 's ___	oWant	To stop person X
-PersonX hardens pharaoh 's ___	xNeed	none
-PersonX hardens pharaoh 's ___	xWant	To defeat the Pharoah
-PersonX hardens pharaoh 's ___	xWant	To free his people
-PersonX hardens pharaoh 's ___	xAttr	scientific
-PersonX hardens pharaoh 's ___	xAttr	creative
-PersonX hardens pharaoh 's ___	xAttr	powerful
-PersonX hardens pharaoh 's ___	xAttr	in control
-PersonX proposes another ___	oReact	none
-PersonX proposes another ___	xIntent	another draft the person
-PersonX proposes another ___	xReact	he like the person
-PersonX proposes another ___	oReact	collaborative
-PersonX proposes another ___	oReact	part of a team
-PersonX proposes another ___	oReact	supported
-PersonX proposes another ___	xIntent	to be helpful
-PersonX proposes another ___	xIntent	to collaborate
-PersonX proposes another ___	xReact	cooperative
-PersonX proposes another ___	xReact	helpful
-PersonX proposes another ___	xReact	successful
-PersonX proposes another ___	oEffect	none
-PersonX proposes another ___	xEffect	looks around to see how others respond.
-PersonX proposes another ___	xEffect	hesitates to sit down
-PersonX proposes another ___	oEffect	none
-PersonX proposes another ___	xEffect	talks
-PersonX proposes another ___	xEffect	has a new idea
-PersonX proposes another ___	oEffect	none
-PersonX proposes another ___	xEffect	none
-PersonX proposes another ___	oWant	none
-PersonX proposes another ___	xNeed	to not like what is in place
-PersonX proposes another ___	xNeed	to attend a meeting
-PersonX proposes another ___	xNeed	to be asked what they think
-PersonX proposes another ___	xWant	to make a presentation
-PersonX proposes another ___	xWant	to do more research about their proposal
-PersonX proposes another ___	xWant	to gather facts that will help
+PersonX uses PersonX 's ___ to obtain	oReact	annoyed
+PersonX uses PersonX 's ___ to obtain	oReact	angry
+PersonX uses PersonX 's ___ to obtain	oReact	worried
+PersonX uses PersonX 's ___ to obtain	xIntent	to have an advantage
+PersonX uses PersonX 's ___ to obtain	xIntent	to fulfill a desire
+PersonX uses PersonX 's ___ to obtain	xIntent	to get out of trouble
+PersonX uses PersonX 's ___ to obtain	xReact	pleased
+PersonX uses PersonX 's ___ to obtain	xReact	smug
+PersonX uses PersonX 's ___ to obtain	xReact	excited
+PersonX uses PersonX 's ___ to obtain	oReact	controlled
+PersonX uses PersonX 's ___ to obtain	xIntent	to be powerful
+PersonX uses PersonX 's ___ to obtain	xReact	powerful
+PersonX uses PersonX 's ___ to obtain	oReact	manipulated
+PersonX uses PersonX 's ___ to obtain	xIntent	to be influential
+PersonX uses PersonX 's ___ to obtain	xReact	powerful
+PersonX uses PersonX 's ___ to obtain	oEffect	none
+PersonX uses PersonX 's ___ to obtain	xEffect	Obtains something
+PersonX uses PersonX 's ___ to obtain	xEffect	Plans next move
+PersonX uses PersonX 's ___ to obtain	oEffect	none
+PersonX uses PersonX 's ___ to obtain	xEffect	he uses what he has wisely
+PersonX uses PersonX 's ___ to obtain	xEffect	he saves the rest
+PersonX uses PersonX 's ___ to obtain	oWant	to oblige
+PersonX uses PersonX 's ___ to obtain	oWant	to refuse
+PersonX uses PersonX 's ___ to obtain	xNeed	to reach a position of strength
+PersonX uses PersonX 's ___ to obtain	xNeed	to ask favors from others
+PersonX uses PersonX 's ___ to obtain	xWant	to ask for more things
+PersonX uses PersonX 's ___ to obtain	xWant	to get another promotion
+PersonX uses PersonX 's ___ to obtain	oWant	none
+PersonX uses PersonX 's ___ to obtain	xNeed	to be skillful
+PersonX uses PersonX 's ___ to obtain	xNeed	to have a hidden agenda
+PersonX uses PersonX 's ___ to obtain	xWant	to start business
+PersonX uses PersonX 's ___ to obtain	xWant	to hire individuals
+PersonX uses PersonX 's ___ to obtain	xAttr	independent
+PersonX uses PersonX 's ___ to obtain	xAttr	stimulating
+PersonX uses PersonX 's ___ to obtain	xAttr	resourceful
+PersonX uses PersonX 's ___ to obtain	xAttr	intelligent
+PersonX uses PersonX 's ___ to obtain	xAttr	skilled
+PersonX uses PersonX 's ___ to obtain	xAttr	resourceful
+PersonX changes men  's ___	oReact	grateful to him
+PersonX changes men  's ___	xIntent	to reform men with a bad attitude .
+PersonX changes men  's ___	xReact	satisfied about helping mankind
+PersonX changes men  's ___	oReact	none
+PersonX changes men  's ___	xIntent	good about themselves
+PersonX changes men  's ___	xReact	good
+PersonX changes men  's ___	oEffect	none
+PersonX changes men  's ___	xEffect	none
+PersonX changes men  's ___	oEffect	none
+PersonX changes men  's ___	xEffect	breaks marriages
+PersonX changes men  's ___	xEffect	causes men stress
+PersonX changes men  's ___	oEffect	They are burdened
+PersonX changes men  's ___	oEffect	They are delayed
+PersonX changes men  's ___	xEffect	none
+PersonX changes men  's ___	oWant	none
+PersonX changes men  's ___	xNeed	trust
+PersonX changes men  's ___	xNeed	honest
+PersonX changes men  's ___	xWant	confident
+PersonX changes men  's ___	xWant	helpful
+PersonX changes men  's ___	oWant	to join PersonX
+PersonX changes men  's ___	oWant	to give money to the cause
+PersonX changes men  's ___	oWant	to fight for the cause
+PersonX changes men  's ___	oWant	to rescue animals
+PersonX changes men  's ___	xNeed	to volunteer time
+PersonX changes men  's ___	xNeed	to teach people
+PersonX changes men  's ___	xNeed	to show the plight of animals
+PersonX changes men  's ___	xWant	to get people to volunteer
+PersonX changes men  's ___	xWant	to have people sign petitions
+PersonX changes men  's ___	xWant	to have people donate what they can
+PersonX changes men  's ___	oWant	to thank x profusely
+PersonX changes men  's ___	oWant	to tell others
+PersonX changes men  's ___	xNeed	to understand men
+PersonX changes men  's ___	xNeed	to plan for their changes
+PersonX changes men  's ___	xWant	to reap the rewards
+PersonX changes men  's ___	xWant	to explore the benefits
+PersonX changes men  's ___	xAttr	powerful
+PersonX changes men  's ___	xAttr	caring
+PersonX changes men  's ___	xAttr	persuasive
+PersonX changes men  's ___	xAttr	skilled
+PersonX changes men  's ___	xAttr	controlling
+PersonX changes men  's ___	xAttr	manipulative
+PersonX changes men  's ___	xAttr	endearing
+PersonX thanks ___ for PersonY 's assistance	oReact	proud
+PersonX thanks ___ for PersonY 's assistance	xIntent	to be respectful
+PersonX thanks ___ for PersonY 's assistance	xReact	grateful
+PersonX thanks ___ for PersonY 's assistance	oReact	generous
+PersonX thanks ___ for PersonY 's assistance	xIntent	to show gratitude
+PersonX thanks ___ for PersonY 's assistance	xIntent	to be polite
+PersonX thanks ___ for PersonY 's assistance	xReact	satisfied
+PersonX thanks ___ for PersonY 's assistance	oEffect	smile because they appreciate that PersonX did mention them in his/her speech
+PersonX thanks ___ for PersonY 's assistance	oEffect	make a phone call to PersonX
+PersonX thanks ___ for PersonY 's assistance	oEffect	shake PersonX 's hand
+PersonX thanks ___ for PersonY 's assistance	oEffect	become famous
+PersonX thanks ___ for PersonY 's assistance	xEffect	none
+PersonX thanks ___ for PersonY 's assistance	oEffect	Person Y takes next customer
+PersonX thanks ___ for PersonY 's assistance	oEffect	Person Y listens to new customer 's problem
+PersonX thanks ___ for PersonY 's assistance	xEffect	smiles
+PersonX thanks ___ for PersonY 's assistance	xEffect	has problem solved
+PersonX thanks ___ for PersonY 's assistance	oEffect	smiles back
+PersonX thanks ___ for PersonY 's assistance	oEffect	says you are welcome
+PersonX thanks ___ for PersonY 's assistance	xEffect	shakes hands
+PersonX thanks ___ for PersonY 's assistance	xEffect	smiles
+PersonX thanks ___ for PersonY 's assistance	oWant	To get reward
+PersonX thanks ___ for PersonY 's assistance	oWant	To work on another task
+PersonX thanks ___ for PersonY 's assistance	xNeed	To be knowing Y
+PersonX thanks ___ for PersonY 's assistance	xNeed	To have a task assigned
+PersonX thanks ___ for PersonY 's assistance	xWant	To get award
+PersonX thanks ___ for PersonY 's assistance	xWant	To share prize money with Y
+PersonX thanks ___ for PersonY 's assistance	oWant	to help more
+PersonX thanks ___ for PersonY 's assistance	oWant	to accept the thank you
+PersonX thanks ___ for PersonY 's assistance	xNeed	none
+PersonX thanks ___ for PersonY 's assistance	xWant	to show appreciation
+PersonX thanks ___ for PersonY 's assistance	xWant	to be grateful
+PersonX thanks ___ for PersonY 's assistance	oWant	none
+PersonX thanks ___ for PersonY 's assistance	xNeed	to contact Ross
+PersonX thanks ___ for PersonY 's assistance	xNeed	to go to Ross 's house
+PersonX thanks ___ for PersonY 's assistance	xWant	to take Ross to lunch
+PersonX thanks ___ for PersonY 's assistance	xWant	to go home and watch TV
+PersonX thanks ___ for PersonY 's assistance	xAttr	blessed
+PersonX thanks ___ for PersonY 's assistance	xAttr	thankful
+PersonX thanks ___ for PersonY 's assistance	xAttr	grateful
+PersonX thanks ___ for PersonY 's assistance	xAttr	appreciative
+PersonX thanks ___ for PersonY 's assistance	xAttr	modest
+PersonX thanks ___ for PersonY 's assistance	xAttr	humble
+PersonX lets loose a ___	oReact	fearful
+PersonX lets loose a ___	xIntent	to instill fear into the people
+PersonX lets loose a ___	xReact	vengeance
+PersonX lets loose a ___	oEffect	lose something
+PersonX lets loose a ___	oEffect	no effect
+PersonX lets loose a ___	xEffect	gets attacked
+PersonX lets loose a ___	xEffect	gets yelled at
+PersonX lets loose a ___	oEffect	none
+PersonX lets loose a ___	xEffect	wins the battle
+PersonX lets loose a ___	xEffect	is now feared
+PersonX lets loose a ___	oWant	none
+PersonX lets loose a ___	xNeed	none
+PersonX lets loose a ___	xWant	to regain control
+PersonX lets loose a ___	xWant	to locate
+PersonX lets loose a ___	oWant	none
+PersonX lets loose a ___	xNeed	to decide to put the bookcase together herself
+PersonX lets loose a ___	xNeed	to hit her finger with the hammer and yells in pain
+PersonX lets loose a ___	xWant	to wrap her swollen finger
+PersonX lets loose a ___	xWant	to vow to finish putting the book case together herself
+PersonX lets loose a ___	oWant	none
+PersonX lets loose a ___	xNeed	none
+PersonX lets loose a ___	xWant	to relieve themselves
+PersonX lets loose a ___	xWant	to feel better
+PersonX lets loose a ___	xAttr	willful
+PersonX lets loose a ___	xAttr	unattached
+PersonX lets loose a ___	xAttr	emotional
+PersonX lets loose a ___	xAttr	expressive
+PersonX lets loose a ___	xAttr	carefree
+PersonX lets loose a ___	xAttr	wrathful
+PersonX calls ___ to the importance	oReact	happy to know what is important
+PersonX calls ___ to the importance	xIntent	people to know what is important
+PersonX calls ___ to the importance	xReact	good about themselves for calling attention to something important
+PersonX calls ___ to the importance	oReact	educated
+PersonX calls ___ to the importance	xIntent	others to understand the urgency
+PersonX calls ___ to the importance	xReact	accomplished
+PersonX calls ___ to the importance	oEffect	none
+PersonX calls ___ to the importance	xEffect	none
+PersonX calls ___ to the importance	oEffect	none
+PersonX calls ___ to the importance	xEffect	PersonY thinks carefully
+PersonX calls ___ to the importance	xEffect	PersonY is surprised at the importance
+PersonX calls ___ to the importance	oWant	none
+PersonX calls ___ to the importance	xNeed	facts
+PersonX calls ___ to the importance	xNeed	knowledge of a situation
+PersonX calls ___ to the importance	xWant	to shed light light on a situation
+PersonX calls ___ to the importance	xWant	to prove a point
+PersonX calls ___ to the importance	oWant	none
+PersonX calls ___ to the importance	xNeed	to be on stage
+PersonX calls ___ to the importance	xNeed	to be speaking to audience
+PersonX calls ___ to the importance	xWant	to give speech
+PersonX calls ___ to the importance	xWant	to sign autographs
+PersonX calls ___ to the importance	xAttr	attention-seeking
+PersonX calls ___ to the importance	xAttr	blunt
+PersonX calls ___ to the importance	xAttr	straight-forward
+PersonX calls ___ to the importance	xAttr	smart
+PersonX calls ___ to the importance	xAttr	instructive
+PersonX calls ___ to the importance	xAttr	concerned
+PersonX sets ___ on the moon	oReact	none
+PersonX sets ___ on the moon	xIntent	the  personal
+PersonX sets ___ on the moon	xReact	happy
+PersonX sets ___ on the moon	oEffect	none
+PersonX sets ___ on the moon	xEffect	gets a receipt
+PersonX sets ___ on the moon	xEffect	gets a receipt
+PersonX sets ___ on the moon	oEffect	none
+PersonX sets ___ on the moon	xEffect	walks around
+PersonX sets ___ on the moon	xEffect	plants flag
+PersonX sets ___ on the moon	oEffect	none
+PersonX sets ___ on the moon	xEffect	are physically on the moon
+PersonX sets ___ on the moon	xEffect	are in space
+PersonX sets ___ on the moon	xEffect	marked history to be able to be on the moon
+PersonX sets ___ on the moon	oWant	none
+PersonX sets ___ on the moon	xNeed	To train
+PersonX sets ___ on the moon	xNeed	To become an astronaut
+PersonX sets ___ on the moon	xWant	To click pictures
+PersonX sets ___ on the moon	xWant	To give interviews
+PersonX sets ___ on the moon	oWant	to ask PersonX for scientific information related to the trip
+PersonX sets ___ on the moon	oWant	to celebrate the amazing human achievement
+PersonX sets ___ on the moon	xNeed	to train to be an astronaut
+PersonX sets ___ on the moon	xNeed	to travel (most likely by rocket) into space
+PersonX sets ___ on the moon	xWant	to communicate with ground control
+PersonX sets ___ on the moon	xWant	to explore the rocky terrain
+PersonX sets ___ on the moon	xWant	to see other people again
+PersonX sets ___ on the moon	xAttr	adventurous
+PersonX sets ___ on the moon	xAttr	capable
+PersonX sets ___ on the moon	xAttr	curious
+PersonX sets ___ on the moon	xAttr	adventurous
+PersonX sets ___ on the moon	xAttr	adventurous
+PersonX sets ___ on the moon	xAttr	unique
+PersonX pays ___ to get	oReact	cheated
+PersonX pays ___ to get	oReact	unhappy
+PersonX pays ___ to get	xIntent	to get off the hook .
+PersonX pays ___ to get	xIntent	to get away with something he did .
+PersonX pays ___ to get	xReact	sneaky
+PersonX pays ___ to get	xReact	smart
+PersonX pays ___ to get	oEffect	gains money
+PersonX pays ___ to get	oEffect	nods in agreement
+PersonX pays ___ to get	xEffect	has less money
+PersonX pays ___ to get	xEffect	smiles in satisfaction
+PersonX pays ___ to get	oEffect	none
+PersonX pays ___ to get	xEffect	receives it
+PersonX pays ___ to get	xEffect	is given a receipt
+PersonX pays ___ to get	oWant	none
+PersonX pays ___ to get	xNeed	money
+PersonX pays ___ to get	xNeed	wallet
+PersonX pays ___ to get	xWant	to try it out
+PersonX pays ___ to get	xWant	eat it
+PersonX pays ___ to get	oWant	none
+PersonX pays ___ to get	xNeed	to be at a store
+PersonX pays ___ to get	xNeed	to know what they want
+PersonX pays ___ to get	xWant	to get someone out of jail
+PersonX pays ___ to get	xWant	to take what they bought home
+PersonX pays ___ to get	oWant	none
+PersonX pays ___ to get	xNeed	determine something to buy
+PersonX pays ___ to get	xNeed	acquire money
+PersonX pays ___ to get	xWant	to take the product home
+PersonX pays ___ to get	xWant	to try it
+PersonX pays ___ to get	xAttr	determined
+PersonX pays ___ to get	xAttr	rich
+PersonX pays ___ to get	xAttr	responsible
+PersonX pays ___ to get	xAttr	a good citizen
+PersonX pays ___ to get	xAttr	spendthrift
+PersonX pays ___ to get	xAttr	acquisitive
+PersonX devotes PersonX 's ___ to the study	oReact	none
+PersonX devotes PersonX 's ___ to the study	xIntent	to be successful
+PersonX devotes PersonX 's ___ to the study	xIntent	to be passionate about the study
+PersonX devotes PersonX 's ___ to the study	xReact	fulfilled
+PersonX devotes PersonX 's ___ to the study	xReact	exhausted
+PersonX devotes PersonX 's ___ to the study	oReact	none
+PersonX devotes PersonX 's ___ to the study	xIntent	succeed in the exams
+PersonX devotes PersonX 's ___ to the study	xReact	he wins the exam
+PersonX devotes PersonX 's ___ to the study	oReact	none
+PersonX devotes PersonX 's ___ to the study	xIntent	to get ahead in life
+PersonX devotes PersonX 's ___ to the study	xReact	better prepared
+PersonX devotes PersonX 's ___ to the study	oEffect	person gives information .
+PersonX devotes PersonX 's ___ to the study	oEffect	person spend time .
+PersonX devotes PersonX 's ___ to the study	xEffect	needs gather paperwork .
+PersonX devotes PersonX 's ___ to the study	xEffect	needs study .
+PersonX devotes PersonX 's ___ to the study	oEffect	get to study information that matters to them .
+PersonX devotes PersonX 's ___ to the study	oEffect	write papers .
+PersonX devotes PersonX 's ___ to the study	oEffect	gain recognition .
+PersonX devotes PersonX 's ___ to the study	xEffect	smiles .
+PersonX devotes PersonX 's ___ to the study	xEffect	learns something .
+PersonX devotes PersonX 's ___ to the study	xNeed	to prepare
+PersonX devotes PersonX 's ___ to the study	xNeed	a plan
+PersonX devotes PersonX 's ___ to the study	oWant	none
+PersonX devotes PersonX 's ___ to the study	xWant	to learn
+PersonX devotes PersonX 's ___ to the study	xWant	to share their knowledge
+PersonX devotes PersonX 's ___ to the study	oWant	none
+PersonX devotes PersonX 's ___ to the study	xWant	To relax
+PersonX devotes PersonX 's ___ to the study	xWant	To get recognition
+PersonX devotes PersonX 's ___ to the study	oWant	none
+PersonX devotes PersonX 's ___ to the study	xWant	to pass the test .
+PersonX devotes PersonX 's ___ to the study	xWant	to move to the next level .
+PersonX devotes PersonX 's ___ to the study	xAttr	determined
+PersonX devotes PersonX 's ___ to the study	xAttr	giving
+PersonX devotes PersonX 's ___ to the study	xAttr	hardworking
+PersonX devotes PersonX 's ___ to the study	xAttr	serious
+PersonX devotes PersonX 's ___ to the study	xAttr	studious
+PersonX devotes PersonX 's ___ to the study	xAttr	smart
+PersonX groups together ___	oReact	none
+PersonX groups together ___	xIntent	to meet all friends together
+PersonX groups together ___	xReact	happy to see all
+PersonX groups together ___	oReact	none
+PersonX groups together ___	xIntent	to make a form of humans to develop our self
+PersonX groups together ___	xReact	happy,enjoy
+PersonX groups together ___	oEffect	none
+PersonX groups together ___	xEffect	become more organized
+PersonX groups together ___	xEffect	become more efficient
+PersonX groups together ___	oWant	none
+PersonX groups together ___	xNeed	to research
+PersonX groups together ___	xNeed	to come up with a plan
+PersonX groups together ___	xWant	write down the groups
+PersonX groups together ___	xWant	save notes
+PersonX groups together ___	oWant	none
+PersonX groups together ___	xNeed	none
+PersonX groups together ___	xWant	schools
+PersonX groups together ___	xWant	friends
+PersonX groups together ___	xAttr	racist
+PersonX groups together ___	xAttr	unskilled
+PersonX groups together ___	xAttr	responsible
+PersonX groups together ___	xAttr	creative
+PersonX provides ___ for patients	oReact	thankful
+PersonX provides ___ for patients	xIntent	to take care of people
+PersonX provides ___ for patients	xReact	good
+PersonX provides ___ for patients	oReact	comforted
+PersonX provides ___ for patients	xIntent	to make them happy
+PersonX provides ___ for patients	xReact	good about his deed
+PersonX provides ___ for patients	oEffect	Patients receive care
+PersonX provides ___ for patients	oEffect	Patients get healthier
+PersonX provides ___ for patients	xEffect	PersonX goes home from work
+PersonX provides ___ for patients	xEffect	PersonX fills out patient charts
+PersonX provides ___ for patients	oEffect	talk to PersonX
+PersonX provides ___ for patients	oEffect	receive assistance
+PersonX provides ___ for patients	xEffect	talks to patients
+PersonX provides ___ for patients	xEffect	assists patients
+PersonX provides ___ for patients	oWant	to thank the doctor
+PersonX provides ___ for patients	oWant	to ask for more services
+PersonX provides ___ for patients	xNeed	to find out what patients need
+PersonX provides ___ for patients	xNeed	to work with patients
+PersonX provides ___ for patients	xWant	to improve services
+PersonX provides ___ for patients	xWant	to find out what else patients need
+PersonX provides ___ for patients	oWant	none
+PersonX provides ___ for patients	xNeed	Washing his hands
+PersonX provides ___ for patients	xNeed	Puts on gloves
+PersonX provides ___ for patients	xWant	He call them in
+PersonX provides ___ for patients	xWant	Check them out
+PersonX provides ___ for patients	oWant	meet with PersonX
+PersonX provides ___ for patients	oWant	follow PersonX 's regiment
+PersonX provides ___ for patients	xNeed	outline their service plans
+PersonX provides ___ for patients	xNeed	ask patients what their needs are
+PersonX provides ___ for patients	xWant	to fulfill the patient 's needs
+PersonX provides ___ for patients	xWant	schedule follow up appointments
+PersonX provides ___ for patients	oWant	to thank personx for their time
+PersonX provides ___ for patients	oWant	to hug personx
+PersonX provides ___ for patients	xNeed	to visit the patients
+PersonX provides ___ for patients	xNeed	to greet the patients
+PersonX provides ___ for patients	xWant	To say goodbye to the patients
+PersonX provides ___ for patients	xWant	to thank the patients for their visit
+PersonX provides ___ for patients	xAttr	skilled
+PersonX provides ___ for patients	xAttr	dedicated
+PersonX provides ___ for patients	xAttr	dependable
+PersonX provides ___ for patients	xAttr	reliable
+PersonX explains briefly the ___	oReact	none
+PersonX explains briefly the ___	xIntent	to be good
+PersonX explains briefly the ___	xReact	satisfied
+PersonX explains briefly the ___	oReact	empowered
+PersonX explains briefly the ___	xIntent	to make things clearer
+PersonX explains briefly the ___	xReact	good
+PersonX explains briefly the ___	oReact	informed, well-rounded
+PersonX explains briefly the ___	xIntent	everyone to be on the same level
+PersonX explains briefly the ___	xReact	justified, understanding of the situation
+PersonX explains briefly the ___	oEffect	none
+PersonX explains briefly the ___	xEffect	points finger
+PersonX explains briefly the ___	xEffect	talks
+PersonX explains briefly the ___	oEffect	perplexed
+PersonX explains briefly the ___	oEffect	gain understanding
+PersonX explains briefly the ___	xEffect	confuse others
+PersonX explains briefly the ___	xEffect	lies
+PersonX explains briefly the ___	oWant	none
+PersonX explains briefly the ___	xNeed	to prepare the lecture
+PersonX explains briefly the ___	xNeed	to go to class
+PersonX explains briefly the ___	xWant	to answer questions
+PersonX explains briefly the ___	xWant	to followup on homework
+PersonX explains briefly the ___	oWant	to ask questions
+PersonX explains briefly the ___	oWant	to learn
+PersonX explains briefly the ___	xNeed	develop an explanation
+PersonX explains briefly the ___	xNeed	meet with someone to deliver the explanation to
+PersonX explains briefly the ___	xWant	answer questions
+PersonX explains briefly the ___	xWant	explain in more detail
+PersonX explains briefly the ___	xAttr	smart
+PersonX explains briefly the ___	xAttr	intelligent
+PersonX explains briefly the ___	xAttr	able
+PersonX explains briefly the ___	xAttr	competent
+PersonX explains briefly the ___	xAttr	Precise
+PersonX explains briefly the ___	xAttr	useful
+PersonX explains briefly the ___	xAttr	concise
+PersonX does ___ without consulting	oReact	underhanded
+PersonX does ___ without consulting	xIntent	to be independent
+PersonX does ___ without consulting	xReact	accomplished
+PersonX does ___ without consulting	oReact	none
+PersonX does ___ without consulting	xIntent	to decide for self .
+PersonX does ___ without consulting	xReact	responsible .
+PersonX does ___ without consulting	oEffect	none
+PersonX does ___ without consulting	xEffect	none
+PersonX does ___ without consulting	oEffect	none
+PersonX does ___ without consulting	xEffect	Was blamed
+PersonX does ___ without consulting	xEffect	Get ashamed
+PersonX does ___ without consulting	oEffect	none
+PersonX does ___ without consulting	xEffect	has consequences from poor work
+PersonX does ___ without consulting	xEffect	doesn't like consulting with people
+PersonX does ___ without consulting	oWant	none
+PersonX does ___ without consulting	xNeed	none
+PersonX does ___ without consulting	xWant	apologize
+PersonX does ___ without consulting	xWant	Ask forgiveness
+PersonX does ___ without consulting	oWant	none
+PersonX does ___ without consulting	xNeed	Have someone to consult
+PersonX does ___ without consulting	xNeed	decide to always consult
+PersonX does ___ without consulting	xWant	receive advice
+PersonX does ___ without consulting	xWant	reduce risk
+PersonX does ___ without consulting	oWant	none
+PersonX does ___ without consulting	xNeed	to learn patience
+PersonX does ___ without consulting	xNeed	act carefully
+PersonX does ___ without consulting	xWant	not do anything rash
+PersonX does ___ without consulting	xWant	feel good about decisions
+PersonX does ___ without consulting	xAttr	paranoid
+PersonX does ___ without consulting	xAttr	careful
+PersonX does ___ without consulting	xAttr	careless
+PersonX does ___ without consulting	xAttr	hurried
+PersonX does ___ without consulting	xAttr	rude
+PersonX does ___ without consulting	xAttr	arrogant
+PersonX issues ___ to the amount	oReact	happy about the money .
+PersonX issues ___ to the amount	xIntent	to be just and fair in his job .
+PersonX issues ___ to the amount	xReact	that he has behaved justly .
+PersonX issues ___ to the amount	oEffect	none
+PersonX issues ___ to the amount	xEffect	gets bored from issuing
+PersonX issues ___ to the amount	xEffect	gets tired from issuing
+PersonX issues ___ to the amount	oEffect	knows the amount
+PersonX issues ___ to the amount	oEffect	thinks about how to spend it
+PersonX issues ___ to the amount	xEffect	keeps tracks of things
+PersonX issues ___ to the amount	xEffect	is a secure job
+PersonX issues ___ to the amount	oEffect	none
+PersonX issues ___ to the amount	xEffect	none
+PersonX issues ___ to the amount	oWant	to use the money well
+PersonX issues ___ to the amount	oWant	to give the money back
+PersonX issues ___ to the amount	xNeed	to have authority
+PersonX issues ___ to the amount	xNeed	to determine the security
+PersonX issues ___ to the amount	xWant	to gain back their money
+PersonX issues ___ to the amount	xWant	to gain interest on their money
+PersonX issues ___ to the amount	oWant	none
+PersonX issues ___ to the amount	xNeed	money
+PersonX issues ___ to the amount	xNeed	knowledge of financial matters
+PersonX issues ___ to the amount	xWant	to make best investments
+PersonX issues ___ to the amount	xWant	to be wealthy
+PersonX issues ___ to the amount	oWant	to thank PersonX
+PersonX issues ___ to the amount	oWant	to give away the certificates
+PersonX issues ___ to the amount	xNeed	to make calculations
+PersonX issues ___ to the amount	xNeed	to write out certificates
+PersonX issues ___ to the amount	xWant	to give the certificates to someone
+PersonX issues ___ to the amount	xWant	to issue other certificates
+PersonX issues ___ to the amount	xAttr	rich
+PersonX issues ___ to the amount	xAttr	wealthy
+PersonX issues ___ to the amount	xAttr	distrustful
+PersonX issues ___ to the amount	xAttr	industrious
+PersonX issues ___ to the amount	xAttr	responsible
+PersonX issues ___ to the amount	xAttr	honorable
+PersonX waits a ___ to get	oReact	none
+PersonX waits a ___ to get	xIntent	he wait a few second to get
+PersonX waits a ___ to get	xReact	very  angry
+PersonX waits a ___ to get	oReact	none
+PersonX waits a ___ to get	xIntent	none
+PersonX waits a ___ to get	xReact	patient
+PersonX waits a ___ to get	oEffect	none
+PersonX waits a ___ to get	xEffect	develops patience
+PersonX waits a ___ to get	xEffect	saves money
+PersonX waits a ___ to get	oEffect	none
+PersonX waits a ___ to get	xEffect	wastes valuable time
+PersonX waits a ___ to get	xEffect	can make a plan
+PersonX waits a ___ to get	oEffect	none
+PersonX waits a ___ to get	xEffect	count the days .
+PersonX waits a ___ to get	xEffect	write the deadline .
+PersonX waits a ___ to get	xNeed	to  develop patience to wait for a year
+PersonX waits a ___ to get	xNeed	to think if it is worth waiting for a year
+PersonX waits a ___ to get	xNeed	none
+PersonX waits a ___ to get	oWant	none
+PersonX waits a ___ to get	xWant	to save money
+PersonX waits a ___ to get	xWant	to go travel
+PersonX waits a ___ to get	xAttr	Patient
+PersonX waits a ___ to get	xAttr	Self-disciplined
+PersonX waits a ___ to get	xAttr	patient
+PersonX waits a ___ to get	xAttr	smart
+PersonX obeys ___ rather	oReact	none
+PersonX obeys ___ rather	xIntent	satisfied,
+PersonX obeys ___ rather	xReact	happy because the
+PersonX obeys ___ rather	oReact	none
+PersonX obeys ___ rather	xIntent	law and order
+PersonX obeys ___ rather	xReact	nice
+PersonX obeys ___ rather	oEffect	none
+PersonX obeys ___ rather	xEffect	none
+PersonX obeys ___ rather	oEffect	none
+PersonX obeys ___ rather	xEffect	none
+PersonX obeys ___ rather	oEffect	none
+PersonX obeys ___ rather	xEffect	speaks with conviction
+PersonX obeys ___ rather	xEffect	walks with confidence
+PersonX obeys ___ rather	oWant	none
+PersonX obeys ___ rather	xNeed	Read Bible
+PersonX obeys ___ rather	xNeed	Pray
+PersonX obeys ___ rather	xWant	Love others
+PersonX obeys ___ rather	xWant	Preach the word
+PersonX obeys ___ rather	oWant	to encourage person X
+PersonX obeys ___ rather	oWant	to follow person X
+PersonX obeys ___ rather	xNeed	none
+PersonX obeys ___ rather	xWant	to live peacefully
+PersonX obeys ___ rather	xWant	to be a good man
+PersonX obeys ___ rather	xWant	to help others
+PersonX obeys ___ rather	xWant	to lead an example
+PersonX obeys ___ rather	oWant	none
+PersonX obeys ___ rather	xNeed	none
+PersonX obeys ___ rather	xWant	no thinking
+PersonX obeys ___ rather	xWant	respective
+PersonX obeys ___ rather	xNeed	none
+PersonX obeys ___ rather	oWant	none
+PersonX obeys ___ rather	xWant	what 's right
+PersonX obeys ___ rather	xWant	self reflect
+PersonX obeys ___ rather	xAttr	studious
+PersonX obeys ___ rather	xAttr	honest
+PersonX obeys ___ rather	xAttr	OBEDIENT
+PersonX obeys ___ rather	xAttr	peaceful
+PersonX obeys ___ rather	xAttr	inspired
+PersonX obeys ___ rather	xAttr	smart
+PersonX obeys ___ rather	xAttr	happy
+PersonX obeys ___ rather	xAttr	obedient
+PersonX obeys ___ rather	xAttr	faithful
+PersonX prevents ___ from developing	oReact	none
+PersonX prevents ___ from developing	xIntent	illness from developing
+PersonX prevents ___ from developing	xReact	happy
+PersonX prevents ___ from developing	oReact	worry
+PersonX prevents ___ from developing	xIntent	nation
+PersonX prevents ___ from developing	xReact	greedy
+PersonX prevents ___ from developing	oEffect	none
+PersonX prevents ___ from developing	xEffect	prevents a problem
+PersonX prevents ___ from developing	xEffect	avoid damage or loss
+PersonX prevents ___ from developing	oEffect	are cured of illness
+PersonX prevents ___ from developing	oEffect	get to work faster
+PersonX prevents ___ from developing	xEffect	has a hospital wing named for him
+PersonX prevents ___ from developing	xEffect	is thanked profusely
+PersonX prevents ___ from developing	oEffect	People quit their rebellion
+PersonX prevents ___ from developing	oEffect	patients don't die from their illness
+PersonX prevents ___ from developing	xEffect	none
+PersonX prevents ___ from developing	xNeed	none
+PersonX prevents ___ from developing	xNeed	none
+PersonX prevents ___ from developing	xNeed	to encourage to patients
+PersonX prevents ___ from developing	xNeed	to improve to the patients energy
+PersonX prevents ___ from developing	oWant	none
+PersonX prevents ___ from developing	xWant	to eat healthy
+PersonX prevents ___ from developing	xWant	to stay hydrated
+PersonX prevents ___ from developing	oWant	none
+PersonX prevents ___ from developing	xWant	to protect his health
+PersonX prevents ___ from developing	xWant	to safeguard himself
+PersonX prevents ___ from developing	xAttr	careful
+PersonX prevents ___ from developing	xAttr	detailed
+PersonX prevents ___ from developing	xAttr	protective
+PersonX prevents ___ from developing	xAttr	influential
+PersonX prevents ___ from developing	xAttr	strong
+PersonX prevents ___ from developing	xAttr	skilled with their hands
+PersonX prevents ___ from developing	xAttr	annoyed
+PersonX prevents ___ from developing	xAttr	upset
+PersonX exceeds ___ for each person	oReact	none
+PersonX exceeds ___ for each person	xIntent	i like this money
+PersonX exceeds ___ for each person	xReact	happy
+PersonX exceeds ___ for each person	oReact	none
+PersonX exceeds ___ for each person	xIntent	good workers
+PersonX exceeds ___ for each person	xReact	happy
+PersonX exceeds ___ for each person	oEffect	none
+PersonX exceeds ___ for each person	xEffect	asks for help
+PersonX exceeds ___ for each person	xEffect	gets thanked
+PersonX exceeds ___ for each person	oEffect	appreciates what they do
+PersonX exceeds ___ for each person	oEffect	trusts personX
+PersonX exceeds ___ for each person	xEffect	is known to do their best
+PersonX exceeds ___ for each person	xEffect	is respected for what they do
+PersonX exceeds ___ for each person	oWant	none
+PersonX exceeds ___ for each person	xNeed	none
+PersonX exceeds ___ for each person	xWant	to demonstrate wealth
+PersonX exceeds ___ for each person	xWant	to show superior
+PersonX exceeds ___ for each person	xAttr	responsible
+PersonX exceeds ___ for each person	xAttr	influential
+PersonX exceeds ___ for each person	xAttr	important
+PersonX exceeds ___ for each person	xAttr	careless
+PersonX exceeds ___ for each person	xAttr	inaccurate
+PersonX exceeds ___ for each person	xAttr	gifted
+PersonX exceeds ___ for each person	xAttr	generous
+PersonX exceeds ___ for each person	xAttr	capable
+PersonX draws ___ to the fact	oReact	none
+PersonX draws ___ to the fact	xIntent	to make something aware
+PersonX draws ___ to the fact	xReact	helpful
+PersonX draws ___ to the fact	oReact	amused at x behavior
+PersonX draws ___ to the fact	xIntent	none
+PersonX draws ___ to the fact	xReact	embarrassed
+PersonX draws ___ to the fact	oReact	none
+PersonX draws ___ to the fact	xIntent	none
+PersonX draws ___ to the fact	xReact	good
+PersonX draws ___ to the fact	oEffect	none
+PersonX draws ___ to the fact	xEffect	receives recognition
+PersonX draws ___ to the fact	xEffect	increases awareness
+PersonX draws ___ to the fact	oEffect	none
+PersonX draws ___ to the fact	xEffect	talks
+PersonX draws ___ to the fact	xEffect	explains
+PersonX draws ___ to the fact	oWant	none
+PersonX draws ___ to the fact	xNeed	to tell someone about it
+PersonX draws ___ to the fact	xNeed	to make an announcement
+PersonX draws ___ to the fact	xWant	everyone to know the truth
+PersonX draws ___ to the fact	xWant	people to on their toes
+PersonX draws ___ to the fact	oWant	to hear his views
+PersonX draws ___ to the fact	oWant	to follow him
+PersonX draws ___ to the fact	xNeed	to talk about it
+PersonX draws ___ to the fact	xNeed	to know the  details
+PersonX draws ___ to the fact	xWant	to expose the culprit
+PersonX draws ___ to the fact	xWant	to explain the problem
+PersonX draws ___ to the fact	oWant	none
+PersonX draws ___ to the fact	xNeed	show others the way he thinks
+PersonX draws ___ to the fact	xNeed	understand the point they are trying to make
+PersonX draws ___ to the fact	xWant	show other people the light
+PersonX draws ___ to the fact	xWant	bask in how well he has done
+PersonX draws ___ to the fact	xAttr	observant
+PersonX draws ___ to the fact	xAttr	practical
+PersonX draws ___ to the fact	xAttr	curious
+PersonX draws ___ to the fact	xAttr	insightful
+PersonX draws ___ to the fact	xAttr	understanding
+PersonX draws ___ to the fact	xAttr	aware
+PersonX plays a ___ in bringing	oReact	happy to have help
+PersonX plays a ___ in bringing	xIntent	none
+PersonX plays a ___ in bringing	xReact	annoyed at having to bring something
+PersonX plays a ___ in bringing	oEffect	wants to see it
+PersonX plays a ___ in bringing	oEffect	appreciates personX 's effort
+PersonX plays a ___ in bringing	xEffect	is appreciated
+PersonX plays a ___ in bringing	xEffect	gets it there
+PersonX plays a ___ in bringing	oEffect	none
+PersonX plays a ___ in bringing	xEffect	tune
+PersonX plays a ___ in bringing	xEffect	song
+PersonX plays a ___ in bringing	oEffect	none
+PersonX plays a ___ in bringing	xEffect	assumes responsibility
+PersonX plays a ___ in bringing	xEffect	receives feedback
+PersonX plays a ___ in bringing	oWant	to do their part
+PersonX plays a ___ in bringing	oWant	to thank them for helping
+PersonX plays a ___ in bringing	xNeed	to be responsible
+PersonX plays a ___ in bringing	xNeed	to be asked to
+PersonX plays a ___ in bringing	xWant	to make sure it gets there
+PersonX plays a ___ in bringing	xWant	to help with something else
+PersonX plays a ___ in bringing	oWant	to reward PersonX for their service
+PersonX plays a ___ in bringing	oWant	to ask if PersonX is free for other tasks
+PersonX plays a ___ in bringing	xNeed	to train in their skills
+PersonX plays a ___ in bringing	xNeed	to show people their skills
+PersonX plays a ___ in bringing	xWant	to get rewarded for their skills
+PersonX plays a ___ in bringing	xWant	to develop their skills further
+PersonX plays a ___ in bringing	oWant	to thank x
+PersonX plays a ___ in bringing	oWant	to finish it up
+PersonX plays a ___ in bringing	xNeed	to plan it out
+PersonX plays a ___ in bringing	xNeed	to get the supplies
+PersonX plays a ___ in bringing	xWant	to deliver it or them
+PersonX plays a ___ in bringing	xWant	to help build it or accomplish it

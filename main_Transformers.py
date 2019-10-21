@@ -1,10 +1,10 @@
-from load_data import Data
-import numpy as np
-import torch
+from load_data import DataText, read_json
 import time
 from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
+from models.Transformer import TransformerTucker, load_openai_pretrained_model, prepare_position_embeddings
+from config.config import config
 import argparse
 
 
@@ -13,7 +13,7 @@ class Experiment:
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0.):
+                 label_smoothing=0., maxlength=30, vocab_size=40452):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -22,8 +22,27 @@ class Experiment:
         self.decay_rate = decay_rate
         self.label_smoothing = label_smoothing
         self.cuda = cuda
+        self.maxlength = maxlength
+        self.textdata = None
+        self.vocab = ['NULL', ]  # padding_idx=0
+        self.vocab_size = vocab_size
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
+
+    def strings_to_ids(self, data, vocab=['NULL', ]):
+        data_ids = []
+        for triple in data:
+            triple_ids = []
+            for i in triple:
+                words = i.strip().split()
+                word_ids = []
+                for word in words:
+                    if word not in vocab:
+                        vocab.append(word)
+                    word_ids.append(vocab.index(word))
+                triple_ids.append(word_ids)
+            data_ids.append(triple_ids)
+        return data_ids, vocab
 
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
@@ -59,14 +78,19 @@ class Experiment:
 
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.tensor(data_batch[:, 0])
-            r_idx = torch.tensor(data_batch[:, 1])
-            e2_idx = torch.tensor(data_batch[:, 2])
+            e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]][:, :, np.newaxis])
+            r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]][:, :, np.newaxis])
+            # e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
+            e1_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e1_idx)
+            r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
+            # e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
+            e2_idx = torch.tensor(data_batch[:, 2])  # e2 are not used for model forward
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
                 e2_idx = e2_idx.cuda()
             predictions = model.forward(e1_idx, r_idx)
+            # print("predictions size:"+str(predictions.size()))
 
             for j in range(data_batch.shape[0]):
                 filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
@@ -99,12 +123,28 @@ class Experiment:
         self.relation_idxs = {d.relations[i]: i for i in range(len(d.relations))}
 
         train_data_idxs = self.get_data_idxs(d.train_data)
+        data_idxs = self.get_data_idxs(d.data)
         print("Number of training data points: %d" % len(train_data_idxs))
 
-        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
+        ########
+        data_ids, self.vocab = self.strings_to_ids(data=d.data, vocab=self.vocab)
+        print("read vocab ready.")
+        d.textdata = d.get_index(data_ids, self.maxlength)
+        self.textdata = np.array(d.textdata)
+        print("text data ready")
+        cfg = config(dict(read_json(args.config)))
+        # print(cfg)
+        model = TransformerTucker(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, vocab=40508, n_ctx=self.maxlength,
+                                  **self.kwargs)  # n_ctx = 52为COMET中计算出的
+        print("model ready")
+        load_openai_pretrained_model(
+            model.transformer, n_ctx=self.maxlength)
+        print("loading model ready")
+
+        ########
         if self.cuda:
             model.cuda()
-        model.init()
+        # model.init()
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
@@ -121,8 +161,15 @@ class Experiment:
             for j in range(0, len(er_vocab_pairs), self.batch_size):
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 opt.zero_grad()
-                e1_idx = torch.tensor(data_batch[:, 0])
-                r_idx = torch.tensor(data_batch[:, 1])
+                # print(data_batch[:,0].reshape(-1, 1))
+
+                # print(textdata)
+                # print(textdata[data_batch[:,0].reshape(-1, 1)])
+                e1_idx = torch.LongTensor(self.textdata[data_batch[:, 0]][:, :, np.newaxis])
+                r_idx = torch.LongTensor(self.textdata[data_batch[:, 1]][:, :, np.newaxis])
+                e1_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e1_idx)
+                r_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=r_idx)
+
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
@@ -140,19 +187,22 @@ class Experiment:
             print(np.mean(losses))
             model.eval()
             with torch.no_grad():
-                print("Validation:")
-                self.evaluate(model, d.valid_data)
-                if not it % 2:
-                    print("Test:")
-                    start_test = time.time()
-                    self.evaluate(model, d.test_data)
-                    print(time.time() - start_test)
+                if it % 5:
+                    print("Validation:")
+                    self.evaluate(model, d.valid_data)
+                    if not it % 2:
+                        print("Test:")
+                        start_test = time.time()
+                        self.evaluate(model, d.test_data)
+                        print(time.time() - start_test)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, default="FB15k-237", nargs="?",
                         help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
+    parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
+                        help="the config file path")
     parser.add_argument("--num_iterations", type=int, default=500, nargs="?",
                         help="Number of iterations.")
     parser.add_argument("--batch_size", type=int, default=128, nargs="?",
@@ -175,7 +225,10 @@ if __name__ == '__main__':
                         help="Dropout after the second hidden layer.")
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
                         help="Amount of label smoothing.")
-
+    parser.add_argument("--max_length", type=int, default=30, nargs="?",
+                        help="Batch size.")
+    parser.add_argument("--vocab_size", type=int, default=40542, nargs="?",
+                        help="Batch size.")
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset
@@ -185,10 +238,12 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     if torch.cuda.is_available:
         torch.cuda.manual_seed_all(seed)
-    d = Data(data_dir=data_dir, reverse=True)
+    d = DataText(data_dir=data_dir, reverse=False)
     experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr,
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
                             input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
-                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing)
+                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing,
+                            )
     experiment.train_and_eval()
+
 

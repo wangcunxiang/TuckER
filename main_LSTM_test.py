@@ -3,17 +3,18 @@ import time
 from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
-from models.LSTM import LSTMTuckER
+from models.LSTM_test import LSTMTuckER
 from config.config import config
 import argparse
 import torch.tensor
 
+
 class Experiment:
 
-    def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200, 
-                 num_iterations=500, batch_size=128, decay_rate=0., cuda=False, 
+    def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
+                 num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0., maxlength = 15, vocab_size = 40452):
+                 label_smoothing=0., maxlength=15, vocab_size=40452):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -26,7 +27,7 @@ class Experiment:
         self.textdata = None  # = Etextdata + Rtextdata; np.array()
         self.Etextdata = None
         self.Rtextdata = None
-        self.Evocab = ['NULL', ]#padding_idx=0
+        self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
@@ -47,7 +48,7 @@ class Experiment:
     #         data_ids.append(triple_ids)
     #     return data_ids, vocab
 
-    def strings_to_ids(self, data, vocab=['NULL', ]):#padding_idx=0; designed for [sentences, words]
+    def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
@@ -71,7 +72,7 @@ class Experiment:
         return er_vocab
 
     def get_batch(self, er_vocab, er_vocab_pairs, idx):
-        batch = er_vocab_pairs[idx:idx+self.batch_size]
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
         targets = np.zeros((len(batch), len(d.entities)))
         for idx, pair in enumerate(batch):
             targets[idx, er_vocab[pair]] = 1.
@@ -80,49 +81,55 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
-    
     def evaluate(self, model, data):
         hits = []
         ranks = []
         for i in range(10):
             hits.append([])
+        losses = []
 
-        test_data_idxs= self.get_data_idxs(data)
+        test_data_idxs = self.get_data_idxs(data)
         er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
+        test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
+        test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
 
         print("Number of data points: %d" % len(test_data_idxs))
 
-        es_idx = torch.LongTensor(self.Etextdata)
+        es_idx = torch.LongTensor([i in range(len(d.entities))])
+        print("es_idx="+str(es_idx))
         if self.cuda:
             es_idx = es_idx.cuda()
         model.cal_es(es_idx)
-        for i in range(0, len(test_data_idxs), self.batch_size):
-            data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
-            #e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
-            #e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
-            e2_idx = torch.LongTensor(data_batch[:, 2]) #e2 are not used for model forward
+        for i in range(0, len(test_er_vocab_pairs), self.batch_size):
+            data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
+
+            e1_idx = torch.LongTensor(data_batch[:, 0])
+            r_idx = torch.LongTensor(data_batch[:, 1])
+            # e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+            # r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
-                e2_idx = e2_idx.cuda()
+                #e2_idx = e2_idx.cuda()
             predictions = model.forward(e1_idx, r_idx)
-            #print("predictions size:"+str(predictions.size()))
-            #print("e2_idx = "+str(e2_idx))
 
-            for j in range(data_batch.shape[0]):
-                filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
-                target_value = predictions[j,e2_idx[j]].item()
-                predictions[j, filt] = 0.0
-                predictions[j, e2_idx[j]] = target_value
+
+            # print("predictions size:"+str(predictions.size()))
+            # print("e2_idx = "+str(e2_idx))
+
+
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
             sort_idxs = sort_idxs.cpu().numpy()
             for j in range(data_batch.shape[0]):
-                rank = np.where(sort_idxs[j]==e2_idx[j].item())[0][0]
-                ranks.append(rank+1)
+                for rank in range(sort_idxs[j].shape[0]):
+                    if targets[j][sort_idxs[j][rank]] == 1.:
+                        ranks.append(rank + 1)
+                        break
+                else:
+                    raise ("cann't find a candidate entity")
 
                 for hits_level in range(10):
                     if rank <= hits_level:
@@ -130,149 +137,193 @@ class Experiment:
                     else:
                         hits[hits_level].append(0.0)
 
+            if self.label_smoothing:
+                targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
+            loss = model.loss(predictions, targets)
+            losses.append(loss.item())
+
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
         print('Hits @1: {0}'.format(np.mean(hits[0])))
         print('Mean rank: {0}'.format(np.mean(ranks)))
-        print('Mean reciprocal rank: {0}'.format(np.mean(1./np.array(ranks))))
-
-
+        print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
+        print("loss="+str(np.mean(losses)))
 
     def check_textdata(self):
         for i in range(0, len(self.Etextdata)):
-            #print(self.Etextdata[i])
+            # print(self.Etextdata[i])
             if self.Etextdata[i].all() != self.textdata[i].all():
                 print(i)
 
-
     def train_and_eval(self):
         print("Training the TuckER model...")
-        self.entity_idxs = {d.entities[i]:i for i in range(len(d.entities))}
-        self.relation_idxs = {d.relations[i]:i for i in range(len(d.relations))}
+        self.entity_idxs = {d.entities[i]: i for i in range(len(d.entities))}
+        self.relation_idxs = {d.relations[i]: i for i in range(len(d.relations))}
 
-        train_data_idxs= self.get_data_idxs(d.train_data)
-        #data_idxs = self.get_data_idxs(d.data)
+        train_data_idxs = self.get_data_idxs(d.train_data)
+        # data_idxs = self.get_data_idxs(d.data)
         print("Number of training data points: %d" % len(train_data_idxs))
-        #print("Number of all data points: %d" % len(data_idxs))
-
-
+        # print("Number of all data points: %d" % len(data_idxs))
 
         ########
-        #data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
-        #print(d.entities)
-        print("entities="+str(d.entities))
+        # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
+        # print(d.entities)
+        #for i in d.entities:
+        #    print(self.entity_idxs[i])
+        #print("entities=" + str(self.entity_idxs[d.entities]))
         entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
-        print("entities_ids = "+str(entities_ids))
+
+        #print("entities_ids = " + str(entities_ids))
         relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
-        print("entities_ids len=%d"%len(entities_ids))
+        print("entities_ids len=%d" % len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
         print("read vocab ready.")
-        d.Etextdata = d.get_index(entities_ids,self.maxlength) # list, contained padding entities
+        d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
         self.Rtextdata = np.array(d.Rtextdata)
+        # for i in range(0, len(entities_ids)):
+        #     print(str(entities_ids[i]), str(d.entities[i]))
         # self.textdata = np.array(d.Etextdata + d.Rtextdata)
-        # self.check_textdata()
+        #self.check_textdata()
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
-        #print(cfg)
-        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        # print(cfg)
+        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, Evocab=len(d.entities),
+                           Rvocab=len(d.relations), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
         print("model ready")
 
         ########
         if self.cuda:
             model.cuda()
-        #model.init()
+        # model.init()
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
 
-        er_vocab = self.get_er_vocab(train_data_idxs)#dict (e1,r)->e2
-        er_vocab_pairs = list(er_vocab.keys())#list [...,(e1,r),...]
-
-
+        er_vocab = self.get_er_vocab(train_data_idxs)  # dict (e1,r)->e2
+        er_vocab_pairs = list(er_vocab.keys())  # list [...,(e1,r),...]
 
         print("Starting training...")
-        for it in range(1, self.num_iterations+1):
+
+        for it in range(1, self.num_iterations + 1):
+            hits = []
+            ranks = []
+            for i in range(10):
+                hits.append([])
             start_train = time.time()
             model.train()
             losses = []
             np.random.shuffle(er_vocab_pairs)
-            #print(er_vocab_pairs[:])
-            es_idx = torch.LongTensor(self.Etextdata)
+            # print(er_vocab_pairs[:])
+            es_idx = torch.LongTensor([i for i in range(len(d.entities))])
+            #print("es_idx=" + str(es_idx))
             if self.cuda:
                 es_idx = es_idx.cuda()
-            #print(es_idx.size())
+            # print(es_idx.size())
             model.cal_es(es_idx)
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
-                #target: tensor [batch, len(d.entities), 0./1.]
+                # target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
-                #print(data_batch[:,0].reshape(-1, 1))
+                # print(data_batch[:,0].reshape(-1, 1))
 
-                #print(textdata)
-                #print(textdata[data_batch[:,0].reshape(-1, 1)])
-                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:,0]])
-                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:,1]])
 
+                e1_idx = torch.LongTensor(data_batch[:, 0])
+                r_idx = torch.LongTensor(data_batch[:, 1])
+                # e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+                # r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+                #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
+                    #e2_idx = e2_idx.cuda()
                 predictions = model.forward(e1_idx, r_idx)
+                #print("predictions="+str(predictions))
+
+                sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
+                #print("sort_values="+str(sort_values))
+
+                #print("sort_idxs.shape=" + str(sort_idxs.shape))
+                #print("targets=" + str(targets))
+                sort_idxs = sort_idxs.cpu().numpy()
+                for j in range(data_batch.shape[0]):
+                    for rank in range(sort_idxs[j].shape[0]):
+                        if targets[j][sort_idxs[j][rank]] == 1.:
+                            ranks.append(rank + 1)
+                            break
+                    else:
+                        raise ("cann't find a candidate entity")
+
+
+                    for hits_level in range(10):
+                        if rank <= hits_level:
+                            hits[hits_level].append(1.0)
+                        else:
+                            hits[hits_level].append(0.0)
+
                 if self.label_smoothing:
-                    targets = ((1.0-self.label_smoothing)*targets) + (1.0/targets.size(1))           
+                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
+                #print(targets)
+
                 loss = model.loss(predictions, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())
+
+            print("Train:")
+            print('Hits @10: {0}'.format(np.mean(hits[9])))
+            print('Hits @3: {0}'.format(np.mean(hits[2])))
+            print('Hits @1: {0}'.format(np.mean(hits[0])))
+            print('Mean rank: {0}'.format(np.mean(ranks)))
+            print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
+
             if self.decay_rate:
                 scheduler.step()
             print(it)
-            print(time.time()-start_train)    
-            print(np.mean(losses))
+            print(time.time() - start_train)
+            print("loss="+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
                 print("Validation:")
                 self.evaluate(model, d.valid_data)
-                if not it%2:
+                if not it % 2:
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
-                    print(time.time()-start_test)
-           
+                    print(time.time() - start_test)
 
-        
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, default="FB15k-237", nargs="?",
-                    help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
+                        help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
     parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
                         help="the config file path")
     parser.add_argument("--num_iterations", type=int, default=500, nargs="?",
-                    help="Number of iterations.")
+                        help="Number of iterations.")
     parser.add_argument("--batch_size", type=int, default=128, nargs="?",
-                    help="Batch size.")
+                        help="Batch size.")
     parser.add_argument("--lr", type=float, default=0.0005, nargs="?",
-                    help="Learning rate.")
+                        help="Learning rate.")
     parser.add_argument("--dr", type=float, default=1.0, nargs="?",
-                    help="Decay rate.")
+                        help="Decay rate.")
     parser.add_argument("--edim", type=int, default=200, nargs="?",
-                    help="Entity embedding dimensionality.")
+                        help="Entity embedding dimensionality.")
     parser.add_argument("--rdim", type=int, default=200, nargs="?",
-                    help="Relation embedding dimensionality.")
+                        help="Relation embedding dimensionality.")
     parser.add_argument("--cuda", type=bool, default=True, nargs="?",
-                    help="Whether to use cuda (GPU) or not (CPU).")
+                        help="Whether to use cuda (GPU) or not (CPU).")
     parser.add_argument("--input_dropout", type=float, default=0.3, nargs="?",
-                    help="Input layer dropout.")
+                        help="Input layer dropout.")
     parser.add_argument("--hidden_dropout1", type=float, default=0.4, nargs="?",
-                    help="Dropout after the first hidden layer.")
+                        help="Dropout after the first hidden layer.")
     parser.add_argument("--hidden_dropout2", type=float, default=0.5, nargs="?",
-                    help="Dropout after the second hidden layer.")
+                        help="Dropout after the second hidden layer.")
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
-                    help="Amount of label smoothing.")
+                        help="Amount of label smoothing.")
     parser.add_argument("--max_length", type=int, default=15, nargs="?",
                         help="Batch size.")
     parser.add_argument("--vocab_size", type=int, default=40542, nargs="?",
@@ -280,19 +331,19 @@ if __name__ == '__main__':
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset
-    torch.backends.cudnn.deterministic = True 
+    torch.backends.cudnn.deterministic = True
     seed = 20
     np.random.seed(seed)
     torch.manual_seed(seed)
     if torch.cuda.is_available:
-        torch.cuda.manual_seed_all(seed) 
+        torch.cuda.manual_seed_all(seed)
     d = DataText(data_dir=data_dir, reverse=False)
-    experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr, 
+    experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr,
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
-                            input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1, 
+                            input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
                             hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing,
-                            maxlength = args.max_length
+                            maxlength=args.max_length
                             )
     experiment.train_and_eval()
-                
+
 

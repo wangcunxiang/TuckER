@@ -1,9 +1,9 @@
 PersonX brings ___ to the people	oReact	well happy and satisfied
 PersonX brings ___ to the people	xIntent	solve people problems
 PersonX brings ___ to the people	xReact	like achieve
-PersonX brings ___ to the people	oReact	grateful & appreciative.
-PersonX brings ___ to the people	xIntent	materially contribute to own community growth, well-being & progress.
-PersonX brings ___ to the people	xReact	satisfied, proud to materially contributing to own community growth, well-being & progress.
+PersonX brings ___ to the people	oReact	grateful & appreciative .
+PersonX brings ___ to the people	xIntent	materially contribute to own community growth, well-being & progress .
+PersonX brings ___ to the people	xReact	satisfied, proud to materially contributing to own community growth, well-being & progress .
 PersonX brings ___ to the people	oEffect	benefit materially
 PersonX brings ___ to the people	oEffect	improve lifestyle
 PersonX brings ___ to the people	xEffect	praised
@@ -44,10 +44,10 @@ PersonX starves the ___ into submission	xReact	powerful
 PersonX starves the ___ into submission	oReact	none
 PersonX starves the ___ into submission	xIntent	people into submission
 PersonX starves the ___ into submission	xReact	happy
-PersonX starves the ___ into submission	oEffect	Mane people will try to avoid the starvation.
-PersonX starves the ___ into submission	oEffect	Many people will fight back the punishment.
-PersonX starves the ___ into submission	xEffect	It receives submissively from a bunch of people, it means person X will not do things because other will do it for him/her.
-PersonX starves the ___ into submission	xEffect	Things that Person X wanted to do and was not allowed to do, will be available to be done once the submission is reached.
+PersonX starves the ___ into submission	oEffect	Mane people will try to avoid the starvation .
+PersonX starves the ___ into submission	oEffect	Many people will fight back the punishment .
+PersonX starves the ___ into submission	xEffect	It receives submissively from a bunch of people, it means person X will not do things because other will do it for him/her .
+PersonX starves the ___ into submission	xEffect	Things that Person X wanted to do and was not allowed to do, will be available to be done once the submission is reached .
 PersonX starves the ___ into submission	oEffect	have grumbling stomachs
 PersonX starves the ___ into submission	oEffect	become weak in their bodies
 PersonX starves the ___ into submission	xEffect	walks confidently
@@ -88,7 +88,7 @@ PersonX convinces every ___	xEffect	receives praise for his work
 PersonX convinces every ___	oWant	none
 PersonX convinces every ___	xNeed	to have the facts
 PersonX convinces every ___	xNeed	to be able to talk sweetly
-PersonX convinces every ___	xWant	to take everyone's money and run
+PersonX convinces every ___	xWant	to take everyone  's money and run
 PersonX convinces every ___	xWant	to tell everyone that peace is the best
 PersonX convinces every ___	oWant	to ask questions
 PersonX convinces every ___	oWant	to digest the information
