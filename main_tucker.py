@@ -82,7 +82,7 @@ class Experiment:
             sort_idxs = sort_idxs.cpu().numpy()
             targets_ = targets.cpu().numpy()
             for j in range(data_batch.shape[0]):
-                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0])[0])[0]
+                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0])[0])[0][0]
                 ranks.append(rank+1)
 
 
@@ -143,11 +143,13 @@ class Experiment:
 
                 sort_idxs = sort_idxs.cpu().numpy()
                 targets_ = targets.cpu().numpy()
+
                 for k in range(data_batch.shape[0]):
-                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0]
+                    print(np.where(targets_[k] == 1.0)[0])
+                    print(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])
+                    print(np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0][0])
+                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0][0]
                     ranks.append(rank+1)
-
-
 
                     for hits_level in range(10):
                         if rank <= hits_level:
