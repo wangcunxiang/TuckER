@@ -59,9 +59,9 @@ class Experiment:
 
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
-            e1_idx = torch.tensor(data_batch[:, 0])
-            r_idx = torch.tensor(data_batch[:, 1])
-            e2_idx = torch.tensor(data_batch[:, 2])
+            e1_idx = torch.LongTensor(data_batch[:, 0])
+            r_idx = torch.LongTensor(data_batch[:, 1])
+            e2_idx = torch.LongTensor(data_batch[:, 2])
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
@@ -78,6 +78,9 @@ class Experiment:
 
             sort_idxs = sort_idxs.cpu().numpy()
             for j in range(data_batch.shape[0]):
+                # print('sort_idxs[j]='+str(sort_idxs[j]))
+                # print('e2_idx[j].item()='+str(e2_idx[j].item()))
+                # print(np.where(sort_idxs[j] == e2_idx[j].item()))
                 rank = np.where(sort_idxs[j] == e2_idx[j].item())[0][0]
                 ranks.append(rank + 1)
 
@@ -121,8 +124,8 @@ class Experiment:
             for j in range(0, len(er_vocab_pairs), self.batch_size):
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 opt.zero_grad()
-                e1_idx = torch.tensor(data_batch[:, 0])
-                r_idx = torch.tensor(data_batch[:, 1])
+                e1_idx = torch.LongTensor(data_batch[:, 0])
+                r_idx = torch.LongTensor(data_batch[:, 1])
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()

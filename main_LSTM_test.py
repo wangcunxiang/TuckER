@@ -123,13 +123,10 @@ class Experiment:
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
             sort_idxs = sort_idxs.cpu().numpy()
+            targets_ = targets.cpu().numpy()
             for j in range(data_batch.shape[0]):
-                for rank in range(sort_idxs[j].shape[0]):
-                    if targets[j][sort_idxs[j][rank]] == 1.:
-                        ranks.append(rank + 1)
-                        break
-                else:
-                    raise ("cann't find a candidate entity")
+                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0])[0])[0]
+                ranks.append(rank + 1)
 
                 for hits_level in range(10):
                     if rank <= hits_level:
@@ -249,13 +246,10 @@ class Experiment:
                 #print("sort_idxs.shape=" + str(sort_idxs.shape))
                 #print("targets=" + str(targets))
                 sort_idxs = sort_idxs.cpu().numpy()
-                for j in range(data_batch.shape[0]):
-                    for rank in range(sort_idxs[j].shape[0]):
-                        if targets[j][sort_idxs[j][rank]] == 1.:
-                            ranks.append(rank + 1)
-                            break
-                    else:
-                        raise ("cann't find a candidate entity")
+                targets_ = targets.cpu().numpy()
+                for k in range(data_batch.shape[0]):
+                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0]
+                    ranks.append(rank + 1)
 
 
                     for hits_level in range(10):

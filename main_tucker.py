@@ -80,13 +80,11 @@ class Experiment:
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
             sort_idxs = sort_idxs.cpu().numpy()
+            targets_ = targets.cpu().numpy()
             for j in range(data_batch.shape[0]):
-                for rank in range(sort_idxs[j].shape[0]):
-                    if targets[j][sort_idxs[j][rank]] == 1.:
-                        ranks.append(rank + 1)
-                        break
-                else:
-                    raise ("cann't find a candidate entity")
+                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0])[0])[0]
+                ranks.append(rank+1)
+
 
                 for hits_level in range(10):
                     if rank <= hits_level:
@@ -101,7 +99,7 @@ class Experiment:
         print('Hits @1: {0}'.format(np.mean(hits[0])))
         print('Mean rank: {0}'.format(np.mean(ranks)))
         print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
-        print('loss: '.format(np.mean(losses)))
+        print('loss: {0}'.format(np.mean(losses)))
 
     def train_and_eval(self):
         print("Training the TuckER model...")
@@ -142,13 +140,13 @@ class Experiment:
                     r_idx = r_idx.cuda()
                 predictions = model.forward(e1_idx, r_idx)
                 sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
-                for j in range(data_batch.shape[0]):
-                    for rank in range(sort_idxs[j].shape[0]):
-                        if targets[j][sort_idxs[j][rank]] == 1.:
-                            ranks.append(rank + 1)
-                            break
-                    else:
-                        raise ("cann't find a candidate entity")
+
+                sort_idxs = sort_idxs.cpu().numpy()
+                targets_ = targets.cpu().numpy()
+                for k in range(data_batch.shape[0]):
+                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0]
+                    ranks.append(rank+1)
+
 
 
                     for hits_level in range(10):
@@ -172,7 +170,7 @@ class Experiment:
             print('Mean rank: {0}'.format(np.mean(ranks)))
             print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
             print(time.time() - start_train)
-            print('loss: '.format(np.mean(losses)))
+            print('loss: {0}'.format(np.mean(losses)))
             model.eval()
             with torch.no_grad():
                 print("Validation:")
