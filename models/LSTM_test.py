@@ -11,7 +11,7 @@ class TuckER(torch.nn.Module):
         super(TuckER, self).__init__()
 
         self.E = torch.nn.Embedding(len(d.entities), d1)#, padding_idx=0)
-        #self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
+        self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                                  dtype=torch.float, device="cuda", requires_grad=True))
 
@@ -35,6 +35,10 @@ class TuckER(torch.nn.Module):
         self.E.weight.requires_grad = False
 
     def forward(self, e1, r):
+
+        e1 = self.E(e1)
+        r = self.R(r)
+        
         #print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
@@ -85,19 +89,23 @@ class LSTMTuckER(nn.Module):
 
     def forward(self, e, r):
 
-        e = e.view(-1, e.size(-1))
-        e = self.Eembed(e)
+        # e = e.view(-1, e.size(-1))
+        # e = self.Eembed(e)
+        #
+        # e_encoded, tmp = self.elstm(e)
+        # e_encoded = e_encoded[:, -1,:]  # use last word's output
+        #
+        #
+        # r = r.view(-1, r.size(-1))
+        # r = self.Rembed(r)
+        # r_encoded, tmp = self.rlstm(r)
+        # r_encoded = r_encoded[:,-1,:]#use last word's output
+        #
+        # #print('e_encoded size:'+str(e_encoded.size()))
 
-        e_encoded, tmp = self.elstm(e)
-        e_encoded = e_encoded[:, -1,:]  # use last word's output
+        #return self.tucker(e_encoded, r_encoded)
+        return self.tucker(e, r)
 
-
-        r = r.view(-1, r.size(-1))
-        r = self.Rembed(r)
-        r_encoded, tmp = self.rlstm(r)
-        r_encoded = r_encoded[:,-1,:]#use last word's output
-
-        return self.tucker(e_encoded, r_encoded)
 
 
 
