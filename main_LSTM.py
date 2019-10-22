@@ -48,14 +48,12 @@ class Experiment:
     #     return data_ids, vocab
 
     def strings_to_ids(self, data, vocab=['NULL', ]):#padding_idx=0; designed for [sentences, words]
+        vocab = vocab + sorted(list(set(d[:] for d in data)))
+        vocab_ = {vocab[i]: i for i in range(len(vocab))}
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
-            word_ids = []
-            for word in sent:
-                if word not in vocab:
-                    vocab.append(word)
-                word_ids.append(vocab.index(word))
+            word_ids = [vocab_[word] for word in sent]
             data_ids.append(word_ids)
         return data_ids, vocab
 

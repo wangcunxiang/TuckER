@@ -38,7 +38,7 @@ class TuckER(torch.nn.Module):
 
         e1 = self.E(e1)
         r = self.R(r)
-        
+
         #print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)

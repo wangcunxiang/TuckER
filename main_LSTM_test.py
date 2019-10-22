@@ -49,14 +49,12 @@ class Experiment:
     #     return data_ids, vocab
 
     def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
+        vocab = vocab + sorted(list(set(d[:] for d in data)))
+        vocab_ = {vocab[i]:i for i in range(len(vocab))}
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
-            word_ids = []
-            for word in sent:
-                if word not in vocab:
-                    vocab.append(word)
-                word_ids.append(vocab.index(word))
+            word_ids = [vocab_[word] for word in sent]
             data_ids.append(word_ids)
         return data_ids, vocab
 
@@ -99,12 +97,12 @@ class Experiment:
         print("es_idx="+str(es_idx))
         if self.cuda:
             es_idx = es_idx.cuda()
-        model.cal_es(es_idx)
+        #model.cal_es(es_idx)
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
 
-            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]][:,0])
+            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]][:,0])
 
             if self.cuda:
                 e1_idx = e1_idx.cuda()
@@ -205,15 +203,15 @@ class Experiment:
             if self.cuda:
                 es_idx = es_idx.cuda()
             # print(es_idx.size())
-            model.cal_es(es_idx)
+            #model.cal_es(es_idx)
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 # target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
 
-                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]][:,0])
+                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]][:,0])
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
