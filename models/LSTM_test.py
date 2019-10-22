@@ -69,36 +69,35 @@ class LSTMTuckER(nn.Module):
         with torch.no_grad():
             es = self.Eembed(es)
             #print("es size:"+str(es.size()))
-            # es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
-            # es_encoded = es_encoded[:, -1, :]
-            # length = es.size(0)
-            # for i in range(1, length, int(length / 10)):
-            #     es_tmp = es[i:min(i + int(length / 10), length)]
-            #     es_tmp, tmp = self.elstm(es_tmp)
-            #     es_tmp = es_tmp[:, -1, :]
-            #     es_encoded = torch.cat((es_encoded, es_tmp), 0)
-            #     del es_tmp, tmp
-            # del es
-            # self.tucker.update_es(es_encoded)
-            self.tucker.update_es(es)
+            es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
+            es_encoded = es_encoded[:, -1, :]
+            length = es.size(0)
+            for i in range(1, length, int(length / 10)):
+                es_tmp = es[i:min(i + int(length / 10), length)]
+                es_tmp, tmp = self.elstm(es_tmp)
+                es_tmp = es_tmp[:, -1, :]
+                es_encoded = torch.cat((es_encoded, es_tmp), 0)
+                del es_tmp, tmp
+            del es
+            self.tucker.update_es(es_encoded)
+            #self.tucker.update_es(es)
 
 
     def forward(self, e, r):
-        #print('e.szie:' + str(e.size()))
-        #e = e.view(-1, e.size(-1))
-        #print('e.szie:' + str(e.size()))
+
+        e = e.view(-1, e.size(-1))
         e = self.Eembed(e)
 
-        # e_encoded, tmp = self.elstm(e)
-        # e_encoded = e_encoded[:, -1,:]  # use last word's output
+        e_encoded, tmp = self.elstm(e)
+        e_encoded = e_encoded[:, -1,:]  # use last word's output
 
 
-        #r = r.view(-1, r.size(-1))
+        r = r.view(-1, r.size(-1))
         r = self.Rembed(r)
-        # r_encoded, tmp = self.rlstm(r)
-        # r_encoded = r_encoded[:,-1,:]#use last word's output
+        r_encoded, tmp = self.rlstm(r)
+        r_encoded = r_encoded[:,-1,:]#use last word's output
 
-        return self.tucker(e, r)
+        return self.tucker(e_encoded, r_encoded)
 
 
 

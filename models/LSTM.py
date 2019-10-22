@@ -68,9 +68,6 @@ class LSTMTuckER(nn.Module):
     def cal_es(self, es):
         with torch.no_grad():
             es = self.Eembed(es)
-            # print("es size:"+str(es.size()))
-            # print("es[0] size:" + str(es[0].size()))
-            # print("torch.unsqueeze(es[0], 0):"+str(torch.unsqueeze(es[0], 0).size()))
             es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
             # es_encoded, tmp = self.elstm(es)
             es_encoded = es_encoded[:, -1, :]

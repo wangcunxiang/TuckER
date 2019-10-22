@@ -103,10 +103,8 @@ class Experiment:
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
 
-            e1_idx = torch.LongTensor(data_batch[:, 0])
-            r_idx = torch.LongTensor(data_batch[:, 1])
-            # e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-            # r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
 
             if self.cuda:
                 e1_idx = e1_idx.cuda()
@@ -125,7 +123,7 @@ class Experiment:
             sort_idxs = sort_idxs.cpu().numpy()
             targets_ = targets.cpu().numpy()
             for j in range(data_batch.shape[0]):
-                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0])[0])[0]
+                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0]))[0][0]
                 ranks.append(rank + 1)
 
                 for hits_level in range(10):
@@ -165,9 +163,6 @@ class Experiment:
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
         # print(d.entities)
-        #for i in d.entities:
-        #    print(self.entity_idxs[i])
-        #print("entities=" + str(self.entity_idxs[d.entities]))
         entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
 
         #print("entities_ids = " + str(entities_ids))
@@ -179,8 +174,6 @@ class Experiment:
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
         self.Rtextdata = np.array(d.Rtextdata)
-        # for i in range(0, len(entities_ids)):
-        #     print(str(entities_ids[i]), str(d.entities[i]))
         # self.textdata = np.array(d.Etextdata + d.Rtextdata)
         #self.check_textdata()
         print("text data ready")
@@ -224,13 +217,11 @@ class Experiment:
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
                 # target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
-                # print(data_batch[:,0].reshape(-1, 1))
 
 
-                e1_idx = torch.LongTensor(data_batch[:, 0])
-                r_idx = torch.LongTensor(data_batch[:, 1])
-                # e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-                # r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+
+                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
@@ -243,12 +234,10 @@ class Experiment:
                 sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
                 #print("sort_values="+str(sort_values))
 
-                #print("sort_idxs.shape=" + str(sort_idxs.shape))
-                #print("targets=" + str(targets))
                 sort_idxs = sort_idxs.cpu().numpy()
                 targets_ = targets.cpu().numpy()
                 for k in range(data_batch.shape[0]):
-                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0])[0])[0]
+                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0]))[0][0]
                     ranks.append(rank + 1)
 
 
@@ -260,24 +249,24 @@ class Experiment:
 
                 if self.label_smoothing:
                     targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-                #print(targets)
 
                 loss = model.loss(predictions, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())
 
+
+
+            if self.decay_rate:
+                scheduler.step()
+            print(it)
+            print(time.time() - start_train)
             print("Train:")
             print('Hits @10: {0}'.format(np.mean(hits[9])))
             print('Hits @3: {0}'.format(np.mean(hits[2])))
             print('Hits @1: {0}'.format(np.mean(hits[0])))
             print('Mean rank: {0}'.format(np.mean(ranks)))
             print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
-
-            if self.decay_rate:
-                scheduler.step()
-            print(it)
-            print(time.time() - start_train)
             print("loss="+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
