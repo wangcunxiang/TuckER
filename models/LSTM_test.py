@@ -35,10 +35,8 @@ class TuckER(torch.nn.Module):
         self.E.weight.requires_grad = False
 
     def forward(self, e1, r):
-
-        e1 = self.E(e1)
-        r = self.R(r)
-
+        # e1 = self.E(e1)
+        # r = self.R(r)
         #print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
@@ -64,9 +62,9 @@ class LSTMTuckER(nn.Module):
         self.Eembed = nn.Embedding(Evocab, cfg.hSize, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, cfg.hSize, padding_idx=0)
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
-        self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
+        self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=1, batch_first=True, dropout=0., bidirectional=True)
         #batch_first: If ``True``, then the input and output tensors are provided as (batch, seq, feature). Default: ``False``
-        self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
+        self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=1, batch_first=True, dropout=0., bidirectional=True)
         self.loss = torch.nn.BCELoss()
 
     def cal_es(self, es):
@@ -89,22 +87,22 @@ class LSTMTuckER(nn.Module):
 
     def forward(self, e, r):
 
-        # e = e.view(-1, e.size(-1))
-        # e = self.Eembed(e)
-        #
-        # e_encoded, tmp = self.elstm(e)
-        # e_encoded = e_encoded[:, -1,:]  # use last word's output
-        #
-        #
-        # r = r.view(-1, r.size(-1))
-        # r = self.Rembed(r)
-        # r_encoded, tmp = self.rlstm(r)
-        # r_encoded = r_encoded[:,-1,:]#use last word's output
-        #
-        # #print('e_encoded size:'+str(e_encoded.size()))
+        e = e.view(-1, e.size(-1))
+        e = self.Eembed(e)
 
-        #return self.tucker(e_encoded, r_encoded)
-        return self.tucker(e, r)
+        e_encoded, tmp = self.elstm(e)
+        e_encoded = e_encoded[:, -1,:]  # use last word's output
+
+
+        r = r.view(-1, r.size(-1))
+        r = self.Rembed(r)
+        r_encoded, tmp = self.rlstm(r)
+        r_encoded = r_encoded[:,-1,:]#use last word's output
+
+        #print('e_encoded size:'+str(e_encoded.size()))
+
+        return self.tucker(e_encoded, r_encoded)
+        #return self.tucker(e, r)
 
 
 

@@ -99,15 +99,15 @@ class Experiment:
         print("Number of data points: %d" % len(test_data_idxs))
 
         es_idx = torch.LongTensor(self.Etextdata)
-        print("es_idx="+str(es_idx))
+        #print("es_idx="+str(es_idx))
         if self.cuda:
             es_idx = es_idx.cuda()
         #model.cal_es(es_idx)
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
 
-            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]][:,0])
-            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]][:,0])
+            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
 
             if self.cuda:
                 e1_idx = e1_idx.cuda()
@@ -215,8 +215,8 @@ class Experiment:
                 # target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
 
-                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]][:,0])
-                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]][:,0])
+                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
@@ -265,8 +265,8 @@ class Experiment:
             print("loss="+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
-                print("Validation:")
-                self.evaluate(model, d.valid_data)
+                # print("Validation:")
+                # self.evaluate(model, d.valid_data)
                 if not it % 2:
                     print("Test:")
                     start_test = time.time()
