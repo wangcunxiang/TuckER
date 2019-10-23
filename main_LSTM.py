@@ -100,10 +100,6 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
-        es_idx = torch.LongTensor(self.Etextdata)
-        if self.cuda:
-            es_idx = es_idx.cuda()
-        model.cal_es(es_idx)
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
@@ -143,7 +139,6 @@ class Experiment:
         print('Mean reciprocal rank: {0}'.format(np.mean(1./np.array(ranks))))
 
 
-
     def check_textdata(self):
         for i in range(0, len(self.Etextdata)):
             #print(self.Etextdata[i])
@@ -160,7 +155,6 @@ class Experiment:
         #data_idxs = self.get_data_idxs(d.data)
         print("Number of training data points: %d" % len(train_data_idxs))
         #print("Number of all data points: %d" % len(data_idxs))
-
 
 
         ########
@@ -181,8 +175,12 @@ class Experiment:
         # self.check_textdata()
         print("text data ready")
         cfg = config(dict(read_json(args.config)))
+        es_idx = torch.LongTensor(self.Etextdata)
+        if self.cuda:
+            es_idx = es_idx.cuda()
         #print(cfg)
-        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
+        model = LSTMTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim, \
+                           cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab), n_ctx = self.maxlength, **self.kwargs)# n_ctx = 52为COMET中计算出的
         print("model ready")
 
         ########
@@ -204,12 +202,7 @@ class Experiment:
             model.train()
             losses = []
             np.random.shuffle(er_vocab_pairs)
-            #print(er_vocab_pairs[:])
-            es_idx = torch.LongTensor(self.Etextdata)
-            if self.cuda:
-                es_idx = es_idx.cuda()
-            #print(es_idx.size())
-            model.cal_es(es_idx)
+
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
@@ -223,11 +216,6 @@ class Experiment:
                 r = data_batch[:,1]
                 e1_idx = torch.LongTensor(self.Etextdata[e1])
                 r_idx = torch.LongTensor(self.Rtextdata[r])
-
-                #print('self.Elen[data_batch[:, 0]]='+str(self.Elen[data_batch[:, 0]]))
-                # e1_len = torch.LongTensor(self.Elen[e1][np.argsort(-self.Elen[e1])])
-                # r_len = torch.LongTensor(self.Rlen[r][np.argsort(-self.Rlen[r])])
-                # print('e1_len=' + str(e1_len))
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
@@ -247,10 +235,10 @@ class Experiment:
             model.eval()
             with torch.no_grad():
                 if not it%2:
-                    print("Train:")
-                    start_test = time.time()
-                    self.evaluate(model, d.train_data)
-                    print(time.time() - start_test)
+                    # print("Train:")
+                    # start_test = time.time()
+                    # self.evaluate(model, d.train_data)
+                    # print(time.time() - start_test)
                     print("Valid:")
                     start_test = time.time()
                     self.evaluate(model, d.valid_data)

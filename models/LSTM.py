@@ -20,7 +20,6 @@ class TuckER(torch.nn.Module):
         self.hidden_dropout2 = torch.nn.Dropout(kwargs["hidden_dropout2"])
         self.loss = torch.nn.BCELoss()
 
-        #print("d1="+str(d1))
         self.bn0 = torch.nn.BatchNorm1d(d1)
         self.bn1 = torch.nn.BatchNorm1d(d1)
         #math:`C` from an expected input of size math:`(N, C, L)` or
@@ -34,7 +33,7 @@ class TuckER(torch.nn.Module):
         self.E.weight.data.copy_(es)
         self.E.weight.requires_grad = False
 
-    def forward(self, e1, r):
+    def forward(self, e1, r, es):
         #print("e1 size:"+str(e1.size()))
         x = self.bn0(e1)
         x = self.input_dropout(x)
@@ -48,26 +47,29 @@ class TuckER(torch.nn.Module):
         x = x.view(-1, e1.size(1))
         x = self.bn1(x)
         x = self.hidden_dropout2(x)
-        x = torch.mm(x, self.E.weight.transpose(1, 0))
+        #x = torch.mm(x, self.E.weight.transpose(1, 0))
+        #print('self.E.weight='+str(self.E.weight.size()))
+        x = torch.mm(x, es.transpose(1, 0))
         pred = torch.sigmoid(x)
         return pred
 
 class LSTMTuckER(nn.Module):
     """Text Encoding Model LSTM"""
 
-    def __init__(self, d, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13,  **kwargs):
+    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13, **kwargs):
         super(LSTMTuckER, self).__init__()
         self.Eembed = nn.Embedding(Evocab, cfg.hSize, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, cfg.hSize, padding_idx=0)
+        self.es_idx = es_idx
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         #batch_first: If ``True``, then the input and output tensors are provided as (batch, seq, feature). Default: ``False``
         self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         self.loss = torch.nn.BCELoss()
 
-    def cal_es(self, es):
+    def cal_es(self):
         with torch.no_grad():
-            es = self.Eembed(es)
+            es = self.Eembed(self.es_idx)
             es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
             # es_encoded, tmp = self.elstm(es)
             es_encoded = es_encoded[:, -1, :]
@@ -81,7 +83,8 @@ class LSTMTuckER(nn.Module):
                 del es_tmp, tmp
             # print("es_encoded size:"+str(es_encoded.size()))
             del es
-            self.tucker.update_es(es_encoded)
+            return es_encoded
+            #self.tucker.update_es(es_encoded)
 
 
     def forward(self, e, r):
@@ -100,7 +103,7 @@ class LSTMTuckER(nn.Module):
         r_encoded, tmp = self.rlstm(r)
         r_encoded = r_encoded[:,-1,:]#use last word's output
 
-        return self.tucker(e_encoded, r_encoded)
+        return self.tucker(e_encoded, r_encoded, self.cal_es())
 
 
 
