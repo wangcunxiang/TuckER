@@ -5,8 +5,10 @@ from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
 from models.LSTM import LSTMTuckER
 from config.config import config
+
 import argparse
 import torch.tensor
+
 
 class Experiment:
 
@@ -26,6 +28,8 @@ class Experiment:
         self.textdata = None  # = Etextdata + Rtextdata; np.array()
         self.Etextdata = None
         self.Rtextdata = None
+        self.Elen = None
+        self.Rlen = None
         self.Evocab = ['NULL', ]#padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
@@ -48,7 +52,13 @@ class Experiment:
     #     return data_ids, vocab
 
     def strings_to_ids(self, data, vocab=['NULL', ]):#padding_idx=0; designed for [sentences, words]
-        vocab = vocab + sorted(list(set(d[:] for d in data)))
+
+        tmp = []
+        for sent in data:
+            sent = sent.strip().split()
+            tmp += sent
+        vocab += sorted(list(set(tmp)))
+
         vocab_ = {vocab[i]: i for i in range(len(vocab))}
         data_ids = []
         for sent in data:
@@ -98,8 +108,6 @@ class Experiment:
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
             r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
-            #e2_idx = torch.LongTensor(self.textdata[data_batch[:, 2]][:, :, np.newaxis])
-            #e2_idx = prepare_position_embeddings(encoder_vocab=self.vocab, sequences=e2_idx)
             e2_idx = torch.LongTensor(data_batch[:, 2]) #e2 are not used for model forward
             if self.cuda:
                 e1_idx = e1_idx.cuda()
@@ -156,18 +164,18 @@ class Experiment:
 
 
         ########
-        #data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
-        #print(d.entities)
-        print("entities="+str(d.entities))
+        #print("entities="+str(d.entities))
         entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
-        print("entities_ids = "+str(entities_ids))
+        #print("entities_ids = "+str(entities_ids))
         relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
         print("entities_ids len=%d"%len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
         print("read vocab ready.")
         d.Etextdata = d.get_index(entities_ids,self.maxlength) # list, contained padding entities
+        #self.Elen = np.array(Elen)
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
+        #self.Rlen = np.array(Rlen)
         self.Rtextdata = np.array(d.Rtextdata)
         # self.textdata = np.array(d.Etextdata + d.Rtextdata)
         # self.check_textdata()
@@ -211,9 +219,15 @@ class Experiment:
 
                 #print(textdata)
                 #print(textdata[data_batch[:,0].reshape(-1, 1)])
-                e1_idx = torch.LongTensor(self.Etextdata[data_batch[:,0]])
-                r_idx = torch.LongTensor(self.Rtextdata[data_batch[:,1]])
+                e1 = data_batch[:,0]
+                r = data_batch[:,1]
+                e1_idx = torch.LongTensor(self.Etextdata[e1])
+                r_idx = torch.LongTensor(self.Rtextdata[r])
 
+                #print('self.Elen[data_batch[:, 0]]='+str(self.Elen[data_batch[:, 0]]))
+                # e1_len = torch.LongTensor(self.Elen[e1][np.argsort(-self.Elen[e1])])
+                # r_len = torch.LongTensor(self.Rlen[r][np.argsort(-self.Rlen[r])])
+                # print('e1_len=' + str(e1_len))
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
@@ -232,13 +246,20 @@ class Experiment:
             print(np.mean(losses))
             model.eval()
             with torch.no_grad():
-                print("Validation:")
-                self.evaluate(model, d.valid_data)
                 if not it%2:
+                    print("Train:")
+                    start_test = time.time()
+                    self.evaluate(model, d.train_data)
+                    print(time.time() - start_test)
+                    print("Valid:")
+                    start_test = time.time()
+                    self.evaluate(model, d.valid_data)
+                    print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
                     print(time.time()-start_test)
+
            
 
         

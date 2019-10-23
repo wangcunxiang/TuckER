@@ -49,8 +49,13 @@ class Experiment:
     #     return data_ids, vocab
 
     def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
-        vocab = vocab + sorted(list(set(d[:] for d in data)))
-        vocab_ = {vocab[i]:i for i in range(len(vocab))}
+        tmp = []
+        for sent in data:
+            sent = sent.strip().split()
+            tmp += sent
+        vocab += sorted(list(set(tmp)))
+
+        vocab_ = {vocab[i]: i for i in range(len(vocab))}
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
@@ -154,7 +159,7 @@ class Experiment:
 
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
-        # print(d.entities)
+        #print('d.entities='+str(len(d.entities)))
         entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
 
         #print("entities_ids = " + str(entities_ids))
