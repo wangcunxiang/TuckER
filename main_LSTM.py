@@ -194,8 +194,6 @@ class Experiment:
         er_vocab = self.get_er_vocab(train_data_idxs)#dict (e1,r)->e2
         er_vocab_pairs = list(er_vocab.keys())#list [...,(e1,r),...]
 
-
-
         print("Starting training...")
         for it in range(1, self.num_iterations+1):
             start_train = time.time()
@@ -221,6 +219,8 @@ class Experiment:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
                 predictions = model.forward(e1_idx, r_idx)
+                #print('predictions size:'+str(predictions.size()))
+                #print('targets size:' + str(targets.size()))
                 if self.label_smoothing:
                     targets = ((1.0-self.label_smoothing)*targets) + (1.0/targets.size(1))           
                 loss = model.loss(predictions, targets)
@@ -231,18 +231,18 @@ class Experiment:
                 scheduler.step()
             print(it)
             print(time.time()-start_train)    
-            print(np.mean(losses))
+            print('loss='+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
                 if not it%2:
-                    # print("Train:")
-                    # start_test = time.time()
-                    # self.evaluate(model, d.train_data)
-                    # print(time.time() - start_test)
-                    print("Valid:")
+                    print("Train:")
                     start_test = time.time()
-                    self.evaluate(model, d.valid_data)
+                    self.evaluate(model, d.train_data)
                     print(time.time() - start_test)
+                    # print("Valid:")
+                    # start_test = time.time()
+                    # self.evaluate(model, d.valid_data)
+                    # print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)

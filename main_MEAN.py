@@ -3,7 +3,7 @@ import time
 from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
-from models.LSTM_test import LSTMTuckER
+from models.Mean import MeanTuckER
 from config.config import config
 import argparse
 import torch.tensor
@@ -98,11 +98,7 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
-        es_idx = torch.LongTensor(self.Etextdata)
-        #print("es_idx="+str(es_idx))
-        if self.cuda:
-            es_idx = es_idx.cuda()
-        model.cal_es(es_idx)
+
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
 
@@ -174,9 +170,10 @@ class Experiment:
         # self.textdata = np.array(d.Etextdata + d.Rtextdata)
         #self.check_textdata()
         print("text data ready")
-        cfg = config(dict(read_json(args.config)))
-        # print(cfg)
-        model = LSTMTuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg=cfg, Evocab=len(self.Evocab),
+        es_idx = torch.LongTensor(self.Etextdata)
+        if self.cuda:
+            es_idx = es_idx.cuda()
+        model = MeanTuckER(d, es_idx, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
                            Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
         print("model ready")
 
