@@ -1,7 +1,6 @@
 import torch
 from torch import nn
 from torch.nn.init import xavier_normal_
-from torch.nn import LSTM
 import numpy as np
 
 
@@ -17,7 +16,7 @@ class TuckER(torch.nn.Module):
         self.input_dropout = torch.nn.Dropout(kwargs["input_dropout"])
         self.hidden_dropout1 = torch.nn.Dropout(kwargs["hidden_dropout1"])
         self.hidden_dropout2 = torch.nn.Dropout(kwargs["hidden_dropout2"])
-        self.loss = torch.nn.BCELoss()
+        self.loss = torch.nn.MarginRankingLoss()
 
         self.bn0 = torch.nn.BatchNorm1d(d1)
         self.bn1 = torch.nn.BatchNorm1d(d1)
@@ -28,12 +27,7 @@ class TuckER(torch.nn.Module):
         xavier_normal_(self.E.weight.data)
         xavier_normal_(self.R.weight.data)
 
-    def update_es(self, es):
-        self.E.weight.data.copy_(es)
-        self.E.weight.requires_grad = False
-
-    def forward(self, e1, r, es):
-        #print("e1 size:"+str(e1.size()))
+    def forward(self, e1, r, e2p, e2n):
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
@@ -46,11 +40,11 @@ class TuckER(torch.nn.Module):
         x = x.view(-1, e1.size(1))
         x = self.bn1(x)
         x = self.hidden_dropout2(x)
-        # x = torch.mm(x, self.E.weight.transpose(1, 0))
-        # print('self.E.weight='+str(self.E.weight.size()))
-        x = torch.mm(x, es.transpose(1, 0))
-        pred = torch.sigmoid(x)
-        return pred
+        x_p = torch.mm(x, e2p)
+        x_n = torch.mm(x, e2n)
+        pred_p = torch.sigmoid(x_p)
+        pred_n = torch.sigmoid(x_n)
+        return pred_p, pred_n
 
 
 class MeanTuckER(nn.Module):
@@ -73,41 +67,27 @@ class MeanTuckER(nn.Module):
 
 
     def mean_(self, tensor):
-        #print('tensor[:, :, 0] != 0: '+str(tensor[:, :, 0] != 0))
         lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
         lens = lens.unsqueeze(1)
-        #print('lens='+str(lens))
         tensor_  = torch.sum(tensor, dim=1)
-        # print('tensor_ size =' + str(tensor_.size()))
-        # print('tensor_ =' + str(tensor_))
         tensor__ = torch.div(tensor_, lens)
-        #print('tensor__=' + str(tensor__))
         return tensor__
 
-    def forward(self, e, r):
-        # #print('e.szie:' + str(e.size()))
-        #         # e = e.view(-1, e.size(-1))
-        #         # #print('e.szie:' + str(e.size()))
-        #         # e = self.Eembed(e)
-        #         # #print('e.szie:'+str(e.size()))
-        #         # e_encoded, tmp = self.elstm(e)
-        #         # e_encoded = e_encoded[:, -1,:]  # use last word's output
-        #         # #print('e_encoded.szie:' + str(e_encoded.size()))
-        #         # #print('e_encoded:'+str(e_encoded))
-        #         #
-        #         # r = r.view(-1, r.size(-1))
-        #         # r = self.Rembed(r)
-        #         # r_encoded, tmp = self.rlstm(r)
-        #         # r_encoded = r_encoded[:,-1,:]#use last word's output
-        e = self.Eembed(e)
+    def forward(self, e1, r, e2p, e2n):
+
+        e1 = self.Eembed(e1)
         r = self.Rembed(r)
+        e2p = self.Eembed(e2p)
+        e2n = self.Eembed(e2n)
 
-        e_encoded = self.mean_(e)
+        e1_encoded = self.mean_(e1)
         r_encoded = self.mean_(r)
+        e2p_encoded = self.mean_(e2p)
+        e2n_encoded = self.mean_(e2n)
 
-        #print('e_encoded.szie:' + str(e_encoded.size()))
+        print('e_encoded.szie:' + str(e1_encoded.size()))
 
-        return self.tucker(e_encoded, r_encoded, self.cal_es())
+        return self.tucker(e1_encoded, r_encoded, e2p_encoded, e2n_encoded)
 
 
 

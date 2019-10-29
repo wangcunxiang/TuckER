@@ -30,11 +30,25 @@ class TuckER(torch.nn.Module):
          xavier_normal_(self.E.weight.data)
          xavier_normal_(self.R.weight.data)
 
-    def update_es(self, es):
-        self.E.weight.data.copy_(es)
-        self.E.weight.requires_grad = False
+    def evaluate(self, e1, r, es):
+        x = self.bn0(e1)
+        x = self.input_dropout(x)
+        x = x.view(-1, 1, e1.size(1))
 
-    def forward(self, e1, r):
+        W_mat = torch.mm(r, self.W.view(r.size(1), -1))
+        W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
+        W_mat = self.hidden_dropout1(W_mat)
+
+        x = torch.bmm(x, W_mat)
+        x = x.view(-1, e1.size(1))
+        x = self.bn1(x)
+        x = self.hidden_dropout2(x)
+
+        x = torch.mm(x, es.transpose(1, 0))
+        pred = torch.sigmoid(x)
+        return pred
+
+    def forward(self, e1, r, e2p, e2n):
         # e1 = self.E(e1)
         # r = self.R(r)
         #print("e1 size:"+str(e1.size()))
@@ -50,9 +64,11 @@ class TuckER(torch.nn.Module):
         x = x.view(-1, e1.size(1))
         x = self.bn1(x)
         x = self.hidden_dropout2(x)
-        x = torch.mm(x, self.E.weight.transpose(1, 0))
-        pred = torch.sigmoid(x)
-        return pred
+        x_p = (x * e2p).sum(dim=1)
+        x_n = (x * e2n).sum(dim=1)
+        pred_p = torch.sigmoid(x_p)
+        pred_n = torch.sigmoid(x_n)
+        return pred_p, pred_n
 
 class LSTMTuckER(nn.Module):
     """Text Encoding Model LSTM"""
@@ -67,41 +83,44 @@ class LSTMTuckER(nn.Module):
         self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=1, batch_first=True, dropout=0., bidirectional=True)
         self.loss = torch.nn.BCELoss()
 
-    def cal_es(self, es):
-        with torch.no_grad():
-            es = self.Eembed(es)
-            #print("es size:"+str(es.size()))
-            es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
-            es_encoded = es_encoded[:, -1, :]
-            length = es.size(0)
-            for i in range(1, length, int(length / 10)):
-                es_tmp = es[i:min(i + int(length / 10), length)]
-                es_tmp, tmp = self.elstm(es_tmp)
-                es_tmp = es_tmp[:, -1, :]
-                es_encoded = torch.cat((es_encoded, es_tmp), 0)
-                del es_tmp, tmp
-            del es
-            self.tucker.update_es(es_encoded)
-            #self.tucker.update_es(es)
-
-
-    def forward(self, e, r):
-
-        e = e.view(-1, e.size(-1))
+    def evaluate(self, e, r, es):
         e = self.Eembed(e)
+        e_encoded, tmp = self.elstm(e)
+        e_encoded = e_encoded[:, -1, :]  # use last word's output
 
+        r = self.Rembed(r)
+        r_encoded, tmp = self.rlstm(r)
+        r_encoded = r_encoded[:, -1, :]  # use last word's output
+
+        es = self.Eembed(es)
+        es_encoded, tmp = self.elstm(es)
+        es_encoded = es_encoded[:, -1, :]  # use last word's output
+        # print('e_encoded size:'+str(e_encoded.size()))
+
+        return self.tucker.evaluate(e_encoded, r_encoded, es_encoded)
+
+    def forward(self, e, r, e2p, e2n):
+
+        e = self.Eembed(e)
         e_encoded, tmp = self.elstm(e)
         e_encoded = e_encoded[:, -1,:]  # use last word's output
 
+        e2p = self.Eembed(e2p)
+        e2p_encoded, tmp = self.elstm(e2p)
+        e2p_encoded = e2p_encoded[:, -1, :]  # use last word's output
 
-        r = r.view(-1, r.size(-1))
+        e2n = self.Eembed(e2n)
+        e2n_encoded, tmp = self.elstm(e2n)
+        e2n_encoded = e2n_encoded[:, -1, :]  # use last word's output
+
+
         r = self.Rembed(r)
         r_encoded, tmp = self.rlstm(r)
         r_encoded = r_encoded[:,-1,:]#use last word's output
 
         #print('e_encoded size:'+str(e_encoded.size()))
 
-        return self.tucker(e_encoded, r_encoded)
+        return self.tucker(e_encoded, r_encoded, e2p_encoded, e2n_encoded)
         #return self.tucker(e, r)
 
 

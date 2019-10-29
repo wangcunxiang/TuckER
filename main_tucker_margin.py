@@ -2,8 +2,9 @@ from load_data import Data
 import numpy as np
 import torch
 import time
+import random
 from collections import defaultdict
-from models.model import *
+from models.Tucker_margin import *
 from torch.optim.lr_scheduler import ExponentialLR
 import argparse
 
@@ -13,7 +14,7 @@ class Experiment:
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0.):
+                 label_smoothing=0., margin=1.):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -21,6 +22,7 @@ class Experiment:
         self.batch_size = batch_size
         self.decay_rate = decay_rate
         self.label_smoothing = label_smoothing
+        self.margin = margin
         self.cuda = cuda
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
@@ -36,15 +38,30 @@ class Experiment:
             er_vocab[(triple[0], triple[1])].append(triple[2])
         return er_vocab
 
-    def get_batch(self, er_vocab, er_vocab_pairs, idx):
+    def get_batch_eval(self, er_vocab, er_vocab_pairs, idx):
         batch = er_vocab_pairs[idx:idx + self.batch_size]
         targets = np.zeros((len(batch), len(d.entities)))
         for idx, pair in enumerate(batch):
+            #print('er_vocab[pair]='+str(er_vocab[pair]))
             targets[idx, er_vocab[pair]] = 1.
         targets = torch.FloatTensor(targets)
         if self.cuda:
             targets = targets.cuda()
         return np.array(batch), targets
+
+    def get_batch_train(self, er_vocab, er_vocab_pairs, idx):
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
+        batch_ = list((t[0],t[1]) for t in batch)
+        #print('batch_ = '+str(batch_))
+        #print('er_vocab='+str(er_vocab))
+        negs = np.random.randint(len(d.entities), size=len(batch))
+        for idx, pair in enumerate(batch_):
+            while negs[idx] in er_vocab[pair]:
+                negs[idx] = random.randint(0, len(d.entities)-1)
+        negs = torch.LongTensor(negs)
+        if self.cuda:
+            negs = negs.cuda()
+        return np.array(batch), negs
 
     def evaluate(self, model, data):
         hits = []
@@ -60,22 +77,19 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
+        es_idx = torch.LongTensor([i for i,_ in enumerate(d.entities)])
+        # print("es_idx size=" + str(es_idx.size()))
+        if self.cuda:
+            es_idx = es_idx.cuda()
+
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
-            data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
+            data_batch, targets = self.get_batch_eval(er_vocab, test_er_vocab_pairs, i)
             e1_idx = torch.LongTensor(data_batch[:, 0])
             r_idx = torch.LongTensor(data_batch[:, 1])
-            #e2_idx = torch.tensor(data_batch[:, 2])
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
-                #e2_idx = e2_idx.cuda()
-            predictions = model.forward(e1_idx, r_idx)
-            #
-            # for j in range(data_batch.shape[0]):
-            #     filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
-            #     target_value = predictions[j, e2_idx[j]].item()
-            #     predictions[j, filt] = 0.0
-            #     predictions[j, e2_idx[j]] = target_value
+            predictions = model.evaluate(e1_idx, r_idx, es_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
@@ -91,7 +105,8 @@ class Experiment:
                         hits[hits_level].append(1.0)
                     else:
                         hits[hits_level].append(0.0)
-            loss = model.loss(predictions, targets)
+            BCEloss = torch.nn.BCELoss()
+            loss = BCEloss(predictions, targets)
             losses.append(loss.item())
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
@@ -109,7 +124,9 @@ class Experiment:
         train_data_idxs = self.get_data_idxs(d.train_data)
         print("Number of training data points: %d" % len(train_data_idxs))
 
-        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
+        print('d.entities='+str(len(d.entities)))
+
+        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, self.margin, **self.kwargs)
         if self.cuda:
             model.cuda()
         model.init()
@@ -118,31 +135,31 @@ class Experiment:
             scheduler = ExponentialLR(opt, self.decay_rate)
 
         er_vocab = self.get_er_vocab(train_data_idxs)
-        er_vocab_pairs = list(er_vocab.keys())
+        #er_vocab_pairs = list(er_vocab.keys())
 
         print("Starting training...")
         for it in range(1, self.num_iterations + 1):
-            hits = []
-            ranks = []
-            for i in range(10):
-                hits.append([])
             start_train = time.time()
             model.train()
             losses = []
-            np.random.shuffle(er_vocab_pairs)
-            for j in range(0, len(er_vocab_pairs), self.batch_size):
-                data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
+            np.random.shuffle(train_data_idxs)
+            for j in range(0, len(train_data_idxs), self.batch_size):
+                data_batch, e2n_idx= self.get_batch_train(er_vocab, train_data_idxs, j)
                 opt.zero_grad()
                 e1_idx = torch.LongTensor(data_batch[:, 0])
                 r_idx = torch.LongTensor(data_batch[:, 1])
+                e2p_idx = torch.LongTensor(data_batch[:, 2])
+                targets = torch.ones(self.batch_size)
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
-                predictions = model.forward(e1_idx, r_idx)
+                    e2p_idx = e2p_idx.cuda()
+                    e2n_idx = e2n_idx.cuda()
+                    targets = targets.cuda()
+                pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
+                #sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
-                if self.label_smoothing:
-                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-                loss = model.loss(predictions, targets)
+                loss = model.loss(pred_p, pred_n, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())

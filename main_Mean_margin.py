@@ -3,9 +3,10 @@ import time
 from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
-from models.Mean import MeanTuckER
+from models.Mean_margin import MeanTuckER
 import argparse
 import torch.tensor
+import random
 
 
 class Experiment:
@@ -73,15 +74,30 @@ class Experiment:
             er_vocab[(triple[0], triple[1])].append(triple[2])
         return er_vocab
 
-    def get_batch(self, er_vocab, er_vocab_pairs, idx):
+    def get_batch_eval(self, er_vocab, er_vocab_pairs, idx):
         batch = er_vocab_pairs[idx:idx + self.batch_size]
         targets = np.zeros((len(batch), len(d.entities)))
         for idx, pair in enumerate(batch):
+            # print('er_vocab[pair]='+str(er_vocab[pair]))
             targets[idx, er_vocab[pair]] = 1.
         targets = torch.FloatTensor(targets)
         if self.cuda:
             targets = targets.cuda()
         return np.array(batch), targets
+
+    def get_batch_train(self, er_vocab, er_vocab_pairs, idx):
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
+        batch_ = list((t[0], t[1]) for t in batch)
+        # print('batch_ = '+str(batch_))
+        # print('er_vocab='+str(er_vocab))
+        negs = np.random.randint(len(d.entities), size=len(batch))
+        for idx, pair in enumerate(batch_):
+            while negs[idx] in er_vocab[pair]:
+                negs[idx] = random.randint(0, len(d.entities) - 1)
+        negs = torch.LongTensor(negs)
+        if self.cuda:
+            negs = negs.cuda()
+        return np.array(batch), negs
 
     def evaluate(self, model, data):
         hits = []
@@ -99,7 +115,7 @@ class Experiment:
 
 
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
-            data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
+            data_batch, targets = self.get_batch_eval(er_vocab, test_er_vocab_pairs, i)
 
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
             r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
@@ -107,7 +123,7 @@ class Experiment:
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
-                #e2_idx = e2_idx.cuda()
+
             predictions = model.forward(e1_idx, r_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
@@ -166,7 +182,7 @@ class Experiment:
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
         self.Rtextdata = np.array(d.Rtextdata)
-        # self.textdata = np.array(d.Etextdata + d.Rtextdata)
+        #self.textdata = np.array(d.Etextdata + d.Rtextdata)
         #self.check_textdata()
         print("text data ready")
         es_idx = torch.LongTensor(self.Etextdata)
@@ -198,13 +214,7 @@ class Experiment:
             model.train()
             losses = []
             np.random.shuffle(er_vocab_pairs)
-            # print(er_vocab_pairs[:])
-            es_idx = torch.LongTensor(self.Etextdata)
-            #print("es_idx size=" + str(es_idx.size()))
-            if self.cuda:
-                es_idx = es_idx.cuda()
-            # print(es_idx.size())
-            #model.cal_es(es_idx)
+
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
@@ -228,19 +238,6 @@ class Experiment:
                 sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
                 #print("sort_values="+str(sort_values))
 
-                sort_idxs = sort_idxs.cpu().numpy()
-                targets_ = targets.cpu().numpy()
-                for k in range(data_batch.shape[0]):
-                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0]))[0][0]
-                    ranks.append(rank + 1)
-
-
-                    for hits_level in range(10):
-                        if rank <= hits_level:
-                            hits[hits_level].append(1.0)
-                        else:
-                            hits[hits_level].append(0.0)
-
                 if self.label_smoothing:
                     targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
 
@@ -255,18 +252,16 @@ class Experiment:
                 scheduler.step()
             print(it)
             print(time.time() - start_train)
-            print("Train:")
-            print('Hits @10: {0}'.format(np.mean(hits[9])))
-            print('Hits @3: {0}'.format(np.mean(hits[2])))
-            print('Hits @1: {0}'.format(np.mean(hits[0])))
-            print('Mean rank: {0}'.format(np.mean(ranks)))
-            print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
             print("loss="+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
                 if not it % 2:
+                    print("Train:")
+                    start_test = time.time()
+                    self.evaluate(model, d.train_data)
+                    print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
