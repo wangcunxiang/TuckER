@@ -4,6 +4,7 @@ from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
 from models.LSTM_test import LSTMTuckER
+from config.config import config
 import argparse
 import torch.tensor
 import random
@@ -182,11 +183,12 @@ class Experiment:
         #self.textdata = np.array(d.Etextdata + d.Rtextdata)
         #self.check_textdata()
         print("text data ready")
+        cfg = config(dict(read_json(args.config)))
         es_idx = torch.LongTensor(self.Etextdata)
         if self.cuda:
             es_idx = es_idx.cuda()
-        model = MeanTuckER(d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim, \
-                           margin=self.margin, Evocab=len(self.Evocab),
+        model = LSTMTuckER(d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim, \
+                           margin=self.margin, cfg=cfg, Evocab=len(self.Evocab),
                            Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)
         print("model ready")
 

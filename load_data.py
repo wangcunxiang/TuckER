@@ -68,7 +68,8 @@ class DataText():
     #             textdata.append(j)
     #     return textdata
 
-    def get_index(self, data, maxlength):#return [sentences, ids],designed for  [sentences, words]
+    def get_index(self, data, maxlength):#return [sentences, ids],designed for  [sentences, words];
+    # it is padding operation
         textdata = []
         for i in data:
             while(len(i)<maxlength):
