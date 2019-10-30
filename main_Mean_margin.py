@@ -14,7 +14,7 @@ class Experiment:
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0., maxlength=25, vocab_size=40452):
+                 label_smoothing=0., maxlength=25, vocab_size=40452, margin=1.):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -30,6 +30,7 @@ class Experiment:
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
+        self.margin = margin
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
 
@@ -88,15 +89,13 @@ class Experiment:
     def get_batch_train(self, er_vocab, er_vocab_pairs, idx):
         batch = er_vocab_pairs[idx:idx + self.batch_size]
         batch_ = list((t[0], t[1]) for t in batch)
-        # print('batch_ = '+str(batch_))
-        # print('er_vocab='+str(er_vocab))
         negs = np.random.randint(len(d.entities), size=len(batch))
         for idx, pair in enumerate(batch_):
             while negs[idx] in er_vocab[pair]:
                 negs[idx] = random.randint(0, len(d.entities) - 1)
         negs = torch.LongTensor(negs)
-        if self.cuda:
-            negs = negs.cuda()
+        # if self.cuda:
+        #     negs = negs.cuda()
         return np.array(batch), negs
 
     def evaluate(self, model, data):
@@ -113,7 +112,6 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
-
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch_eval(er_vocab, test_er_vocab_pairs, i)
 
@@ -124,7 +122,7 @@ class Experiment:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
 
-            predictions = model.forward(e1_idx, r_idx)
+            predictions = model.evaluate(e1_idx, r_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
@@ -140,9 +138,8 @@ class Experiment:
                     else:
                         hits[hits_level].append(0.0)
 
-            if self.label_smoothing:
-                targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-            loss = model.loss(predictions, targets)
+            BCEloss = torch.nn.BCELoss()
+            loss = BCEloss(predictions, targets)
             losses.append(loss.item())
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
@@ -188,60 +185,55 @@ class Experiment:
         es_idx = torch.LongTensor(self.Etextdata)
         if self.cuda:
             es_idx = es_idx.cuda()
-        model = MeanTuckER(d, es_idx, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
-                           Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
+        model = MeanTuckER(d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim, \
+                           margin=self.margin, Evocab=len(self.Evocab),
+                           Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)
         print("model ready")
 
         ########
         if self.cuda:
             model.cuda()
-        # model.init()
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
 
         er_vocab = self.get_er_vocab(train_data_idxs)  # dict (e1,r)->e2
-        er_vocab_pairs = list(er_vocab.keys())  # list [...,(e1,r),...]
+        #er_vocab_pairs = list(er_vocab.keys())  # list [...,(e1,r),...]
 
         print("Starting training...")
 
         for it in range(1, self.num_iterations + 1):
-            hits = []
-            ranks = []
-            for i in range(10):
-                hits.append([])
             start_train = time.time()
             model.train()
             losses = []
-            np.random.shuffle(er_vocab_pairs)
+            np.random.shuffle(train_data_idxs)
 
-            for j in range(0, len(er_vocab_pairs), self.batch_size):
+            for j in range(0, len(train_data_idxs), self.batch_size):
 
-                data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
+                data_batch, e2n_idx = self.get_batch_train(er_vocab, train_data_idxs, j)
                 # target: tensor [batch, len(d.entities), 0./1.]
                 opt.zero_grad()
 
                 e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
                 r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+                e2p_idx = torch.LongTensor(self.Etextdata[data_batch[:, 2]])
+                e2n_idx = torch.LongTensor(self.Etextdata[e2n_idx])
+                targets = torch.ones(e1_idx.size(0))
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
-                    #e2_idx = e2_idx.cuda()\
+                    e2p_idx = e2p_idx.cuda()
+                    e2n_idx = e2n_idx.cuda()
+                    targets = targets.cuda()
                 if e1_idx.size(0) == 1:
                     print(j)
                     continue
-                predictions = model.forward(e1_idx, r_idx)
+                pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
                 #print("predictions="+str(predictions))
 
-                sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
-                #print("sort_values="+str(sort_values))
-
-                if self.label_smoothing:
-                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-
-                loss = model.loss(predictions, targets)
+                loss = model.loss(pred_p, pred_n, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())
@@ -300,6 +292,8 @@ if __name__ == '__main__':
                         help="Batch size.")
     parser.add_argument("--vocab_size", type=int, default=40542, nargs="?",
                         help="Batch size.")
+    parser.add_argument("--margin", type=float, default=1., nargs="?",
+                        help="Margin.")
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset
@@ -314,7 +308,7 @@ if __name__ == '__main__':
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
                             input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
                             hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing,
-                            maxlength=args.max_length
+                            maxlength=args.max_length, margin=args.margin
                             )
     experiment.train_and_eval()
 

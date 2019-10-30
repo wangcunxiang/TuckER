@@ -73,17 +73,18 @@ class TuckER(torch.nn.Module):
 class LSTMTuckER(nn.Module):
     """Text Encoding Model LSTM"""
 
-    def __init__(self, d, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13,  **kwargs):
+    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, margin, cfg, Evocab=40990, Rvocab=13,  **kwargs):
         super(LSTMTuckER, self).__init__()
         self.Eembed = nn.Embedding(Evocab, cfg.hSize, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, cfg.hSize, padding_idx=0)
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
-        self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=1, batch_first=True, dropout=0., bidirectional=True)
+        self.es_idx = es_idx
+        self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         #batch_first: If ``True``, then the input and output tensors are provided as (batch, seq, feature). Default: ``False``
-        self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=1, batch_first=True, dropout=0., bidirectional=True)
-        self.loss = torch.nn.BCELoss()
+        self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
+        self.loss = torch.nn.MarginRankingLoss(margin=margin)
 
-    def evaluate(self, e, r, es):
+    def evaluate(self, e, r):
         e = self.Eembed(e)
         e_encoded, tmp = self.elstm(e)
         e_encoded = e_encoded[:, -1, :]  # use last word's output
@@ -92,7 +93,7 @@ class LSTMTuckER(nn.Module):
         r_encoded, tmp = self.rlstm(r)
         r_encoded = r_encoded[:, -1, :]  # use last word's output
 
-        es = self.Eembed(es)
+        es = self.Eembed(self.es_idx)
         es_encoded, tmp = self.elstm(es)
         es_encoded = es_encoded[:, -1, :]  # use last word's output
         # print('e_encoded size:'+str(e_encoded.size()))
@@ -122,8 +123,4 @@ class LSTMTuckER(nn.Module):
 
         return self.tucker(e_encoded, r_encoded, e2p_encoded, e2n_encoded)
         #return self.tucker(e, r)
-
-
-
-
 

@@ -179,7 +179,7 @@ class Experiment:
         ########
         if self.cuda:
             model.cuda()
-        # model.init()
+        #model.init()
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
@@ -199,12 +199,7 @@ class Experiment:
             losses = []
             np.random.shuffle(er_vocab_pairs)
             # print(er_vocab_pairs[:])
-            es_idx = torch.LongTensor(self.Etextdata)
-            #print("es_idx size=" + str(es_idx.size()))
-            if self.cuda:
-                es_idx = es_idx.cuda()
-            # print(es_idx.size())
-            #model.cal_es(es_idx)
+
             for j in range(0, len(er_vocab_pairs), self.batch_size):
 
                 data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
@@ -255,18 +250,16 @@ class Experiment:
                 scheduler.step()
             print(it)
             print(time.time() - start_train)
-            print("Train:")
-            print('Hits @10: {0}'.format(np.mean(hits[9])))
-            print('Hits @3: {0}'.format(np.mean(hits[2])))
-            print('Hits @1: {0}'.format(np.mean(hits[0])))
-            print('Mean rank: {0}'.format(np.mean(ranks)))
-            print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
             print("loss="+str(np.mean(losses)))
             model.eval()
             with torch.no_grad():
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
                 if not it % 2:
+                    print("Train:")
+                    start_test = time.time()
+                    self.evaluate(model, d.train_data)
+                    print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)

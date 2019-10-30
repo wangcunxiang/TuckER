@@ -78,7 +78,6 @@ class Experiment:
         print("Number of data points: %d" % len(test_data_idxs))
 
         es_idx = torch.LongTensor([i for i,_ in enumerate(d.entities)])
-        # print("es_idx size=" + str(es_idx.size()))
         if self.cuda:
             es_idx = es_idx.cuda()
 
@@ -149,7 +148,7 @@ class Experiment:
                 e1_idx = torch.LongTensor(data_batch[:, 0])
                 r_idx = torch.LongTensor(data_batch[:, 1])
                 e2p_idx = torch.LongTensor(data_batch[:, 2])
-                targets = torch.ones(self.batch_size)
+                targets = torch.ones(e1_idx.size(0))
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
@@ -159,6 +158,8 @@ class Experiment:
                 pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
                 #sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
+                # print('pred_p size='+str(pred_p.size()))
+                # print('pred_n size=' + str(pred_n.size()))
                 loss = model.loss(pred_p, pred_n, targets)
                 loss.backward()
                 opt.step()
