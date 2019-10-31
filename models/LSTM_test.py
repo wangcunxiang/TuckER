@@ -94,8 +94,17 @@ class LSTMTuckER(nn.Module):
         r_encoded = r_encoded[:, -1, :]  # use last word's output
 
         es = self.Eembed(self.es_idx)
-        es_encoded, tmp = self.elstm(es)
-        es_encoded = es_encoded[:, -1, :]  # use last word's output
+        es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
+        # es_encoded, tmp = self.elstm(es)
+        es_encoded = es_encoded[:, -1, :]
+        length = es.size(0)
+        for i in range(1, length, int(length / 10)):
+            es_tmp = es[i:min(i + int(length / 10), length)]
+            # print("i="+str(i))
+            es_tmp, tmp = self.elstm(es_tmp)
+            es_tmp = es_tmp[:, -1, :]
+
+            es_encoded = torch.cat((es_encoded, es_tmp), 0)
         # print('e_encoded size:'+str(e_encoded.size()))
 
         return self.tucker.evaluate(e_encoded, r_encoded, es_encoded)
