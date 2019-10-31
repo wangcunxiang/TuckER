@@ -143,7 +143,7 @@ class Experiment:
                 print(i)
 
     def train_and_eval(self):
-        print("Training the TuckER model...")
+        print("Training the Mean TuckER model on {}...".format(args.dataset))
         self.entity_idxs = {d.entities[i]: i for i in range(len(d.entities))}
         self.relation_idxs = {d.relations[i]: i for i in range(len(d.relations))}
 
