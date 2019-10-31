@@ -79,20 +79,13 @@ class LSTMTuckER(nn.Module):
         self.Rembed = nn.Embedding(Rvocab, cfg.hSize, padding_idx=0)
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.es_idx = es_idx
+        self.es_embed = None
         self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         #batch_first: If ``True``, then the input and output tensors are provided as (batch, seq, feature). Default: ``False``
         self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         self.loss = torch.nn.MarginRankingLoss(margin=margin)
 
-    def evaluate(self, e, r):
-        e = self.Eembed(e)
-        e_encoded, tmp = self.elstm(e)
-        e_encoded = e_encoded[:, -1, :]  # use last word's output
-
-        r = self.Rembed(r)
-        r_encoded, tmp = self.rlstm(r)
-        r_encoded = r_encoded[:, -1, :]  # use last word's output
-
+    def update_es_emb(self):
         es = self.Eembed(self.es_idx)
         es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
         # es_encoded, tmp = self.elstm(es)
@@ -105,9 +98,18 @@ class LSTMTuckER(nn.Module):
             es_tmp = es_tmp[:, -1, :]
 
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
-        # print('e_encoded size:'+str(e_encoded.size()))
+        self.es_embed = es_encoded
 
-        return self.tucker.evaluate(e_encoded, r_encoded, es_encoded)
+    def evaluate(self, e, r):
+        e = self.Eembed(e)
+        e_encoded, tmp = self.elstm(e)
+        e_encoded = e_encoded[:, -1, :]  # use last word's output
+
+        r = self.Rembed(r)
+        r_encoded, tmp = self.rlstm(r)
+        r_encoded = r_encoded[:, -1, :]  # use last word's output
+
+        return self.tucker.evaluate(e_encoded, r_encoded, self.es_embed)
 
     def forward(self, e, r, e2p, e2n):
 

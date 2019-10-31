@@ -113,6 +113,7 @@ class Experiment:
 
         print("Number of data points: %d" % len(test_data_idxs))
 
+        model.update_es_emb()
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch_eval(er_vocab, test_er_vocab_pairs, i)
 
