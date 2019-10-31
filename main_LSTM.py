@@ -218,6 +218,9 @@ class Experiment:
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
+                if e1_idx.size(0) == 1:
+                    print(j)
+                    continue
                 predictions = model.forward(e1_idx, r_idx)
                 #print('predictions size:'+str(predictions.size()))
                 #print('targets size:' + str(targets.size()))

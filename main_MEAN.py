@@ -108,6 +108,9 @@ class Experiment:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
                 #e2_idx = e2_idx.cuda()
+            if e1_idx.size(0) == 1:
+                print(j)
+                continue
             predictions = model.forward(e1_idx, r_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
