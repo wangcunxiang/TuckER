@@ -254,10 +254,11 @@ class Experiment:
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
                 if not it % 2:
-                    # print("Train:")
-                    # start_test = time.time()
-                    # self.evaluate(model, d.train_data)
-                    # print(time.time() - start_test)
+                    if it % 10 == 0:
+                        print("Train:")
+                        start_test = time.time()
+                        self.evaluate(model, d.train_data)
+                        print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
