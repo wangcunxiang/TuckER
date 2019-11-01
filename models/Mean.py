@@ -12,7 +12,7 @@ class TuckER(torch.nn.Module):
         # self.E = torch.nn.Embedding(len(d.entities), d1)  # , padding_idx=0)
         # self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
-                                                 dtype=torch.float, requires_grad=True))#.cuda()
+                                                 dtype=torch.float, requires_grad=True)).cuda()
 
         self.input_dropout = torch.nn.Dropout(kwargs["input_dropout"])
         self.hidden_dropout1 = torch.nn.Dropout(kwargs["hidden_dropout1"])
