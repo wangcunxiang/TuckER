@@ -138,8 +138,7 @@ class Experiment:
                     else:
                         hits[hits_level].append(0.0)
 
-            BCEloss = torch.nn.BCELoss()
-            loss = BCEloss(predictions, targets)
+            loss = model.loss(predictions, targets)
             losses.append(loss.item())
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))

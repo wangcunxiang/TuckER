@@ -140,7 +140,7 @@ class Experiment:
                     else:
                         hits[hits_level].append(0.0)
 
-            loss = self.loss(predictions, targets)
+            loss = model.loss(predictions, targets)
             losses.append(loss.item())
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
