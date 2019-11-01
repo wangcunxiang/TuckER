@@ -164,10 +164,14 @@ class Experiment:
         relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
         print("entities_ids len=%d" % len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
-        ent_lens = [len(i) for i in entities_ids]
-        rel_lens = [len(i) for i in relation_ids]
-        print('entity lens = '+str(ent_lens))
-        print('relation lens = ' + str(rel_lens))
+        #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
+        #print('YYY = ' + str([len(i) for i in entities_ids].index(0)))
+        ent_lens = [0, ]+[len(i) for i in entities_ids]
+        rel_lens = [0, ]+[len(i) for i in relation_ids]
+        ent_lens = torch.FloatTensor(ent_lens)
+        rel_lens = torch.FloatTensor(rel_lens)
+        # print('entity lens = '+str(ent_lens))
+        # print('relation lens = ' + str(rel_lens))
         print("read vocab ready.")
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
@@ -178,6 +182,8 @@ class Experiment:
         print("text data ready")
         es_idx = torch.LongTensor(self.Etextdata)
         if self.cuda:
+            ent_lens = ent_lens.cuda()
+            rel_lens = rel_lens.cuda()
             es_idx = es_idx.cuda()
         model = MeanTuckER(d, es_idx, ent_lens, rel_lens, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
                            Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
@@ -215,16 +221,21 @@ class Experiment:
 
                 e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
                 r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+
+                # e1_len = model.ent_lens[data_batch[:, 0]]
+                # r_len  = model.rel_lens[data_batch[:, 1]]
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
+                    # e1_len = e1_len.cuda()
+                    # r_len = r_len.cuda()
                     #e2_idx = e2_idx.cuda()\
                 if e1_idx.size(0) == 1:
                     print(j)
                     continue
-                predictions = model.forward(e1_idx, r_idx)
+                predictions = model.forward(e1_idx, r_idx)#, e1_len, r_len)
                 #print("predictions="+str(predictions))
 
                 sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
@@ -292,7 +303,7 @@ if __name__ == '__main__':
                         help="Entity embedding dimensionality.")
     parser.add_argument("--rdim", type=int, default=200, nargs="?",
                         help="Relation embedding dimensionality.")
-    parser.add_argument("--cuda", type=bool, default=True, nargs="?",
+    parser.add_argument("--cuda", type=bool, default=False, nargs="?",
                         help="Whether to use cuda (GPU) or not (CPU).")
     parser.add_argument("--input_dropout", type=float, default=0.3, nargs="?",
                         help="Input layer dropout.")

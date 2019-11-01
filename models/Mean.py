@@ -9,15 +9,15 @@ class TuckER(torch.nn.Module):
     def __init__(self, d, d1, d2, **kwargs):
         super(TuckER, self).__init__()
 
-        self.E = torch.nn.Embedding(len(d.entities), d1)  # , padding_idx=0)
+        # self.E = torch.nn.Embedding(len(d.entities), d1)  # , padding_idx=0)
         # self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
-                                                 dtype=torch.float, device="cuda", requires_grad=True))
+                                                 dtype=torch.float, requires_grad=True))#.cuda()
 
         self.input_dropout = torch.nn.Dropout(kwargs["input_dropout"])
         self.hidden_dropout1 = torch.nn.Dropout(kwargs["hidden_dropout1"])
         self.hidden_dropout2 = torch.nn.Dropout(kwargs["hidden_dropout2"])
-        self.loss = torch.nn.BCELoss()
+        #self.loss = torch.nn.BCELoss()
 
         self.bn0 = torch.nn.BatchNorm1d(d1)
         self.bn1 = torch.nn.BatchNorm1d(d1)
@@ -61,30 +61,28 @@ class MeanTuckER(nn.Module):
         self.Eembed = nn.Embedding(Evocab, ent_vec_dim, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, rel_vec_dim, padding_idx=0)
         self.es_idx = es_idx
-        self.ent_lens = torch.LongTensor(np.array(ent_lens))
-        self.rel_lens = torch.LongTensor(np.array(rel_lens))
+        self.Evocab = Evocab
+        self.ent_lens = ent_lens
+        self.rel_lens = rel_lens
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.loss = torch.nn.BCELoss()
 
     def cal_es(self):
 
         es = self.Eembed(self.es_idx)
-        lens = self.ent_lens(self.es_idx)
-        es_encoded = self.mean_(es, lens)
+        es_encoded = self.mean_(es)
 
         return es_encoded
 
 
-    def mean_(self, tensor, lens):
+    def mean_(self, tensor):
         #print('tensor[:, :, 0] != 0: '+str(tensor[:, :, 0] != 0))
-        #lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
+        lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
+        assert torch.nonzero(lens).size(0) == lens.size(0)
         lens = lens.unsqueeze(1)
-        #print('lens='+str(lens))
         tensor_  = torch.sum(tensor, dim=1)
-        # print('tensor_ size =' + str(tensor_.size()))
-        # print('tensor_ =' + str(tensor_))
+        #print('tensor_ =' + str(tensor_))
         tensor__ = torch.div(tensor_, lens)
-        #print('tensor__=' + str(tensor__))
         return tensor__
 
     def forward(self, e, r):
@@ -102,13 +100,12 @@ class MeanTuckER(nn.Module):
         #         # r = self.Rembed(r)
         #         # r_encoded, tmp = self.rlstm(r)
         #         # r_encoded = r_encoded[:,-1,:]#use last word's output
-        e_lens = self.ent_lens(e)
-        r_lens = self.rel_lens(r)
+        #print('e_lens = '+str(e_lens))
         e = self.Eembed(e)
         r = self.Rembed(r)
 
-        e_encoded = self.mean_(e, e_lens)
-        r_encoded = self.mean_(r, r_lens)
+        e_encoded = self.mean_(e)
+        r_encoded = self.mean_(r)
 
         #print('e_encoded.szie:' + str(e_encoded.size()))
 
