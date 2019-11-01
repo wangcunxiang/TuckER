@@ -69,7 +69,7 @@ class MeanTuckER(nn.Module):
         self.Rembed = nn.Embedding(Rvocab, rel_vec_dim, padding_idx=0)
         self.es_idx = es_idx
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
-        self.loss = torch.nn.MarginRankingLoss(margin=margin)
+        self.loss = torch.nn.BCELoss()
 
 
     def evaluate(self, e1, r):

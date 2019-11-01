@@ -164,6 +164,10 @@ class Experiment:
         relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
         print("entities_ids len=%d" % len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
+        ent_lens = [len(i) for i in entities_ids]
+        rel_lens = [len(i) for i in relation_ids]
+        print('entity lens = '+str(ent_lens))
+        print('relation lens = ' + str(rel_lens))
         print("read vocab ready.")
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
@@ -175,7 +179,7 @@ class Experiment:
         es_idx = torch.LongTensor(self.Etextdata)
         if self.cuda:
             es_idx = es_idx.cuda()
-        model = MeanTuckER(d, es_idx, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
+        model = MeanTuckER(d, es_idx, ent_lens, rel_lens, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
                            Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
         print("model ready")
 

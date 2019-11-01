@@ -218,7 +218,7 @@ class Experiment:
                 r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
                 e2p_idx = torch.LongTensor(self.Etextdata[data_batch[:, 2]])
                 e2n_idx = torch.LongTensor(self.Etextdata[e2n_idx])
-                targets = torch.ones(e1_idx.size(0))
+                targets = torch.cat((torch.ones(e2p_idx.size(0)), torch.zeros(e2n_idx.size(0))),0)
                 #e2_idx = torch.LongTensor(data_batch[:, 2])  # e2 are not used for model forward
 
                 if self.cuda:
@@ -232,8 +232,11 @@ class Experiment:
                     continue
                 pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
                 #print("predictions="+str(predictions))
+                predication = torch.cat((pred_p, pred_n), 0)
 
-                loss = model.loss(pred_p, pred_n, targets)
+                if self.label_smoothing:
+                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / len(d.entities))
+                loss = model.loss(predication, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())

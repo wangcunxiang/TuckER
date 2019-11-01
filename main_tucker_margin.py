@@ -104,8 +104,8 @@ class Experiment:
                         hits[hits_level].append(1.0)
                     else:
                         hits[hits_level].append(0.0)
-            BCEloss = torch.nn.BCELoss()
-            loss = BCEloss(predictions, targets)
+
+            loss = self.loss(predictions, targets)
             losses.append(loss.item())
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
@@ -148,7 +148,7 @@ class Experiment:
                 e1_idx = torch.LongTensor(data_batch[:, 0])
                 r_idx = torch.LongTensor(data_batch[:, 1])
                 e2p_idx = torch.LongTensor(data_batch[:, 2])
-                targets = torch.ones(e1_idx.size(0))
+                targets = torch.cat((torch.ones(e2p_idx.size(0)), torch.zeros(e2n_idx.size(0))),0)
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
@@ -156,11 +156,12 @@ class Experiment:
                     e2n_idx = e2n_idx.cuda()
                     targets = targets.cuda()
                 pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
-                #sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
-                # print('pred_p size='+str(pred_p.size()))
-                # print('pred_n size=' + str(pred_n.size()))
-                loss = model.loss(pred_p, pred_n, targets)
+                predication = torch.cat((pred_p, pred_n),0)
+
+                if self.label_smoothing:
+                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / len(d.entities))
+                loss = model.loss(predication, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())

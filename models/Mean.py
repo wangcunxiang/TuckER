@@ -56,25 +56,28 @@ class TuckER(torch.nn.Module):
 class MeanTuckER(nn.Module):
     """Text Encoding Model Mean"""
 
-    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, Evocab=40990, Rvocab=13, **kwargs):
+    def __init__(self, d, es_idx, ent_lens, rel_lens, ent_vec_dim, rel_vec_dim, Evocab=40990, Rvocab=13, **kwargs):
         super(MeanTuckER, self).__init__()
         self.Eembed = nn.Embedding(Evocab, ent_vec_dim, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, rel_vec_dim, padding_idx=0)
         self.es_idx = es_idx
+        self.ent_lens = torch.LongTensor(np.array(ent_lens))
+        self.rel_lens = torch.LongTensor(np.array(rel_lens))
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, **kwargs)
         self.loss = torch.nn.BCELoss()
 
     def cal_es(self):
 
         es = self.Eembed(self.es_idx)
-        es_encoded = self.mean_(es)
+        lens = self.ent_lens(self.es_idx)
+        es_encoded = self.mean_(es, lens)
 
         return es_encoded
 
 
-    def mean_(self, tensor):
+    def mean_(self, tensor, lens):
         #print('tensor[:, :, 0] != 0: '+str(tensor[:, :, 0] != 0))
-        lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
+        #lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
         lens = lens.unsqueeze(1)
         #print('lens='+str(lens))
         tensor_  = torch.sum(tensor, dim=1)
@@ -99,11 +102,13 @@ class MeanTuckER(nn.Module):
         #         # r = self.Rembed(r)
         #         # r_encoded, tmp = self.rlstm(r)
         #         # r_encoded = r_encoded[:,-1,:]#use last word's output
+        e_lens = self.ent_lens(e)
+        r_lens = self.rel_lens(r)
         e = self.Eembed(e)
         r = self.Rembed(r)
 
-        e_encoded = self.mean_(e)
-        r_encoded = self.mean_(r)
+        e_encoded = self.mean_(e, e_lens)
+        r_encoded = self.mean_(r, r_lens)
 
         #print('e_encoded.szie:' + str(e_encoded.size()))
 

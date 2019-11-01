@@ -73,7 +73,7 @@ class TuckER(torch.nn.Module):
 class LSTMTuckER(nn.Module):
     """Text Encoding Model LSTM"""
 
-    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, margin, cfg, Evocab=40990, Rvocab=13,  **kwargs):
+    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13,  **kwargs):
         super(LSTMTuckER, self).__init__()
         self.Eembed = nn.Embedding(Evocab, cfg.hSize, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, cfg.hSize, padding_idx=0)
@@ -83,7 +83,7 @@ class LSTMTuckER(nn.Module):
         self.elstm = LSTM(cfg.hSize, int(ent_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         #batch_first: If ``True``, then the input and output tensors are provided as (batch, seq, feature). Default: ``False``
         self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
-        self.loss = torch.nn.MarginRankingLoss(margin=margin)
+        self.loss = torch.nn.BCELoss()
 
     def update_es_emb(self):
         es = self.Eembed(self.es_idx)
