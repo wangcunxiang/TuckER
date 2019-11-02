@@ -89,13 +89,13 @@ class LSTMTuckER(nn.Module):
         es = self.Eembed(self.es_idx)
         es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
         # es_encoded, tmp = self.elstm(es)
-        es_encoded = es_encoded[:, -1, :]
+        es_encoded = torch.mean(es_encoded, dim=1)
         length = es.size(0)
         for i in range(1, length, int(length / 10)):
             es_tmp = es[i:min(i + int(length / 10), length)]
             # print("i="+str(i))
             es_tmp, tmp = self.elstm(es_tmp)
-            es_tmp = es_tmp[:, -1, :]
+            es_tmp = torch.mean(es_tmp, dim=1)
 
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
         self.es_embed = es_encoded
@@ -103,11 +103,11 @@ class LSTMTuckER(nn.Module):
     def evaluate(self, e, r):
         e = self.Eembed(e)
         e_encoded, tmp = self.elstm(e)
-        e_encoded = e_encoded[:, -1, :]  # use last word's output
+        e_encoded = torch.mean(e_encoded, dim=1)
 
         r = self.Rembed(r)
         r_encoded, tmp = self.rlstm(r)
-        r_encoded = r_encoded[:, -1, :]  # use last word's output
+        r_encoded = torch.mean(r_encoded, dim=1)
 
         return self.tucker.evaluate(e_encoded, r_encoded, self.es_embed)
 
@@ -119,11 +119,11 @@ class LSTMTuckER(nn.Module):
 
         e2p = self.Eembed(e2p)
         e2p_encoded, tmp = self.elstm(e2p)
-        e2p_encoded = e2p_encoded[:, -1, :]  # use last word's output
+        e2p_encoded = torch.mean(e2p_encoded, dim=1)
 
         e2n = self.Eembed(e2n)
         e2n_encoded, tmp = self.elstm(e2n)
-        e2n_encoded = e2n_encoded[:, -1, :]  # use last word's output
+        e2n_encoded = torch.mean(e2n_encoded, dim=1)
 
 
         r = self.Rembed(r)
