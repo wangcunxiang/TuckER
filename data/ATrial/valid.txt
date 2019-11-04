@@ -1,0 +1,2000 @@
+personx plays a ___ in the war	oreact	none
+personx plays a ___ in the war	xintent	to participate
+personx plays a ___ in the war	xreact	tired
+personx plays a ___ in the war	oreact	sad
+personx plays a ___ in the war	xintent	to help out
+personx plays a ___ in the war	xreact	tired
+personx plays a ___ in the war	oeffect	none
+personx plays a ___ in the war	xeffect	gets hurt
+personx plays a ___ in the war	xeffect	has surgery
+personx plays a ___ in the war	oeffect	none
+personx plays a ___ in the war	xeffect	personx is injured from war
+personx plays a ___ in the war	xeffect	personx is considered a hero
+personx plays a ___ in the war	oeffect	helped
+personx plays a ___ in the war	oeffect	won
+personx plays a ___ in the war	xeffect	he 's honorable
+personx plays a ___ in the war	xeffect	selfless
+personx plays a ___ in the war	owant	none
+personx plays a ___ in the war	xneed	to fight
+personx plays a ___ in the war	xneed	to be in battle
+personx plays a ___ in the war	xwant	to win
+personx plays a ___ in the war	xwant	to shoot
+personx plays a ___ in the war	owant	throw a parade
+personx plays a ___ in the war	owant	give orders
+personx plays a ___ in the war	xneed	enlist in army
+personx plays a ___ in the war	xneed	go through training
+personx plays a ___ in the war	xwant	return home
+personx plays a ___ in the war	xwant	collect benefits
+personx plays a ___ in the war	owant	to end the war
+personx plays a ___ in the war	owant	to live peacefully
+personx plays a ___ in the war	xneed	for  their to be a war
+personx plays a ___ in the war	xneed	for of them to play a part in it
+personx plays a ___ in the war	xwant	to do their best
+personx plays a ___ in the war	xwant	for the war to be over
+personx plays a ___ in the war	xattr	combative
+personx plays a ___ in the war	xattr	angry
+personx plays a ___ in the war	xattr	hardened
+personx plays a ___ in the war	xattr	tough
+personx plays a ___ in the war	xattr	authoritative
+personx plays a ___ in the war	xattr	commanding
+personx plays a ___ in the economy	oreact	none
+personx plays a ___ in the economy	xintent	to be a productive citizen
+personx plays a ___ in the economy	xreact	accomplished
+personx plays a ___ in the economy	xreact	like belonging to a bigger picture
+personx plays a ___ in the economy	oreact	none
+personx plays a ___ in the economy	xintent	to help
+personx plays a ___ in the economy	xreact	good
+personx plays a ___ in the economy	oeffect	none
+personx plays a ___ in the economy	xeffect	loses job
+personx plays a ___ in the economy	xeffect	makes money
+personx plays a ___ in the economy	oeffect	none
+personx plays a ___ in the economy	xeffect	gets a job
+personx plays a ___ in the economy	xeffect	learns about stocks and bonds
+personx plays a ___ in the economy	oeffect	none
+personx plays a ___ in the economy	xeffect	buys
+personx plays a ___ in the economy	xeffect	sells
+personx plays a ___ in the economy	owant	to give thanks
+personx plays a ___ in the economy	owant	to rebel against personx
+personx plays a ___ in the economy	xneed	to gather information
+personx plays a ___ in the economy	xneed	to get in a position of power
+personx plays a ___ in the economy	xwant	to carry out duties
+personx plays a ___ in the economy	xwant	to continue boosting the economy
+personx plays a ___ in the economy	owant	none
+personx plays a ___ in the economy	xneed	to get an economics education
+personx plays a ___ in the economy	xneed	to get an influencial job
+personx plays a ___ in the economy	xwant	appear on cable news shows for money
+personx plays a ___ in the economy	xwant	to take a high paying job as a consultant
+personx plays a ___ in the economy	owant	to sell him things
+personx plays a ___ in the economy	owant	to buy things they need
+personx plays a ___ in the economy	xneed	to of gotten a job
+personx plays a ___ in the economy	xneed	to spend some of his money
+personx plays a ___ in the economy	xwant	to earn more finances
+personx plays a ___ in the economy	xwant	to save some of it
+personx plays a ___ in the economy	xattr	powerful
+personx plays a ___ in the economy	xattr	dominant
+personx plays a ___ in the economy	xattr	responsible
+personx plays a ___ in the economy	xattr	participating
+personx plays a ___ in the economy	xattr	secure
+personx plays a ___ in the economy	xattr	talented
+personx focuses ___ on issues	oreact	none
+personx focuses ___ on issues	xintent	to show appreciation
+personx focuses ___ on issues	xreact	satisfied
+personx focuses ___ on issues	oeffect	none
+personx focuses ___ on issues	xeffect	wins the debate
+personx focuses ___ on issues	xeffect	loses the debate
+personx focuses ___ on issues	owant	none
+personx focuses ___ on issues	xneed	none
+personx focuses ___ on issues	xwant	to solve the issue
+personx focuses ___ on issues	xwant	to help others
+personx focuses ___ on issues	owant	to support personx
+personx focuses ___ on issues	owant	to oppose personx
+personx focuses ___ on issues	xneed	to gather information
+personx focuses ___ on issues	xneed	to make a decision
+personx focuses ___ on issues	xwant	to carry out decisions
+personx focuses ___ on issues	xwant	to gather support
+personx focuses ___ on issues	xattr	thoughtful
+personx focuses ___ on issues	xattr	analytical
+personx focuses ___ on issues	xattr	observant
+personx focuses ___ on issues	xattr	watchful
+personx focuses ___ on issues	xattr	attentive
+personx focuses ___ on issues	xattr	motivated
+personx focuses ___ on issues	xattr	disciplined
+personx hardens pharaoh  's ___	oreact	scared
+personx hardens pharaoh  's ___	oreact	upset
+personx hardens pharaoh  's ___	oreact	confused
+personx hardens pharaoh  's ___	xintent	events to play out a certain way
+personx hardens pharaoh  's ___	xreact	wise
+personx hardens pharaoh  's ___	xreact	powerful
+personx hardens pharaoh  's ___	oeffect	the pharaoh screams in extraordinary pain
+personx hardens pharaoh  's ___	oeffect	the pharaoh dies
+personx hardens pharaoh  's ___	xeffect	none
+personx hardens pharaoh  's ___	oeffect	none
+personx hardens pharaoh  's ___	xeffect	gets beaten up
+personx hardens pharaoh  's ___	xeffect	gets executed
+personx hardens pharaoh  's ___	owant	execute personx
+personx hardens pharaoh  's ___	owant	imprison personx
+personx hardens pharaoh  's ___	xneed	meet the leader
+personx hardens pharaoh  's ___	xneed	pledge loyalty
+personx hardens pharaoh  's ___	xwant	flee the kingdom
+personx hardens pharaoh  's ___	xwant	beg for mercy
+personx hardens pharaoh  's ___	owant	personx to let them be
+personx hardens pharaoh  's ___	owant	to destroy the lands of others
+personx hardens pharaoh  's ___	xneed	to have power over pharaoh
+personx hardens pharaoh  's ___	xneed	to tell pharaoh lies
+personx hardens pharaoh  's ___	xwant	to make pharaoh punish people
+personx hardens pharaoh  's ___	xwant	to send pharaoh to hell
+personx hardens pharaoh  's ___	owant	to not let the people go
+personx hardens pharaoh  's ___	owant	to stop person x
+personx hardens pharaoh  's ___	xneed	none
+personx hardens pharaoh  's ___	xwant	to defeat the pharoah
+personx hardens pharaoh  's ___	xwant	to free his people
+personx hardens pharaoh  's ___	xattr	scientific
+personx hardens pharaoh  's ___	xattr	creative
+personx hardens pharaoh  's ___	xattr	powerful
+personx hardens pharaoh  's ___	xattr	in control
+personx proposes another ___	oreact	none
+personx proposes another ___	xintent	another draft the person
+personx proposes another ___	xreact	he like the person
+personx proposes another ___	oreact	collaborative
+personx proposes another ___	oreact	part of a team
+personx proposes another ___	oreact	supported
+personx proposes another ___	xintent	to be helpful
+personx proposes another ___	xintent	to collaborate
+personx proposes another ___	xreact	cooperative
+personx proposes another ___	xreact	helpful
+personx proposes another ___	xreact	successful
+personx proposes another ___	oeffect	none
+personx proposes another ___	xeffect	looks around to see how others respond
+personx proposes another ___	xeffect	hesitates to sit down
+personx proposes another ___	oeffect	none
+personx proposes another ___	xeffect	talks
+personx proposes another ___	xeffect	has a new idea
+personx proposes another ___	oeffect	none
+personx proposes another ___	xeffect	none
+personx proposes another ___	owant	none
+personx proposes another ___	xneed	to not like what is in place
+personx proposes another ___	xneed	to attend a meeting
+personx proposes another ___	xneed	to be asked what they think
+personx proposes another ___	xwant	to make a presentation
+personx proposes another ___	xwant	to do more research about their proposal
+personx proposes another ___	xwant	to gather facts that will help
+personx proposes another ___	owant	to accept the proposal
+personx proposes another ___	owant	to decline the proposal
+personx proposes another ___	xneed	to come up with a proposal
+personx proposes another ___	xneed	to meet with people
+personx proposes another ___	xwant	to come up with other proposals
+personx proposes another ___	xwant	to defend a proposal
+personx proposes another ___	owant	to understand personx 's decision
+personx proposes another ___	owant	to listen to personx
+personx proposes another ___	xneed	to understand the situation
+personx proposes another ___	xneed	to know the correct solution
+personx proposes another ___	xwant	to persuade their audience
+personx proposes another ___	xwant	to explain their decision
+personx proposes another ___	xattr	informed
+personx proposes another ___	xattr	capable
+personx proposes another ___	xattr	curious
+personx proposes another ___	xattr	smart
+personx kills ___ for food	oreact	none
+personx kills ___ for food	xintent	surprised
+personx kills ___ for food	xreact	surprised
+personx kills ___ for food	oreact	none
+personx kills ___ for food	xintent	meet
+personx kills ___ for food	xreact	good
+personx kills ___ for food	oeffect	none
+personx kills ___ for food	xeffect	gets dirty
+personx kills ___ for food	xeffect	prepares food
+personx kills ___ for food	xeffect	eats food
+personx kills ___ for food	oeffect	none
+personx kills ___ for food	xeffect	procures food
+personx kills ___ for food	xeffect	prepares food
+personx kills ___ for food	owant	none
+personx kills ___ for food	xneed	to learn to hunt
+personx kills ___ for food	xneed	to buy a gun
+personx kills ___ for food	xwant	to skin the animals
+personx kills ___ for food	xwant	to cook the animals
+personx kills ___ for food	owant	none
+personx kills ___ for food	xneed	to go hunting
+personx kills ___ for food	xneed	to have a gun
+personx kills ___ for food	xwant	to skin the hunt
+personx kills ___ for food	xwant	to smoke it
+personx kills ___ for food	xattr	cruel
+personx kills ___ for food	xattr	impassionate
+personx kills ___ for food	xattr	cruel
+personx kills ___ for food	xattr	uncivilized
+personx kills ___ for food	xattr	hungry
+personx kills ___ for food	xattr	resourceful
+personx connects the ___ together	oreact	none
+personx connects the ___ together	xintent	to turn on the fan so he connect to end points of copper wire
+personx connects the ___ together	xreact	happy and get tired
+personx connects the ___ together	oreact	none
+personx connects the ___ together	xintent	to form something from the pieces
+personx connects the ___ together	xintent	to complete something
+personx connects the ___ together	xreact	good about themselves
+personx connects the ___ together	xreact	capable
+personx connects the ___ together	xreact	pleased
+personx connects the ___ together	oeffect	none
+personx connects the ___ together	xeffect	none
+personx connects the ___ together	oeffect	none
+personx connects the ___ together	xeffect	can finally see the whole picture
+personx connects the ___ together	xeffect	becomes confident in his/her abilities
+personx connects the ___ together	xeffect	gets a new idea
+personx connects the ___ together	owant	none
+personx connects the ___ together	xneed	to get the tools
+personx connects the ___ together	xneed	to find the way to do it
+personx connects the ___ together	xwant	to experiment it
+personx connects the ___ together	xwant	to see how it works
+personx connects the ___ together	owant	none
+personx connects the ___ together	xneed	to pick up pieces
+personx connects the ___ together	xneed	to connect pieces
+personx connects the ___ together	xwant	to finish another project
+personx connects the ___ together	xwant	to rest
+personx connects the ___ together	xattr	helpful
+personx connects the ___ together	xattr	handy
+personx connects the ___ together	xattr	hardworking
+personx connects the ___ together	xattr	mediating
+personx connects the ___ together	xattr	leading
+personx connects the ___ together	xattr	competent
+personx connects the ___ together	xattr	skilled
+personx connects the ___ together	xattr	thoughtful
+personx pays ___ to details	oreact	none
+personx pays ___ to details	xintent	to gain knowledge
+personx pays ___ to details	xreact	enlightened
+personx pays ___ to details	oreact	none
+personx pays ___ to details	xintent	to be sure he has the correct
+personx pays ___ to details	xreact	nan
+personx pays ___ to details	oeffect	none
+personx pays ___ to details	xeffect	knows more information
+personx pays ___ to details	xeffect	is well prepared
+personx pays ___ to details	oeffect	none
+personx pays ___ to details	xeffect	is praised
+personx pays ___ to details	xeffect	gets a raise
+personx pays ___ to details	owant	none
+personx pays ___ to details	xneed	none
+personx pays ___ to details	xwant	to do a good job
+personx pays ___ to details	xwant	to be meticulous
+personx pays ___ to details	owant	none
+personx pays ___ to details	xneed	none
+personx pays ___ to details	xwant	take notes
+personx pays ___ to details	xwant	pass test
+personx pays ___ to details	owant	none
+personx pays ___ to details	xneed	food
+personx pays ___ to details	xneed	item
+personx pays ___ to details	xwant	money
+personx pays ___ to details	xwant	nice
+personx pays ___ to details	xattr	observant
+personx pays ___ to details	xattr	meticulous
+personx pays ___ to details	xattr	detail-oriented
+personx pays ___ to details	xattr	meticulous
+personx shuts persony 's ___ to the fact	oreact	bored
+personx shuts persony 's ___ to the fact	xintent	none
+personx shuts persony 's ___ to the fact	xreact	uninterested
+personx shuts persony 's ___ to the fact	oreact	deceived
+personx shuts persony 's ___ to the fact	xintent	to mislead persony
+personx shuts persony 's ___ to the fact	xreact	deceptive
+personx shuts persony 's ___ to the fact	oeffect	are deceived by an absence of facts
+personx shuts persony 's ___ to the fact	oeffect	make a choice they otherwise wouldn't have made
+personx shuts persony 's ___ to the fact	xeffect	none
+personx shuts persony 's ___ to the fact	oeffect	can no longer see the fact
+personx shuts persony 's ___ to the fact	oeffect	can no longer hear the fact
+personx shuts persony 's ___ to the fact	oeffect	ignore the fact
+personx shuts persony 's ___ to the fact	oeffect	can no longer perceive some particular factual information
+personx shuts persony 's ___ to the fact	xeffect	none
+personx shuts persony 's ___ to the fact	oeffect	may have to learn about what x has to say
+personx shuts persony 's ___ to the fact	oeffect	may have to listen to x
+personx shuts persony 's ___ to the fact	xeffect	is doing something to person y
+personx shuts persony 's ___ to the fact	xeffect	may have to talk to y
+personx shuts persony 's ___ to the fact	xneed	to need to hide it from them
+personx shuts persony 's ___ to the fact	xneed	to know how to hide it from them
+personx shuts persony 's ___ to the fact	xneed	power over persony
+personx shuts persony 's ___ to the fact	xneed	more knowledge than persony
+personx shuts persony 's ___ to the fact	xattr	repugnant
+personx shuts persony 's ___ to the fact	xattr	uncarring
+personx shuts persony 's ___ to the fact	xattr	rude
+personx shuts persony 's ___ to the fact	xattr	careless
+personx shuts persony 's ___ to the fact	xattr	misunderstood
+personx shuts persony 's ___ to the fact	xattr	ignorant
+personx accepts god  's ___	oreact	none
+personx accepts god  's ___	xintent	none
+personx accepts god  's ___	xreact	safe
+personx accepts god  's ___	oeffect	none
+personx accepts god  's ___	xeffect	none
+personx accepts god  's ___	owant	none
+personx accepts god  's ___	xneed	to contemplate in silence
+personx accepts god  's ___	xneed	to think about life
+personx accepts god  's ___	xwant	to repent for their sins
+personx accepts god  's ___	xwant	to seek out a priest
+personx accepts god  's ___	owant	none
+personx accepts god  's ___	xneed	to pray to god
+personx accepts god  's ___	xneed	to dedicate himself/herself to god
+personx accepts god  's ___	xwant	to continue to follow god
+personx accepts god  's ___	xwant	to break away from god
+personx accepts god  's ___	owant	none
+personx accepts god  's ___	xneed	to be a god\u2019s believers
+personx accepts god  's ___	xneed	to be praying
+personx accepts god  's ___	xwant	to become monk
+personx accepts god  's ___	xwant	to donate all his money
+personx accepts god  's ___	xattr	grateful
+personx accepts god  's ___	xattr	god-fearing
+personx accepts god  's ___	xattr	decisive
+personx accepts god  's ___	xattr	willful
+personx accepts god  's ___	xattr	religous
+personx accepts god  's ___	xattr	believer
+personx prevents the ___ from moving	oreact	none
+personx prevents the ___ from moving	xintent	the  prevent the  from movings
+personx prevents the ___ from moving	xreact	happy
+personx prevents the ___ from moving	oreact	none
+personx prevents the ___ from moving	xintent	to control __
+personx prevents the ___ from moving	xreact	good
+personx prevents the ___ from moving	oeffect	complain
+personx prevents the ___ from moving	oeffect	strike back
+personx prevents the ___ from moving	xeffect	none
+personx prevents the ___ from moving	oeffect	none
+personx prevents the ___ from moving	xeffect	gets promoted
+personx prevents the ___ from moving	xeffect	gets dragged  into war
+personx prevents the ___ from moving	owant	none
+personx prevents the ___ from moving	xneed	to put up a barricade
+personx prevents the ___ from moving	xneed	to assemble a team
+personx prevents the ___ from moving	xwant	to protect their country
+personx prevents the ___ from moving	xwant	to win the battle
+personx prevents the ___ from moving	owant	to advance
+personx prevents the ___ from moving	owant	to win
+personx prevents the ___ from moving	xneed	to have conviction
+personx prevents the ___ from moving	xneed	to walk to the front
+personx prevents the ___ from moving	xwant	to rest
+personx prevents the ___ from moving	xwant	to win
+personx prevents the ___ from moving	owant	to get out of there
+personx prevents the ___ from moving	owant	to break the encirclement
+personx prevents the ___ from moving	xneed	to know where the others are
+personx prevents the ___ from moving	xneed	to make a plan
+personx prevents the ___ from moving	xwant	to keep them where they are
+personx prevents the ___ from moving	xwant	to notify others about it
+personx prevents the ___ from moving	xattr	restrictive
+personx prevents the ___ from moving	xattr	opposed
+personx prevents the ___ from moving	xattr	prohobitive
+personx prevents the ___ from moving	xattr	confining
+personx prevents the ___ from moving	xattr	strong
+personx prevents the ___ from moving	xattr	stubborn
+personx removes ___ from the blood	oreact	grateful
+personx removes ___ from the blood	oreact	interested
+personx removes ___ from the blood	xintent	cure a sick patient
+personx removes ___ from the blood	xintent	perform an experiment
+personx removes ___ from the blood	xreact	thoughtful
+personx removes ___ from the blood	xreact	pensive
+personx removes ___ from the blood	xreact	interested
+personx removes ___ from the blood	oreact	none
+personx removes ___ from the blood	xintent	to be healthy and feel clean they wouldfeel good
+personx removes ___ from the blood	xreact	healthy and good
+personx removes ___ from the blood	oeffect	a person in need of the life-saving material removed from the blood , receive it during hospitalization
+personx removes ___ from the blood	oeffect	money is received by the agency/center that facilitated the material removal from the blood
+personx removes ___ from the blood	oeffect	jobs are needed to facilitate the material removal from the blood
+personx removes ___ from the blood	xeffect	none
+personx removes ___ from the blood	oeffect	none
+personx removes ___ from the blood	xeffect	gains materials
+personx removes ___ from the blood	xeffect	learns medicine
+personx removes ___ from the blood	oeffect	none
+personx removes ___ from the blood	xeffect	is a plebotomist
+personx removes ___ from the blood	xeffect	is a vampire
+personx removes ___ from the blood	xeffect	is a lab tech
+personx removes ___ from the blood	xneed	learn how to
+personx removes ___ from the blood	xneed	put on a lab coat
+personx removes ___ from the blood	xneed	to attend school to learn how to draw blood
+personx removes ___ from the blood	xneed	to get student loans to pay for school
+personx removes ___ from the blood	xneed	to graduate from college
+personx removes ___ from the blood	xneed	to get a job in a lab
+personx removes ___ from the blood	owant	to know what is wrong with their blood
+personx removes ___ from the blood	owant	a solution to the problem
+personx removes ___ from the blood	owant	to solve the health problem as a doctor with this information
+personx removes ___ from the blood	owant	research the results to help advance a study
+personx removes ___ from the blood	xwant	to test the materials that were removed
+personx removes ___ from the blood	xwant	write a report on the blood and its contents
+personx removes ___ from the blood	xwant	to put the blood back in the person or dispose of the blood
+personx removes ___ from the blood	xwant	have the person whose blood they worked on to become healthier
+personx removes ___ from the blood	owant	none
+personx removes ___ from the blood	xwant	to finish the job and go to lunch
+personx removes ___ from the blood	xwant	to receive a pay check
+personx removes ___ from the blood	xattr	precise
+personx removes ___ from the blood	xattr	expert
+personx removes ___ from the blood	xattr	capable
+personx removes ___ from the blood	xattr	skilled
+personx removes ___ from the blood	xattr	trained
+personx removes ___ from the blood	xattr	knowledgeable
+personx gets ___ quickly	oreact	none
+personx gets ___ quickly	xintent	income
+personx gets ___ quickly	xreact	feels great
+personx gets ___ quickly	oreact	none
+personx gets ___ quickly	xintent	to survive and to satisfy the needs
+personx gets ___ quickly	xreact	positive ,happy
+personx gets ___ quickly	oeffect	none
+personx gets ___ quickly	xeffect	is sweaty
+personx gets ___ quickly	xeffect	has a rapid heartbeat
+personx gets ___ quickly	xeffect	runs out of breath
+personx gets ___ quickly	oeffect	none
+personx gets ___ quickly	xeffect	happy they are make progression quickly
+personx gets ___ quickly	xeffect	satisfied that things happen so fast
+personx gets ___ quickly	xneed	none
+personx gets ___ quickly	xneed	none
+personx gets ___ quickly	xneed	attend an interview
+personx gets ___ quickly	xneed	submit a resume
+personx gets ___ quickly	owant	none
+personx gets ___ quickly	xwant	to rest
+personx gets ___ quickly	xwant	to sleep
+personx gets ___ quickly	owant	none
+personx gets ___ quickly	xwant	to move on already
+personx gets ___ quickly	xwant	to do something else
+personx gets ___ quickly	xattr	skilled
+personx gets ___ quickly	xattr	crafty
+personx gets ___ quickly	xattr	inspired
+personx gets ___ quickly	xattr	motivated
+personx gets ___ quickly	xattr	efficient
+personx gets ___ quickly	xattr	in a hurry
+personx gets ___ quickly	xattr	rushed
+personx affects children  's ___	oreact	none
+personx affects children  's ___	xintent	i like to very satisfied
+personx affects children  's ___	xreact	satisfied
+personx affects children  's ___	oreact	unhappy
+personx affects children  's ___	xintent	to hurt
+personx affects children  's ___	xreact	bad
+personx affects children  's ___	oeffect	learns to behave
+personx affects children  's ___	oeffect	gets rewarded
+personx affects children  's ___	xeffect	gains respect
+personx affects children  's ___	xeffect	gains cooperation
+personx affects children  's ___	oeffect	none
+personx affects children  's ___	xeffect	personx finances their children 's education
+personx affects children  's ___	xeffect	personx mentors children
+personx affects children  's ___	oeffect	none
+personx affects children  's ___	xeffect	is rewarded
+personx affects children  's ___	xeffect	is condemned
+personx affects children  's ___	owant	to learn new stuff
+personx affects children  's ___	owant	to figure out new things
+personx affects children  's ___	xneed	to be in a position to affect young minds
+personx affects children  's ___	xneed	to want to mold young minds into something great
+personx affects children  's ___	xwant	to make a difference
+personx affects children  's ___	xwant	to feel good at the end of the day
+personx affects children  's ___	owant	to know how personx carries out their work
+personx affects children  's ___	owant	to make sure their children are safe
+personx affects children  's ___	xneed	to be trained to deal with children
+personx affects children  's ___	xneed	to know how to behave with children
+personx affects children  's ___	xneed	to learn how to handle children
+personx affects children  's ___	xwant	to teach the children
+personx affects children  's ___	xwant	to tell the parents about their progress
+personx affects children  's ___	xwant	to learn how the children develop
+personx affects children  's ___	owant	to learn
+personx affects children  's ___	owant	to go on to other things
+personx affects children  's ___	xneed	to be a teacher
+personx affects children  's ___	xneed	to teach well
+personx affects children  's ___	xwant	to help more
+personx affects children  's ___	xwant	to make sure they do ok
+personx affects children  's ___	xattr	guilty
+personx affects children  's ___	xattr	annoying
+personx affects children  's ___	xattr	influencing
+personx affects children  's ___	xattr	friendly
+personx affects children  's ___	xattr	influential
+personx affects children  's ___	xattr	helpful
+personx receives another ___	oreact	none
+personx receives another ___	xintent	none
+personx receives another ___	xreact	thankful
+personx receives another ___	xreact	blessed
+personx receives another ___	xreact	affected
+personx receives another ___	oreact	none
+personx receives another ___	xintent	none
+personx receives another ___	xreact	interested
+personx receives another ___	xreact	expectant
+personx receives another ___	oeffect	none
+personx receives another ___	xeffect	gives thanks
+personx receives another ___	xeffect	smiles
+personx receives another ___	owant	to see what they did
+personx receives another ___	owant	to get one too
+personx receives another ___	xneed	to of gotten one before
+personx receives another ___	xneed	to need another
+personx receives another ___	xwant	to enjoy it
+personx receives another ___	xwant	to get another to
+personx receives another ___	owant	none
+personx receives another ___	xneed	none
+personx receives another ___	xwant	to keep receiving things
+personx receives another ___	xwant	to use the item
+personx receives another ___	xwant	to say thank you
+personx receives another ___	owant	none
+personx receives another ___	xneed	none
+personx receives another ___	xwant	to read it
+personx receives another ___	xwant	to understand it
+personx receives another ___	xattr	concerned
+personx receives another ___	xattr	informed
+personx receives another ___	xattr	well-regarded
+personx receives another ___	xattr	appreciated
+personx enters the ___ in numbers	oreact	none
+personx enters the ___ in numbers	xintent	count the money
+personx enters the ___ in numbers	xreact	deposit the money in bank
+personx enters the ___ in numbers	oreact	none
+personx enters the ___ in numbers	xintent	to be clear
+personx enters the ___ in numbers	xreact	happy to be done
+personx enters the ___ in numbers	oeffect	none
+personx enters the ___ in numbers	xeffect	none
+personx enters the ___ in numbers	owant	none
+personx enters the ___ in numbers	xneed	fill a form
+personx enters the ___ in numbers	xneed	write a check
+personx enters the ___ in numbers	xwant	sign it
+personx enters the ___ in numbers	xwant	submit the form
+personx enters the ___ in numbers	owant	none
+personx enters the ___ in numbers	xneed	he applied for a job
+personx enters the ___ in numbers	xneed	he makes a good impression
+personx enters the ___ in numbers	xwant	he starts off good
+personx enters the ___ in numbers	xwant	gets tired easy
+personx enters the ___ in numbers	owant	none
+personx enters the ___ in numbers	xneed	none
+personx enters the ___ in numbers	xwant	to see the results
+personx enters the ___ in numbers	xwant	to analyze the data
+personx enters the ___ in numbers	xattr	smart
+personx enters the ___ in numbers	xattr	precise
+personx enters the ___ in numbers	xattr	responsible
+personx enters the ___ in numbers	xattr	dutiful
+personx enters the ___ in numbers	xattr	forceful
+personx enters the ___ in numbers	xattr	determined
+personx spends ___ trying	oreact	none
+personx spends ___ trying	xintent	to be prove the good person
+personx spends ___ trying	xreact	happy
+personx spends ___ trying	oreact	none
+personx spends ___ trying	xintent	to not give up
+personx spends ___ trying	xreact	determined
+personx spends ___ trying	oeffect	none
+personx spends ___ trying	xeffect	gets exhausted trying
+personx spends ___ trying	xeffect	gets stressed trying
+personx spends ___ trying	xeffect	gets bored trying
+personx spends ___ trying	oeffect	none
+personx spends ___ trying	xeffect	attains success
+personx spends ___ trying	xeffect	learns something
+personx spends ___ trying	oeffect	none
+personx spends ___ trying	xeffect	personx wastes their time
+personx spends ___ trying	xeffect	personx wastes their efforts
+personx spends ___ trying	owant	none
+personx spends ___ trying	xneed	want something
+personx spends ___ trying	xneed	work hard
+personx spends ___ trying	xwant	give up
+personx spends ___ trying	xwant	keep trying
+personx spends ___ trying	owant	none
+personx spends ___ trying	xneed	he wants to be a singer
+personx spends ___ trying	xneed	he practices everyday
+personx spends ___ trying	xwant	he goes to shows
+personx spends ___ trying	xwant	he promotes himself
+personx spends ___ trying	xattr	patient
+personx spends ___ trying	xattr	determined
+personx spends ___ trying	xattr	rich
+personx spends ___ trying	xattr	needy
+personx spends ___ trying	xattr	persistent
+personx spends ___ trying	xattr	ambitious
+personx thanks the ___ for permission	oreact	respected
+personx thanks the ___ for permission	xintent	to show gratitude
+personx thanks the ___ for permission	xintent	to show respect
+personx thanks the ___ for permission	xreact	gracious
+personx thanks the ___ for permission	xreact	proper
+personx thanks the ___ for permission	oeffect	none
+personx thanks the ___ for permission	xeffect	none
+personx thanks the ___ for permission	owant	to give them a platform
+personx thanks the ___ for permission	owant	for them to do well
+personx thanks the ___ for permission	xneed	to of asked permission
+personx thanks the ___ for permission	xneed	to of been given it
+personx thanks the ___ for permission	xwant	to do their best
+personx thanks the ___ for permission	xwant	to show what they can do
+personx thanks the ___ for permission	owant	none
+personx thanks the ___ for permission	xneed	win an award
+personx thanks the ___ for permission	xneed	be asked to speak
+personx thanks the ___ for permission	xwant	get trophy
+personx thanks the ___ for permission	xwant	cry
+personx thanks the ___ for permission	xattr	grateful
+personx thanks the ___ for permission	xattr	gracious
+personx thanks the ___ for permission	xattr	glad
+personx thanks the ___ for permission	xattr	gracious
+personx thanks the ___ for permission	xattr	considerate
+personx thanks the ___ for permission	xattr	grateful
+personx thanks the ___ for permission	xattr	thankful
+personx changes one  's ___	oreact	none
+personx changes one  's ___	xintent	to be adaptable
+personx changes one  's ___	xreact	reasonable
+personx changes one  's ___	oreact	knowledgeable
+personx changes one  's ___	xintent	none
+personx changes one  's ___	xreact	confident
+personx changes one  's ___	oreact	irritated about it
+personx changes one  's ___	xintent	to reform his manners
+personx changes one  's ___	xreact	happy about  it
+personx changes one  's ___	oeffect	none
+personx changes one  's ___	xeffect	called unreliable
+personx changes one  's ___	xeffect	gets punished
+personx changes one  's ___	oeffect	none
+personx changes one  's ___	xeffect	gets different results
+personx changes one  's ___	xeffect	learns from changes
+personx changes one  's ___	owant	none
+personx changes one  's ___	xneed	to find new ways to act
+personx changes one  's ___	xneed	to decide to act differently
+personx changes one  's ___	xwant	to receive attention
+personx changes one  's ___	xwant	to continue to be better
+personx changes one  's ___	owant	none
+personx changes one  's ___	xneed	to have bad habit
+personx changes one  's ___	xneed	to be living messy life
+personx changes one  's ___	xwant	to clean his house
+personx changes one  's ___	xwant	to take new resolution
+personx changes one  's ___	owant	none
+personx changes one  's ___	xneed	none
+personx changes one  's ___	xwant	to be objective
+personx changes one  's ___	xwant	to be convincing
+personx changes one  's ___	xattr	attitude
+personx changes one  's ___	xattr	moody
+personx changes one  's ___	xattr	adaptable
+personx changes one  's ___	xattr	happy
+personx changes one  's ___	xattr	persuasive
+personx changes one  's ___	xattr	convincing
+personx reduces the frequency and ___	oreact	comfortable
+personx reduces the frequency and ___	xintent	others to be comfortable
+personx reduces the frequency and ___	xreact	successful
+personx reduces the frequency and ___	oeffect	none
+personx reduces the frequency and ___	xeffect	accomplished goals
+personx reduces the frequency and ___	xeffect	finishes task
+personx reduces the frequency and ___	xeffect	reduces harm
+personx reduces the frequency and ___	oeffect	none
+personx reduces the frequency and ___	xeffect	none
+personx reduces the frequency and ___	owant	none
+personx reduces the frequency and ___	xneed	turn a dial
+personx reduces the frequency and ___	xneed	cover ears
+personx reduces the frequency and ___	xwant	clear their ears
+personx reduces the frequency and ___	xwant	have a conversation
+personx reduces the frequency and ___	owant	none
+personx reduces the frequency and ___	xneed	none
+personx reduces the frequency and ___	xwant	to change radio channel
+personx reduces the frequency and ___	xwant	to send message
+personx reduces the frequency and ___	xattr	careful
+personx reduces the frequency and ___	xattr	cautious
+personx reduces the frequency and ___	xattr	smart
+personx reduces the frequency and ___	xattr	a leader
+personx reduces the frequency and ___	xattr	deterring
+personx reduces the frequency and ___	xattr	scared
+personx sets ___ on fire	oreact	none
+personx sets ___ on fire	xintent	to destroy
+personx sets ___ on fire	xintent	to burn
+personx sets ___ on fire	xintent	to harm
+personx sets ___ on fire	xreact	vengeful
+personx sets ___ on fire	xreact	destuctive
+personx sets ___ on fire	oreact	none
+personx sets ___ on fire	xintent	cillness
+personx sets ___ on fire	xreact	hot
+personx sets ___ on fire	oeffect	none
+personx sets ___ on fire	xeffect	repays property owner
+personx sets ___ on fire	xeffect	gets yelled at
+personx sets ___ on fire	oeffect	none
+personx sets ___ on fire	xeffect	gets caught by police
+personx sets ___ on fire	xeffect	gets burn injuries
+personx sets ___ on fire	oeffect	none
+personx sets ___ on fire	xeffect	receive punishment
+personx sets ___ on fire	xeffect	assume responsibility
+personx sets ___ on fire	owant	to call the police
+personx sets ___ on fire	owant	personx to go to jail
+personx sets ___ on fire	xneed	to pour gasoline
+personx sets ___ on fire	xneed	to light a match and throw it
+personx sets ___ on fire	xwant	to destroy their property
+personx sets ___ on fire	xwant	to kill everyone inside
+personx sets ___ on fire	owant	to catch who did it
+personx sets ___ on fire	owant	to put out the fire
+personx sets ___ on fire	xneed	get matches
+personx sets ___ on fire	xneed	make sure no one sees them
+personx sets ___ on fire	xwant	revenge
+personx sets ___ on fire	xwant	to make a statement
+personx sets ___ on fire	owant	put out the fire
+personx sets ___ on fire	owant	run out of the building
+personx sets ___ on fire	xneed	get matches
+personx sets ___ on fire	xneed	get gasoline
+personx sets ___ on fire	xwant	run away
+personx sets ___ on fire	xwant	call the fire department
+personx sets ___ on fire	xattr	crazy
+personx sets ___ on fire	xattr	drunk
+personx sets ___ on fire	xattr	damaged
+personx sets ___ on fire	xattr	creepy
+personx sets ___ on fire	xattr	a criminal
+personx sets ___ on fire	xattr	an arsonist
+personx reaches the ___ in safety	oreact	none
+personx reaches the ___ in safety	xintent	to be safe
+personx reaches the ___ in safety	xreact	relieved
+personx reaches the ___ in safety	oreact	none
+personx reaches the ___ in safety	xintent	to be safe
+personx reaches the ___ in safety	xreact	relief
+personx reaches the ___ in safety	oreact	none
+personx reaches the ___ in safety	xintent	saved
+personx reaches the ___ in safety	xintent	saved
+personx reaches the ___ in safety	xreact	relieved
+personx reaches the ___ in safety	oeffect	people get to hear a story
+personx reaches the ___ in safety	oeffect	they tell other people
+personx reaches the ___ in safety	xeffect	they go home
+personx reaches the ___ in safety	xeffect	they tell people about it
+personx reaches the ___ in safety	oeffect	none
+personx reaches the ___ in safety	xeffect	none
+personx reaches the ___ in safety	oeffect	none
+personx reaches the ___ in safety	xeffect	is tired
+personx reaches the ___ in safety	xeffect	ride the horse
+personx reaches the ___ in safety	xneed	to be mobile
+personx reaches the ___ in safety	xneed	to have energy
+personx reaches the ___ in safety	xneed	to be able to react
+personx reaches the ___ in safety	owant	none
+personx reaches the ___ in safety	xwant	to climb a mountain
+personx reaches the ___ in safety	xwant	to ride a skyway tram
+personx reaches the ___ in safety	owant	none
+personx reaches the ___ in safety	xwant	safety
+personx reaches the ___ in safety	xwant	adventure
+personx reaches the ___ in safety	xattr	done
+personx reaches the ___ in safety	xattr	relieved
+personx reaches the ___ in safety	xattr	relieved
+personx reaches the ___ in safety	xattr	brave
+personx reaches the ___ in safety	xattr	relieved
+personx reaches the ___ in safety	xattr	jittery
+personx throws ___ on the character	oreact	none
+personx throws ___ on the character	xintent	silent
+personx throws ___ on the character	xreact	happy
+personx throws ___ on the character	oreact	educated
+personx throws ___ on the character	xintent	people to better understand the story
+personx throws ___ on the character	xreact	accomplished
+personx throws ___ on the character	oreact	none
+personx throws ___ on the character	xintent	she throws doudt on the character
+personx throws ___ on the character	xreact	un happy
+personx throws ___ on the character	oeffect	none
+personx throws ___ on the character	xeffect	none
+personx throws ___ on the character	owant	none
+personx throws ___ on the character	xneed	to explain
+personx throws ___ on the character	xneed	to complete a diatribe
+personx throws ___ on the character	xwant	to get a drink
+personx throws ___ on the character	xwant	to eat
+personx throws ___ on the character	owant	none
+personx throws ___ on the character	xneed	to have created the character
+personx throws ___ on the character	xneed	to see the character working
+personx throws ___ on the character	xwant	to make changes
+personx throws ___ on the character	xwant	to look at other characters
+personx throws ___ on the character	xwant	to scrap the character
+personx throws ___ on the character	owant	none
+personx throws ___ on the character	xneed	to talk about him
+personx throws ___ on the character	xneed	to let out his secrets
+personx throws ___ on the character	xwant	to explain about him
+personx throws ___ on the character	xwant	to expose him
+personx throws ___ on the character	xattr	intuitive
+personx throws ___ on the character	xattr	observant
+personx throws ___ on the character	xattr	informative
+personx throws ___ on the character	xattr	intelligent
+personx throws ___ on the character	xattr	doubtful
+personx throws ___ on the character	xattr	determined
+personx spends personx 's ___ reading	oreact	none
+personx spends personx 's ___ reading	xintent	to have a hobby , to be more informed
+personx spends personx 's ___ reading	xreact	informed , knowledgable
+personx spends personx 's ___ reading	oreact	none
+personx spends personx 's ___ reading	xintent	to be entertained by his novel
+personx spends personx 's ___ reading	xintent	to learn more about his subject
+personx spends personx 's ___ reading	xintent	to be prepared for his class test
+personx spends personx 's ___ reading	xreact	like he wants to read more
+personx spends personx 's ___ reading	xreact	that he enjoyed this book
+personx spends personx 's ___ reading	xreact	like this was a very satisfying read
+personx spends personx 's ___ reading	oreact	none
+personx spends personx 's ___ reading	xintent	wisdom
+personx spends personx 's ___ reading	xintent	entertainment
+personx spends personx 's ___ reading	xreact	smart
+personx spends personx 's ___ reading	xreact	enjoyment
+personx spends personx 's ___ reading	oeffect	none
+personx spends personx 's ___ reading	xeffect	become knowledgeable
+personx spends personx 's ___ reading	xeffect	gain benefits
+personx spends personx 's ___ reading	xeffect	become relax
+personx spends personx 's ___ reading	oeffect	none
+personx spends personx 's ___ reading	xeffect	is smarter
+personx spends personx 's ___ reading	xeffect	learns about subjects
+personx spends personx 's ___ reading	owant	none
+personx spends personx 's ___ reading	xneed	to love reading
+personx spends personx 's ___ reading	xneed	to an information collector
+personx spends personx 's ___ reading	xwant	to be an expert
+personx spends personx 's ___ reading	xwant	to be an inteligent
+personx spends personx 's ___ reading	owant	none
+personx spends personx 's ___ reading	xneed	to have the time
+personx spends personx 's ___ reading	xneed	to like to read
+personx spends personx 's ___ reading	xwant	to learn a lot
+personx spends personx 's ___ reading	xwant	to find other stuff to read
+personx spends personx 's ___ reading	owant	none
+personx spends personx 's ___ reading	xneed	to have a book
+personx spends personx 's ___ reading	xneed	to have something to drink while reading
+personx spends personx 's ___ reading	xwant	to put a bookmark and stop reading
+personx spends personx 's ___ reading	xwant	to write down notes
+personx spends personx 's ___ reading	xwant	to write a review about the book
+personx spends personx 's ___ reading	xattr	witty
+personx spends personx 's ___ reading	xattr	helpful
+personx spends personx 's ___ reading	xattr	introverted
+personx spends personx 's ___ reading	xattr	studious
+personx spends personx 's ___ reading	xattr	a romantic
+personx spends personx 's ___ reading	xattr	thirsty for knowledge
+personx improves persony 's ___ as understood	oreact	excited
+personx improves persony 's ___ as understood	oreact	relieved
+personx improves persony 's ___ as understood	xintent	to be helpful
+personx improves persony 's ___ as understood	xintent	to hire a new employee
+personx improves persony 's ___ as understood	xreact	satisfied
+personx improves persony 's ___ as understood	xreact	confident
+personx improves persony 's ___ as understood	oeffect	they understand better
+personx improves persony 's ___ as understood	oeffect	they do better work
+personx improves persony 's ___ as understood	xeffect	none
+personx improves persony 's ___ as understood	oeffect	none
+personx improves persony 's ___ as understood	xeffect	none
+personx improves persony 's ___ as understood	oeffect	has a better understanding
+personx improves persony 's ___ as understood	oeffect	is informed
+personx improves persony 's ___ as understood	xeffect	none
+personx improves persony 's ___ as understood	owant	to thank personx
+personx improves persony 's ___ as understood	owant	to write down all new contacts
+personx improves persony 's ___ as understood	xneed	to smile
+personx improves persony 's ___ as understood	xneed	to make introductions
+personx improves persony 's ___ as understood	xwant	to help persony by finding different people to network with
+personx improves persony 's ___ as understood	xwant	to listen to personys reaction to the meeting
+personx improves persony 's ___ as understood	owant	to thank x
+personx improves persony 's ___ as understood	owant	to ask questions to clarify
+personx improves persony 's ___ as understood	xneed	none
+personx improves persony 's ___ as understood	xwant	to quiz y
+personx improves persony 's ___ as understood	xwant	to review the structure with y
+personx improves persony 's ___ as understood	xattr	helpful
+personx improves persony 's ___ as understood	xattr	intelligent
+personx improves persony 's ___ as understood	xattr	active
+personx improves persony 's ___ as understood	xattr	good
+personx improves persony 's ___ as understood	xattr	helpful
+personx improves persony 's ___ as understood	xattr	understanding
+personx delivers ___ to customers	oreact	none
+personx delivers ___ to customers	xintent	to share the things
+personx delivers ___ to customers	xreact	job done
+personx delivers ___ to customers	oreact	none
+personx delivers ___ to customers	xintent	deliver the product from company
+personx delivers ___ to customers	xreact	happy
+personx delivers ___ to customers	oreact	happy to receive his help
+personx delivers ___ to customers	xintent	to be the best of all
+personx delivers ___ to customers	xreact	satisfied about his service
+personx delivers ___ to customers	oeffect	none
+personx delivers ___ to customers	xeffect	receives a tip
+personx delivers ___ to customers	xeffect	gets sweaty
+personx delivers ___ to customers	oeffect	none
+personx delivers ___ to customers	xeffect	receives money
+personx delivers ___ to customers	xeffect	sighs in relief
+personx delivers ___ to customers	owant	thank personx
+personx delivers ___ to customers	owant	give tip
+personx delivers ___ to customers	xneed	get order
+personx delivers ___ to customers	xneed	drive car
+personx delivers ___ to customers	xwant	get signature
+personx delivers ___ to customers	xwant	wave
+personx delivers ___ to customers	owant	none
+personx delivers ___ to customers	xneed	get an order
+personx delivers ___ to customers	xneed	ride on vehicle
+personx delivers ___ to customers	xwant	collect the payment
+personx delivers ___ to customers	xwant	get a tip
+personx delivers ___ to customers	owant	to compliment person x
+personx delivers ___ to customers	owant	to hire person x
+personx delivers ___ to customers	xneed	to go above and beyond
+personx delivers ___ to customers	xneed	to put in hard work
+personx delivers ___ to customers	xwant	to get paid
+personx delivers ___ to customers	xwant	to raise fees
+personx delivers ___ to customers	xattr	respectable
+personx delivers ___ to customers	xattr	presentable
+personx delivers ___ to customers	xattr	reliable
+personx delivers ___ to customers	xattr	competent
+personx delivers ___ to customers	xattr	kind
+personx delivers ___ to customers	xattr	giving
+personx studies every ___	oreact	none
+personx studies every ___	xintent	to be smarter
+personx studies every ___	xintent	to understand
+personx studies every ___	xreact	smarter
+personx studies every ___	xreact	hard working
+personx studies every ___	xreact	diligent
+personx studies every ___	oreact	none
+personx studies every ___	xintent	to know every detail
+personx studies every ___	xreact	educated
+personx studies every ___	oeffect	none
+personx studies every ___	xeffect	rewarded
+personx studies every ___	xeffect	gets good grades
+personx studies every ___	oeffect	none
+personx studies every ___	xeffect	gains new skills
+personx studies every ___	xeffect	gains new knowledge
+personx studies every ___	oeffect	none
+personx studies every ___	xeffect	is rewarded for the hard work
+personx studies every ___	xeffect	becomes rich
+personx studies every ___	owant	to talk about the interest
+personx studies every ___	owant	to give them a raise
+personx studies every ___	xneed	to have an interest
+personx studies every ___	xneed	to buy books
+personx studies every ___	xwant	to learn
+personx studies every ___	xwant	to be impressive
+personx studies every ___	owant	none
+personx studies every ___	xneed	to get a book
+personx studies every ___	xneed	to take notes
+personx studies every ___	xwant	to pass the test
+personx studies every ___	xwant	to graduate college
+personx studies every ___	owant	none
+personx studies every ___	xneed	to have the discipline
+personx studies every ___	xneed	to have all books to study
+personx studies every ___	xneed	to want to be smart
+personx studies every ___	xwant	to study other subjects
+personx studies every ___	xwant	to study human behaviour
+personx studies every ___	xwant	to sleep
+personx studies every ___	xwant	to become a professor
+personx studies every ___	xattr	smart
+personx studies every ___	xattr	done
+personx studies every ___	xattr	studious
+personx studies every ___	xattr	smart
+personx has a ___ every day	oreact	none
+personx has a ___ every day	xintent	to be clean and fresh
+personx has a ___ every day	xreact	fresh
+personx has a ___ every day	oreact	none
+personx has a ___ every day	xintent	follow schedule
+personx has a ___ every day	xreact	satisfied
+personx has a ___ every day	oeffect	none
+personx has a ___ every day	xeffect	none
+personx has a ___ every day	oeffect	none
+personx has a ___ every day	xeffect	sprays cologne
+personx has a ___ every day	xeffect	gets into a routine
+personx has a ___ every day	oeffect	none
+personx has a ___ every day	xeffect	maintains routine
+personx has a ___ every day	xeffect	keeps schedule
+personx has a ___ every day	owant	none
+personx has a ___ every day	xneed	go to the bath room
+personx has a ___ every day	xneed	fill the bucket with water
+personx has a ___ every day	xwant	pour water on the body
+personx has a ___ every day	xwant	apply soap
+personx has a ___ every day	owant	none
+personx has a ___ every day	xneed	to buy something consistently
+personx has a ___ every day	xneed	to put time aside for something
+personx has a ___ every day	xwant	to continue the ritual
+personx has a ___ every day	xwant	to break the habit
+personx has a ___ every day	owant	none
+personx has a ___ every day	xneed	fill the tub
+personx has a ___ every day	xneed	soak in tub
+personx has a ___ every day	xwant	get dressed
+personx has a ___ every day	xwant	read a book
+personx has a ___ every day	xattr	clean
+personx has a ___ every day	xattr	neat
+personx has a ___ every day	xattr	committed
+personx has a ___ every day	xattr	habitual
+personx has a ___ every day	xattr	lucky
+personx has a ___ every day	xattr	big
+personx believes every ___	oreact	none
+personx believes every ___	xintent	individual
+personx believes every ___	xreact	happy
+personx believes every ___	oeffect	none
+personx believes every ___	xeffect	is attentive
+personx believes every ___	xeffect	is engaged
+personx believes every ___	oeffect	may get hurt
+personx believes every ___	oeffect	may become angry
+personx believes every ___	oeffect	may get happy too
+personx believes every ___	xeffect	attitude may change
+personx believes every ___	xeffect	behaves differently
+personx believes every ___	owant	he comes up with stupid excuses
+personx believes every ___	owant	she beats him up
+personx believes every ___	xneed	she gets a boyfriend
+personx believes every ___	xneed	conversate
+personx believes every ___	xwant	she finds him cheating
+personx believes every ___	xwant	she breaks up with him
+personx believes every ___	owant	none
+personx believes every ___	xneed	none
+personx believes every ___	xwant	try to find out the truth
+personx believes every ___	xwant	searches in the internet
+personx believes every ___	owant	none
+personx believes every ___	xneed	none
+personx believes every ___	xwant	think about it
+personx believes every ___	xwant	talk about it
+personx believes every ___	xneed	none
+personx believes every ___	owant	none
+personx believes every ___	xwant	read all titles
+personx believes every ___	xwant	try all improvements
+personx believes every ___	owant	none
+personx believes every ___	xwant	work hard to achieve what he believes in
+personx believes every ___	xwant	earn what they want
+personx believes every ___	owant	none
+personx believes every ___	xwant	to impress her
+personx believes every ___	xwant	to prove his innocence
+personx believes every ___	xattr	gullible
+personx believes every ___	xattr	naive
+personx believes every ___	xattr	gullible
+personx believes every ___	xattr	trusting
+personx believes every ___	xattr	gullible
+personx believes every ___	xattr	naive
+personx believes every ___	xattr	guliblie
+personx believes every ___	xattr	stupid
+personx comes ___ to dinner	oreact	none
+personx comes ___ to dinner	xintent	to eat
+personx comes ___ to dinner	xreact	full
+personx comes ___ to dinner	oeffect	none
+personx comes ___ to dinner	xeffect	walks
+personx comes ___ to dinner	xeffect	sits
+personx comes ___ to dinner	oeffect	none
+personx comes ___ to dinner	xeffect	eats
+personx comes ___ to dinner	xeffect	sits down
+personx comes ___ to dinner	oeffect	none
+personx comes ___ to dinner	xeffect	personx sighs with satisfaction from dinner
+personx comes ___ to dinner	xeffect	personx falls asleep from tiredness of eating food
+personx comes ___ to dinner	owant	none
+personx comes ___ to dinner	xneed	make their way home
+personx comes ___ to dinner	xneed	make a plan to come over
+personx comes ___ to dinner	xwant	enjoy dinner
+personx comes ___ to dinner	xwant	visit with people they like
+personx comes ___ to dinner	owant	none
+personx comes ___ to dinner	xneed	to have been invited
+personx comes ___ to dinner	xneed	to bring some wine
+personx comes ___ to dinner	xwant	to eat the dinner
+personx comes ___ to dinner	xwant	to watch some tv
+personx comes ___ to dinner	xwant	to go out
+personx comes ___ to dinner	owant	none
+personx comes ___ to dinner	xneed	be at work
+personx comes ___ to dinner	xneed	to be hungry
+personx comes ___ to dinner	xwant	to chow down
+personx comes ___ to dinner	xwant	to eat dinnner
+personx comes ___ to dinner	xattr	reliable
+personx comes ___ to dinner	xattr	hungry
+personx comes ___ to dinner	xattr	available
+personx comes ___ to dinner	xattr	social
+personx comes ___ to dinner	xattr	hungry
+personx comes ___ to dinner	xattr	tired
+personx carries personx 's ___ into execution	oreact	none
+personx carries personx 's ___ into execution	xintent	to serve
+personx carries personx 's ___ into execution	xintent	to be obedient
+personx carries personx 's ___ into execution	xreact	accomplished
+personx carries personx 's ___ into execution	oreact	none
+personx carries personx 's ___ into execution	xintent	to do things in systematic way
+personx carries personx 's ___ into execution	xreact	emphatic
+personx carries personx 's ___ into execution	xreact	systematic
+personx carries personx 's ___ into execution	oeffect	none
+personx carries personx 's ___ into execution	xeffect	personx gets used as pawn
+personx carries personx 's ___ into execution	xeffect	personx gets manipulated
+personx carries personx 's ___ into execution	owant	none
+personx carries personx 's ___ into execution	xneed	to assess the situation
+personx carries personx 's ___ into execution	xneed	to determine the solution
+personx carries personx 's ___ into execution	xwant	to make sure everything goes smoothly
+personx carries personx 's ___ into execution	xwant	to bring their will
+personx carries personx 's ___ into execution	owant	none
+personx carries personx 's ___ into execution	xneed	to be a dictator
+personx carries personx 's ___ into execution	xneed	to be a cruel leader
+personx carries personx 's ___ into execution	xwant	to opress everyone
+personx carries personx 's ___ into execution	xwant	to make sure no one ever succeeds
+personx carries personx 's ___ into execution	xwant	to tell everyone that they are not just talking
+personx carries personx 's ___ into execution	owant	none
+personx carries personx 's ___ into execution	xneed	none
+personx carries personx 's ___ into execution	xwant	to respect wishes
+personx carries personx 's ___ into execution	xwant	to interact
+personx carries personx 's ___ into execution	xattr	hardworking
+personx carries personx 's ___ into execution	xattr	determined
+personx carries personx 's ___ into execution	xattr	evil
+personx carries personx 's ___ into execution	xattr	crazy
+personx carries personx 's ___ into execution	xattr	dedicated
+personx carries personx 's ___ into execution	xattr	efficient
+personx wrappeds personx 's ___ around persony	oreact	persony feel more happy and both are excited
+personx wrappeds personx 's ___ around persony	xintent	to save his life from waterfall , so he used his hands to save his life
+personx wrappeds personx 's ___ around persony	xreact	happy and proud himself
+personx wrappeds personx 's ___ around persony	oreact	satisfied
+personx wrappeds personx 's ___ around persony	xintent	to be sexual
+personx wrappeds personx 's ___ around persony	xreact	relieved
+personx wrappeds personx 's ___ around persony	oeffect	none
+personx wrappeds personx 's ___ around persony	xeffect	none
+personx wrappeds personx 's ___ around persony	oeffect	may not want x to put anything on them
+personx wrappeds personx 's ___ around persony	oeffect	may have to take x off of them
+personx wrappeds personx 's ___ around persony	oeffect	may have to take the object off of them
+personx wrappeds personx 's ___ around persony	xeffect	may offend y
+personx wrappeds personx 's ___ around persony	xeffect	may hurt themselves
+personx wrappeds personx 's ___ around persony	xeffect	may have to help y
+personx wrappeds personx 's ___ around persony	oeffect	none
+personx wrappeds personx 's ___ around persony	xeffect	gets physically warmer by wrapping their arms around persony and thereby sharing body heat
+personx wrappeds personx 's ___ around persony	xeffect	gets a cramp in their arm from wrapping their arm around persony
+personx wrappeds personx 's ___ around persony	xneed	to know persony like that
+personx wrappeds personx 's ___ around persony	xneed	to feel like doing it
+personx wrappeds personx 's ___ around persony	xneed	to get close to y
+personx wrappeds personx 's ___ around persony	xneed	to lift their arms up
+personx wrappeds personx 's ___ around persony	owant	to kiss personx
+personx wrappeds personx 's ___ around persony	owant	to hug personx
+personx wrappeds personx 's ___ around persony	xwant	to hug persony
+personx wrappeds personx 's ___ around persony	xwant	to kiss persony
+personx wrappeds personx 's ___ around persony	owant	tho hug personx back
+personx wrappeds personx 's ___ around persony	owant	to adjust the scarf better
+personx wrappeds personx 's ___ around persony	xwant	to give persony a hug
+personx wrappeds personx 's ___ around persony	xwant	to help warm up persony with their scarf
+personx wrappeds personx 's ___ around persony	xattr	alive
+personx wrappeds personx 's ___ around persony	xattr	annoyed
+personx wrappeds personx 's ___ around persony	xattr	loving
+personx wrappeds personx 's ___ around persony	xattr	seductive
+personx wrappeds personx 's ___ around persony	xattr	caring
+personx wrappeds personx 's ___ around persony	xattr	sentimental
+personx finds ___ in the literature	oreact	none
+personx finds ___ in the literature	xintent	guide
+personx finds ___ in the literature	xreact	intresting
+personx finds ___ in the literature	oreact	none
+personx finds ___ in the literature	xintent	good
+personx finds ___ in the literature	xreact	verry full
+personx finds ___ in the literature	oeffect	none
+personx finds ___ in the literature	xeffect	none
+personx finds ___ in the literature	oeffect	none
+personx finds ___ in the literature	xeffect	none
+personx finds ___ in the literature	oeffect	none
+personx finds ___ in the literature	xeffect	becomes enlightened
+personx finds ___ in the literature	xeffect	improves their education level
+personx finds ___ in the literature	xneed	to learn how to read
+personx finds ___ in the literature	xneed	to open a couple books
+personx finds ___ in the literature	xneed	none
+personx finds ___ in the literature	owant	none
+personx finds ___ in the literature	xwant	to keep reading
+personx finds ___ in the literature	xwant	to share what he learned with a friend
+personx finds ___ in the literature	owant	none
+personx finds ___ in the literature	xwant	to cite their source
+personx finds ___ in the literature	xwant	to continue reading
+personx finds ___ in the literature	xwant	to close the book
+personx finds ___ in the literature	xwant	to discuss it
+personx finds ___ in the literature	xattr	smart
+personx finds ___ in the literature	xattr	knowledgable
+personx finds ___ in the literature	xattr	learned
+personx finds ___ in the literature	xattr	inquisitive
+personx finds ___ in the literature	xattr	aware
+personx finds ___ in the literature	xattr	engaged
+personx finds ___ in the literature	xattr	observant
+personx finds ___ in the literature	xattr	intelligent
+personx comes ___ to die	oreact	none
+personx comes ___ to die	xintent	to take his soul off
+personx comes ___ to die	xreact	dejected
+personx comes ___ to die	oeffect	none
+personx comes ___ to die	xeffect	gives up on other options
+personx comes ___ to die	xeffect	lets go of the world 's problems
+personx comes ___ to die	oeffect	none
+personx comes ___ to die	xeffect	collapses in exhaustion
+personx comes ___ to die	xeffect	struggles for breath
+personx comes ___ to die	oeffect	none
+personx comes ___ to die	xeffect	personx digs their own grave
+personx comes ___ to die	xeffect	personx comes to terms with their mortality
+personx comes ___ to die	owant	none
+personx comes ___ to die	xneed	to become sick
+personx comes ___ to die	xneed	to become suicidal
+personx comes ___ to die	xwant	to be buried
+personx comes ___ to die	xwant	to be cremated
+personx comes ___ to die	xwant	to be remembered
+personx comes ___ to die	owant	none
+personx comes ___ to die	xneed	they can't fix him
+personx comes ___ to die	xneed	misses his family
+personx comes ___ to die	xwant	spend time with his loved ones
+personx comes ___ to die	xwant	pray to god
+personx comes ___ to die	xattr	old
+personx comes ___ to die	xattr	aged
+personx comes ___ to die	xattr	brave
+personx comes ___ to die	xattr	serious
+personx comes ___ to die	xattr	sensible
+personx comes ___ to die	xattr	sad
+personx comes ___ to die	xattr	resigned
+personx cuts personx 's ___ according	oreact	none
+personx cuts personx 's ___ according	xintent	to make something better
+personx cuts personx 's ___ according	xreact	organized
+personx cuts personx 's ___ according	oreact	none
+personx cuts personx 's ___ according	xintent	helpful
+personx cuts personx 's ___ according	xreact	satisfied
+personx cuts personx 's ___ according	oreact	none
+personx cuts personx 's ___ according	xintent	to cut something
+personx cuts personx 's ___ according	xreact	satisfied
+personx cuts personx 's ___ according	oeffect	none
+personx cuts personx 's ___ according	xeffect	follow guidelines
+personx cuts personx 's ___ according	xeffect	gets desired results
+personx cuts personx 's ___ according	oeffect	none
+personx cuts personx 's ___ according	xeffect	cries
+personx cuts personx 's ___ according	xeffect	seeks help
+personx cuts personx 's ___ according	owant	none
+personx cuts personx 's ___ according	xneed	a sharp object
+personx cuts personx 's ___ according	xneed	scissors
+personx cuts personx 's ___ according	xwant	to be rid of pesky item
+personx cuts personx 's ___ according	xwant	to be free of loose piece
+personx cuts personx 's ___ according	owant	none
+personx cuts personx 's ___ according	xneed	to get out the hair clippers
+personx cuts personx 's ___ according	xneed	plug in the clippers
+personx cuts personx 's ___ according	xneed	to get the scissors
+personx cuts personx 's ___ according	xwant	to sweep the floor
+personx cuts personx 's ___ according	xwant	to try on the pants
+personx cuts personx 's ___ according	xattr	gained
+personx cuts personx 's ___ according	xattr	grown
+personx cuts personx 's ___ according	xattr	precise
+personx cuts personx 's ___ according	xattr	appraising
+personx cuts personx 's ___ according	xattr	skilled
+personx cuts personx 's ___ according	xattr	exacting
+personx cuts personx 's ___ according	xattr	skilled
+personx cuts personx 's ___ according	xattr	smart
+personx constitutes a day  's ___	oreact	none
+personx constitutes a day  's ___	xintent	the other work
+personx constitutes a day  's ___	xreact	done work
+personx constitutes a day  's ___	oreact	none
+personx constitutes a day  's ___	xintent	to keep a record
+personx constitutes a day  's ___	xreact	informed
+personx constitutes a day  's ___	oeffect	they thank personx
+personx constitutes a day  's ___	oeffect	they ask him to do more
+personx constitutes a day  's ___	xeffect	they go home
+personx constitutes a day  's ___	xeffect	they get lots of rest
+personx constitutes a day  's ___	oeffect	none
+personx constitutes a day  's ___	xeffect	becomes tired
+personx constitutes a day  's ___	xeffect	works up a sweat
+personx constitutes a day  's ___	owant	none
+personx constitutes a day  's ___	xneed	none
+personx constitutes a day  's ___	xwant	to go home
+personx constitutes a day  's ___	xwant	to meet friends after work
+personx constitutes a day  's ___	xattr	active
+personx constitutes a day  's ___	xattr	good
+personx constitutes a day  's ___	xattr	hard-working
+personx constitutes a day  's ___	xattr	frugal
+personx constitutes a day  's ___	xattr	simple-minded
+personx constitutes a day  's ___	xattr	working-class
+personx constitutes a day  's ___	xattr	hardworking
+personx constitutes a day  's ___	xattr	skilled
+personx bears ___ unto the persony	oreact	appreciative
+personx bears ___ unto the persony	xintent	persony to be believed
+personx bears ___ unto the persony	xreact	nervous
+personx bears ___ unto the persony	xreact	hopeful
+personx bears ___ unto the persony	oeffect	person y runs away
+personx bears ___ unto the persony	oeffect	person y goes home
+personx bears ___ unto the persony	xeffect	none
+personx bears ___ unto the persony	oeffect	they are exonerated
+personx bears ___ unto the persony	oeffect	they are free
+personx bears ___ unto the persony	xeffect	they help others more often
+personx bears ___ unto the persony	xeffect	they are more sympathetic to those who are struggling
+personx bears ___ unto the persony	owant	to thank personx
+personx bears ___ unto the persony	owant	to tell personx their help is necessary
+personx bears ___ unto the persony	xneed	to know persony
+personx bears ___ unto the persony	xneed	to check all their facts
+personx bears ___ unto the persony	xwant	to go home
+personx bears ___ unto the persony	xwant	to write a book
+personx bears ___ unto the persony	owant	to than him
+personx bears ___ unto the persony	owant	to express their gratitude
+personx bears ___ unto the persony	xneed	to make up his mind
+personx bears ___ unto the persony	xneed	to see that he will not get into trouble
+personx bears ___ unto the persony	xwant	to help him
+personx bears ___ unto the persony	xwant	to save him from punishment
+personx bears ___ unto the persony	owant	to be vindicated
+personx bears ___ unto the persony	owant	to be treated fairly
+personx bears ___ unto the persony	xneed	none
+personx bears ___ unto the persony	xwant	to support y
+personx bears ___ unto the persony	xwant	to provide reliable testimony
+personx bears ___ unto the persony	xattr	willful
+personx bears ___ unto the persony	xattr	commanding
+personx bears ___ unto the persony	xattr	friendly
+personx bears ___ unto the persony	xattr	helpful
+personx bears ___ unto the persony	xattr	his feelings
+personx bears ___ unto the persony	xattr	his soul
+personx watches persony every ___	oreact	watched
+personx watches persony every ___	oreact	threatened
+personx watches persony every ___	xintent	safe
+personx watches persony every ___	xintent	feel in control
+personx watches persony every ___	xreact	suspicious
+personx watches persony every ___	xreact	concerned
+personx watches persony every ___	oreact	none
+personx watches persony every ___	xintent	to gain knowledge
+personx watches persony every ___	xreact	enlightened
+personx watches persony every ___	oreact	mistrusted
+personx watches persony every ___	oreact	hurt
+personx watches persony every ___	xintent	to catch persony doing something bad
+personx watches persony every ___	xreact	suspicious
+personx watches persony every ___	xreact	judgmental
+personx watches persony every ___	oeffect	that is duty
+personx watches persony every ___	oeffect	response
+personx watches persony every ___	xeffect	sad
+personx watches persony every ___	xeffect	self control
+personx watches persony every ___	oeffect	none
+personx watches persony every ___	xeffect	based on situation to watch
+personx watches persony every ___	xeffect	nice idea
+personx watches persony every ___	oeffect	they feel weird
+personx watches persony every ___	oeffect	they avoid personx
+personx watches persony every ___	xeffect	they stop paying attention to themselves
+personx watches persony every ___	xeffect	they get disgruntled
+personx watches persony every ___	owant	none
+personx watches persony every ___	xneed	be present
+personx watches persony every ___	xneed	be engaged
+personx watches persony every ___	xwant	note each thing
+personx watches persony every ___	xwant	share the experience
+personx watches persony every ___	owant	calls cops
+personx watches persony every ___	owant	shows them
+personx watches persony every ___	xneed	puts food out
+personx watches persony every ___	xneed	goes behind door
+personx watches persony every ___	xwant	turns on camera
+personx watches persony every ___	xwant	catches her
+personx watches persony every ___	owant	none
+personx watches persony every ___	xneed	to know where persony is
+personx watches persony every ___	xneed	to see persony
+personx watches persony every ___	xwant	to follow persony
+personx watches persony every ___	xwant	to take note of what persony is doing
+personx watches persony every ___	xattr	curious
+personx watches persony every ___	xattr	determined
+personx watches persony every ___	xattr	observant
+personx watches persony every ___	xattr	vigilant
+personx watches persony every ___	xattr	observant
+personx watches persony every ___	xattr	nosy
+personx understands ___ better	oreact	none
+personx understands ___ better	xintent	to be improve persons knowledge
+personx understands ___ better	xreact	very happy
+personx understands ___ better	oreact	acknowledge & recognize person x 's heavy task , contribution & responsible behavior
+personx understands ___ better	xintent	materially contribute to own community growth , well-being & progress
+personx understands ___ better	xreact	satisfied , proud to materially contributing to own community growth , well-being & progress
+personx understands ___ better	oeffect	none
+personx understands ___ better	xeffect	becomes smarter
+personx understands ___ better	xeffect	passes the test
+personx understands ___ better	oeffect	none
+personx understands ___ better	xeffect	books
+personx understands ___ better	xeffect	the formula
+personx understands ___ better	oeffect	none
+personx understands ___ better	xeffect	teaches others
+personx understands ___ better	xeffect	writes a book
+personx understands ___ better	owant	to listen to x
+personx understands ___ better	owant	to thank x
+personx understands ___ better	owant	to ask x questions
+personx understands ___ better	xneed	none
+personx understands ___ better	xwant	to tell others
+personx understands ___ better	xwant	to explain to other people
+personx understands ___ better	owant	none
+personx understands ___ better	xneed	reading materials
+personx understands ___ better	xneed	to read
+personx understands ___ better	xwant	to be more informed
+personx understands ___ better	xwant	to show off
+personx understands ___ better	owant	to test in the subject
+personx understands ___ better	owant	to discuss the subject
+personx understands ___ better	xneed	to study the subject
+personx understands ___ better	xneed	to memorize facts in the subject
+personx understands ___ better	xwant	to test in the subject
+personx understands ___ better	xwant	to discuss the subject
+personx understands ___ better	xattr	responsible
+personx understands ___ better	xattr	dilligent
+personx understands ___ better	xattr	wise
+personx understands ___ better	xattr	thinker
+personx understands ___ better	xattr	open-minded
+personx understands ___ better	xattr	unbiased
+personx turns the enemy  's ___	oreact	angry and unhappy
+personx turns the enemy  's ___	xintent	to turn his head because he angry about him
+personx turns the enemy  's ___	xreact	he feel happy and anxiety
+personx turns the enemy  's ___	oeffect	none
+personx turns the enemy  's ___	xeffect	none
+personx turns the enemy  's ___	oeffect	runs
+personx turns the enemy  's ___	oeffect	heart pounds
+personx turns the enemy  's ___	xeffect	heart races
+personx turns the enemy  's ___	xeffect	sweats
+personx turns the enemy  's ___	oeffect	run away
+personx turns the enemy  's ___	oeffect	fight
+personx turns the enemy  's ___	xeffect	sweat
+personx turns the enemy  's ___	xeffect	get a price
+personx turns the enemy  's ___	owant	to react to the situation
+personx turns the enemy  's ___	owant	to push down the field
+personx turns the enemy  's ___	xneed	to gather his men
+personx turns the enemy  's ___	xneed	to make a push forward
+personx turns the enemy  's ___	xwant	to see how they react
+personx turns the enemy  's ___	xwant	to adjust his tactics as necessary
+personx turns the enemy  's ___	xattr	responsive
+personx turns the enemy  's ___	xattr	willful
+personx turns the enemy  's ___	xattr	methodical
+personx turns the enemy  's ___	xattr	discerning
+personx turns the enemy  's ___	xattr	skilled
+personx turns the enemy  's ___	xattr	affective
+personx lends ___ to the view	oreact	none
+personx lends ___ to the view	xintent	lends
+personx lends ___ to the view	xreact	neutral
+personx lends ___ to the view	oeffect	none
+personx lends ___ to the view	xeffect	offers advice
+personx lends ___ to the view	xeffect	has ideas
+personx lends ___ to the view	oeffect	none
+personx lends ___ to the view	xeffect	gets accepted
+personx lends ___ to the view	xeffect	being heard
+personx lends ___ to the view	owant	say thank you
+personx lends ___ to the view	owant	repay the favor
+personx lends ___ to the view	xneed	to have something to offer
+personx lends ___ to the view	xneed	be aware that help is needed
+personx lends ___ to the view	xwant	to be thanked
+personx lends ___ to the view	xwant	to help solve a problem
+personx lends ___ to the view	owant	to sit down
+personx lends ___ to the view	owant	to relax
+personx lends ___ to the view	xneed	to have permission
+personx lends ___ to the view	xneed	to want to lend it
+personx lends ___ to the view	xwant	to sit down
+personx lends ___ to the view	xwant	to relax
+personx lends ___ to the view	owant	none
+personx lends ___ to the view	xneed	to go on the politicians web site
+personx lends ___ to the view	xneed	to write a supportive comment
+personx lends ___ to the view	xwant	the politican to win the election
+personx lends ___ to the view	xwant	to change public policy
+personx lends ___ to the view	xattr	supportive
+personx lends ___ to the view	xattr	kind
+personx lends ___ to the view	xattr	proud
+personx lends ___ to the view	xattr	angry
+personx lends ___ to the view	xattr	friendly
+personx lends ___ to the view	xattr	generous
+personx lays personx 's ___ upon persony	oreact	confused
+personx lays personx 's ___ upon persony	oreact	not sure how to feel
+personx lays personx 's ___ upon persony	oreact	concerned
+personx lays personx 's ___ upon persony	xintent	to be proactive
+personx lays personx 's ___ upon persony	xintent	to try to help
+personx lays personx 's ___ upon persony	xintent	to try to take action
+personx lays personx 's ___ upon persony	xreact	confused
+personx lays personx 's ___ upon persony	xreact	conserned
+personx lays personx 's ___ upon persony	xreact	unable to comprehend
+personx lays personx 's ___ upon persony	oreact	controlled
+personx lays personx 's ___ upon persony	xintent	to dominate
+personx lays personx 's ___ upon persony	xreact	dominant
+personx lays personx 's ___ upon persony	oeffect	none
+personx lays personx 's ___ upon persony	xeffect	assaults
+personx lays personx 's ___ upon persony	xeffect	arrested
+personx lays personx 's ___ upon persony	oeffect	accepts
+personx lays personx 's ___ upon persony	oeffect	rejects
+personx lays personx 's ___ upon persony	xeffect	none
+personx lays personx 's ___ upon persony	oeffect	gets increased responsibility
+personx lays personx 's ___ upon persony	oeffect	shudders with revulsion
+personx lays personx 's ___ upon persony	xeffect	gets pushed away by y
+personx lays personx 's ___ upon persony	xeffect	gets yelled at by y
+personx lays personx 's ___ upon persony	owant	to comfort person x
+personx lays personx 's ___ upon persony	owant	to be of help
+personx lays personx 's ___ upon persony	xneed	to ask permission first
+personx lays personx 's ___ upon persony	xneed	to take person y 's arm
+personx lays personx 's ___ upon persony	xwant	take a rest
+personx lays personx 's ___ upon persony	xwant	to sleep
+personx lays personx 's ___ upon persony	owant	to watch personx
+personx lays personx 's ___ upon persony	owant	to wonder what personx is doing
+personx lays personx 's ___ upon persony	xneed	to move up to persony
+personx lays personx 's ___ upon persony	xneed	to reach for persony
+personx lays personx 's ___ upon persony	xwant	to talk to persony
+personx lays personx 's ___ upon persony	xwant	to make persony feel comfortable
+personx lays personx 's ___ upon persony	owant	to leave
+personx lays personx 's ___ upon persony	owant	to obey personx
+personx lays personx 's ___ upon persony	xneed	to be a dictator
+personx lays personx 's ___ upon persony	xneed	to be forceful
+personx lays personx 's ___ upon persony	xwant	to push their ways on everyone
+personx lays personx 's ___ upon persony	xwant	to tell persony they have to follow their command
+personx lays personx 's ___ upon persony	xattr	generous
+personx lays personx 's ___ upon persony	xattr	caring
+personx lays personx 's ___ upon persony	xattr	comforting
+personx lays personx 's ___ upon persony	xattr	gentle
+personx lays personx 's ___ upon persony	xattr	dominant
+personx lays personx 's ___ upon persony	xattr	commanding
+personx holds a ___ in personx 's hand	oreact	none
+personx holds a ___ in personx 's hand	xintent	to do something
+personx holds a ___ in personx 's hand	xintent	to take it somewhere
+personx holds a ___ in personx 's hand	xreact	he taken all the things
+personx holds a ___ in personx 's hand	xreact	satisfied
+personx holds a ___ in personx 's hand	oreact	happy
+personx holds a ___ in personx 's hand	xintent	to present it to another person
+personx holds a ___ in personx 's hand	xreact	happy
+personx holds a ___ in personx 's hand	oeffect	none
+personx holds a ___ in personx 's hand	xeffect	person x fingsers move
+personx holds a ___ in personx 's hand	xeffect	person x grasp object
+personx holds a ___ in personx 's hand	oeffect	none
+personx holds a ___ in personx 's hand	xeffect	gets writer 's block
+personx holds a ___ in personx 's hand	xeffect	gets writer 's cramp
+personx holds a ___ in personx 's hand	owant	none
+personx holds a ___ in personx 's hand	xneed	learn to play it
+personx holds a ___ in personx 's hand	xneed	play with others
+personx holds a ___ in personx 's hand	xwant	do a show
+personx holds a ___ in personx 's hand	xwant	get paid for it
+personx holds a ___ in personx 's hand	owant	none
+personx holds a ___ in personx 's hand	xneed	to spot something
+personx holds a ___ in personx 's hand	xneed	to pick something up
+personx holds a ___ in personx 's hand	xwant	to put something down
+personx holds a ___ in personx 's hand	xwant	to secure something
+personx holds a ___ in personx 's hand	xattr	reflective
+personx holds a ___ in personx 's hand	xattr	creative
+personx holds a ___ in personx 's hand	xattr	dangerous
+personx holds a ___ in personx 's hand	xattr	unpredictable
+personx pays ___ to the problems	oreact	none
+personx pays ___ to the problems	xintent	to fix things
+personx pays ___ to the problems	xreact	determined
+personx pays ___ to the problems	oreact	none
+personx pays ___ to the problems	xintent	to find an answer
+personx pays ___ to the problems	xintent	things to get better
+personx pays ___ to the problems	xintent	to be careful
+personx pays ___ to the problems	xreact	safer
+personx pays ___ to the problems	xreact	hopeful
+personx pays ___ to the problems	oeffect	none
+personx pays ___ to the problems	xeffect	gets knowledge
+personx pays ___ to the problems	xeffect	learns a new skill
+personx pays ___ to the problems	owant	to get the problem fixed
+personx pays ___ to the problems	owant	discuss payment plans
+personx pays ___ to the problems	xneed	to get money
+personx pays ___ to the problems	xneed	to discuss payment
+personx pays ___ to the problems	xwant	to get her problems fix
+personx pays ___ to the problems	xwant	discuss the problem
+personx pays ___ to the problems	owant	none
+personx pays ___ to the problems	xneed	none
+personx pays ___ to the problems	xwant	to solve them
+personx pays ___ to the problems	xwant	to get rid of the problems
+personx pays ___ to the problems	owant	none
+personx pays ___ to the problems	xneed	to gather stuff together
+personx pays ___ to the problems	xneed	to get everything in order
+personx pays ___ to the problems	xwant	to take care of things
+personx pays ___ to the problems	xwant	to pay things off
+personx pays ___ to the problems	xattr	energy
+personx pays ___ to the problems	xattr	emotion
+personx pays ___ to the problems	xattr	prepared
+personx pays ___ to the problems	xattr	observant
+personx pays ___ to the problems	xattr	dedicated
+personx pays ___ to the problems	xattr	responsible
+personx pays ___ to the problems	xattr	interested
+personx pays ___ to the problems	xattr	worried
+personx connects ___ together	oreact	happy to have a dedicated worker
+personx connects ___ together	xintent	to be good at his job
+personx connects ___ together	xreact	content with his performance
+personx connects ___ together	oeffect	none
+personx connects ___ together	xeffect	gains knowledge
+personx connects ___ together	xeffect	figures it out
+personx connects ___ together	oeffect	none
+personx connects ___ together	xeffect	finishes work
+personx connects ___ together	xeffect	turns item on
+personx connects ___ together	owant	none
+personx connects ___ together	xneed	none
+personx connects ___ together	xwant	to keep them close
+personx connects ___ together	xwant	to bind them forever
+personx connects ___ together	owant	none
+personx connects ___ together	xneed	none
+personx connects ___ together	xwant	to solve the problem
+personx connects ___ together	xwant	to figure it out
+personx connects ___ together	xwant	to come up with a solution
+personx connects ___ together	owant	none
+personx connects ___ together	xneed	to take the wires
+personx connects ___ together	xneed	to work with tools
+personx connects ___ together	xwant	to give connection to power
+personx connects ___ together	xwant	to switch on the light
+personx connects ___ together	xattr	influential
+personx connects ___ together	xattr	persuasive
+personx connects ___ together	xattr	engaged
+personx connects ___ together	xattr	collaborative
+personx connects ___ together	xattr	talented
+personx connects ___ together	xattr	skilled with his hands
+personx requires every ___	oreact	none
+personx requires every ___	xintent	it is help to others
+personx requires every ___	xreact	happy
+personx requires every ___	oeffect	none
+personx requires every ___	xeffect	none
+personx requires every ___	oeffect	none
+personx requires every ___	xeffect	gets rehydrated
+personx requires every ___	xeffect	gets nourishment
+personx requires every ___	xeffect	gets healthy
+personx requires every ___	owant	do what he says
+personx requires every ___	owant	they all get raises
+personx requires every ___	xneed	start a project
+personx requires every ___	xneed	round up some people
+personx requires every ___	xwant	gives each person certain orders
+personx requires every ___	xwant	get it all done
+personx requires every ___	owant	none
+personx requires every ___	xneed	none
+personx requires every ___	xwant	to find it
+personx requires every ___	xwant	to get it
+personx requires every ___	xattr	cocky
+personx requires every ___	xattr	concieted
+personx requires every ___	xattr	needy
+personx requires every ___	xattr	demanding
+personx requires every ___	xattr	needy
+personx requires every ___	xattr	underpriviliged
+personx studies the ___ carefully	oreact	none
+personx studies the ___ carefully	xintent	this is use your mind caresullyt for evevy time
+personx studies the ___ carefully	xreact	happy
+personx studies the ___ carefully	oreact	none
+personx studies the ___ carefully	xintent	studies
+personx studies the ___ carefully	xreact	improving knowledge
+personx studies the ___ carefully	oeffect	none
+personx studies the ___ carefully	xeffect	learns information
+personx studies the ___ carefully	xeffect	gains understanding
+personx studies the ___ carefully	oeffect	none
+personx studies the ___ carefully	xeffect	becomes valuable
+personx studies the ___ carefully	xeffect	does job well
+personx studies the ___ carefully	xneed	to have the subject matter available
+personx studies the ___ carefully	xneed	to be interested in it
+personx studies the ___ carefully	owant	none
+personx studies the ___ carefully	xwant	to share their knowledge
+personx studies the ___ carefully	xwant	to pass an exam
+personx studies the ___ carefully	xattr	intelligent
+personx studies the ___ carefully	xattr	smart
+personx studies the ___ carefully	xattr	studious
+personx studies the ___ carefully	xattr	responsible
+personx studies the ___ carefully	xattr	responsible
+personx studies the ___ carefully	xattr	concerned
+personx leaves the ___ within days	oreact	none
+personx leaves the ___ within days	xintent	to return to his home
+personx leaves the ___ within days	xintent	to take a vacation
+personx leaves the ___ within days	xreact	exhausted
+personx leaves the ___ within days	xreact	jet lagged
+personx leaves the ___ within days	xreact	tired
+personx leaves the ___ within days	oreact	none
+personx leaves the ___ within days	xintent	to change jobs
+personx leaves the ___ within days	xreact	excited
+personx leaves the ___ within days	oeffect	none
+personx leaves the ___ within days	xeffect	never looks back
+personx leaves the ___ within days	xeffect	thinks about old life
+personx leaves the ___ within days	owant	none
+personx leaves the ___ within days	xneed	to have been asked to leave
+personx leaves the ___ within days	xneed	to have done something wrong and are on the run
+personx leaves the ___ within days	xneed	to get a new job
+personx leaves the ___ within days	xwant	to change the way they look
+personx leaves the ___ within days	xwant	to move back within a few years
+personx leaves the ___ within days	owant	none
+personx leaves the ___ within days	xneed	money
+personx leaves the ___ within days	xneed	to pack
+personx leaves the ___ within days	xwant	to settle in
+personx leaves the ___ within days	xwant	rent a car
+personx leaves the ___ within days	xattr	reckless
+personx leaves the ___ within days	xattr	criminal
+personx leaves the ___ within days	xattr	scared
+personx leaves the ___ within days	xattr	afraid
+personx leaves the ___ within days	xattr	quick
+personx leaves the ___ within days	xattr	decisive
+personx leaves the ___ within days	xattr	rushed
+personx leaves the ___ within days	xattr	in a hurry
+personx spends a ___ thinking	oreact	none
+personx spends a ___ thinking	xintent	good future
+personx spends a ___ thinking	xreact	fear
+personx spends a ___ thinking	oreact	none
+personx spends a ___ thinking	xintent	to remember
+personx spends a ___ thinking	xreact	awesome
+personx spends a ___ thinking	oreact	none
+personx spends a ___ thinking	xintent	to solve a problem by thinking about it
+personx spends a ___ thinking	xreact	thoughtful
+personx spends a ___ thinking	oeffect	none
+personx spends a ___ thinking	xeffect	none
+personx spends a ___ thinking	oeffect	none
+personx spends a ___ thinking	xeffect	none
+personx spends a ___ thinking	oeffect	none
+personx spends a ___ thinking	xeffect	becomes creative
+personx spends a ___ thinking	xeffect	gets an idea
+personx spends a ___ thinking	xneed	to focus
+personx spends a ___ thinking	xneed	to use their brain
+personx spends a ___ thinking	owant	none
+personx spends a ___ thinking	xwant	to solve a riddle
+personx spends a ___ thinking	xwant	to be respected for intellect
+personx spends a ___ thinking	owant	none
+personx spends a ___ thinking	xwant	to find clarity
+personx spends a ___ thinking	xwant	to solve a problem
+personx spends a ___ thinking	xwant	to seek advice
+personx spends a ___ thinking	xattr	thoughtful
+personx spends a ___ thinking	xattr	patient
+personx spends a ___ thinking	xattr	attentive
+personx spends a ___ thinking	xattr	cautious
+personx spends a ___ thinking	xattr	inquisitive
+personx spends a ___ thinking	xattr	speculative
+personx spends a ___ thinking	xattr	brooding
+personx assumes another ___	oreact	none
+personx assumes another ___	xintent	to change their identity
+personx assumes another ___	xreact	different
+personx assumes another ___	xreact	like a new person
+personx assumes another ___	oeffect	none
+personx assumes another ___	xeffect	that is work
+personx assumes another ___	xeffect	responsibility
+personx assumes another ___	oeffect	none
+personx assumes another ___	xeffect	good idea
+personx assumes another ___	xeffect	feeling nice
+personx assumes another ___	owant	none
+personx assumes another ___	xneed	tries to get consumed
+personx assumes another ___	xneed	worksout
+personx assumes another ___	xwant	rests
+personx assumes another ___	xwant	get pizza
+personx assumes another ___	owant	none
+personx assumes another ___	xneed	to plan ahead
+personx assumes another ___	xneed	think of names
+personx assumes another ___	xwant	get new id cards
+personx assumes another ___	xwant	adjust to their new identify
+personx assumes another ___	owant	none
+personx assumes another ___	xneed	to go to the court house
+personx assumes another ___	xneed	to fill out paperwork
+personx assumes another ___	xwant	find a new place to live
+personx assumes another ___	xwant	get a new job
+personx assumes another ___	xattr	sneaky
+personx assumes another ___	xattr	secretive
+personx assumes another ___	xattr	brave
+personx assumes another ___	xattr	proud
+personx values ___ highly	oreact	none
+personx values ___ highly	xintent	person  values  eaperence highly
+personx values ___ highly	xreact	happy
+personx values ___ highly	oreact	none
+personx values ___ highly	xintent	none
+personx values ___ highly	xreact	humble
+personx values ___ highly	oreact	none
+personx values ___ highly	xintent	to see the worth of it
+personx values ___ highly	xreact	that their opinions have worth
+personx values ___ highly	oeffect	none
+personx values ___ highly	xeffect	none
+personx values ___ highly	oeffect	none
+personx values ___ highly	xeffect	takes time out for
+personx values ___ highly	xeffect	praises
+personx values ___ highly	owant	none
+personx values ___ highly	xneed	to attend college
+personx values ___ highly	xneed	to work hard in school
+personx values ___ highly	xwant	to be successful in life
+personx values ___ highly	xwant	to build a career
+personx values ___ highly	owant	none
+personx values ___ highly	xneed	go to good college
+personx values ___ highly	xneed	pick an engineering major
+personx values ___ highly	xwant	to find a good job
+personx values ___ highly	xwant	to find a career in engineering
+personx values ___ highly	xattr	wise
+personx values ___ highly	xattr	driven
+personx values ___ highly	xattr	caring
+personx values ___ highly	xattr	interested
+personx prepares the ___ for publication	oreact	none
+personx prepares the ___ for publication	xintent	to show his knowledge
+personx prepares the ___ for publication	xreact	happy and satisfied
+personx prepares the ___ for publication	oreact	none
+personx prepares the ___ for publication	xintent	satisfied
+personx prepares the ___ for publication	xreact	good
+personx prepares the ___ for publication	oeffect	none
+personx prepares the ___ for publication	xeffect	none
+personx prepares the ___ for publication	oeffect	none
+personx prepares the ___ for publication	xeffect	gets it out on time
+personx prepares the ___ for publication	xeffect	gets noticed
+personx prepares the ___ for publication	owant	to read the published material
+personx prepares the ___ for publication	owant	to gain knowledge from the material
+personx prepares the ___ for publication	xneed	to find something to write about
+personx prepares the ___ for publication	xneed	to gather data
+personx prepares the ___ for publication	xneed	to use imagination
+personx prepares the ___ for publication	xneed	to write the thing being published
+personx prepares the ___ for publication	xwant	to get the thing published
+personx prepares the ___ for publication	xwant	to collect royalties
+personx prepares the ___ for publication	xwant	to present findings at seminars
+personx prepares the ___ for publication	xattr	careful
+personx prepares the ___ for publication	xattr	detail oriented
+personx prepares the ___ for publication	xattr	hard working
+personx prepares the ___ for publication	xattr	careful
+personx prepares the ___ for publication	xattr	intelligent
+personx arrives home that ___	oreact	none
+personx arrives home that ___	xintent	none
+personx arrives home that ___	xreact	relaxed
+personx arrives home that ___	xreact	rested
+personx arrives home that ___	oreact	none
+personx arrives home that ___	xintent	to get some rest
+personx arrives home that ___	xreact	exhausted
+personx arrives home that ___	oeffect	none
+personx arrives home that ___	xeffect	parks
+personx arrives home that ___	xeffect	eats dinner
+personx arrives home that ___	oeffect	none
+personx arrives home that ___	xeffect	yelled at for being late
+personx arrives home that ___	xeffect	punished
+personx arrives home that ___	owant	none
+personx arrives home that ___	xneed	none
+personx arrives home that ___	xwant	to sleep
+personx arrives home that ___	xwant	to watch tv
+personx arrives home that ___	xwant	to take children to the park
+personx arrives home that ___	owant	none
+personx arrives home that ___	xneed	leave home
+personx arrives home that ___	xneed	go do something
+personx arrives home that ___	xwant	sit on their couch
+personx arrives home that ___	xwant	rest at home
+personx arrives home that ___	owant	to welcome personx home
+personx arrives home that ___	owant	to enjoy time with personx
+personx arrives home that ___	xneed	to get transportation
+personx arrives home that ___	xneed	to get directions home
+personx arrives home that ___	xwant	to relax
+personx arrives home that ___	xwant	to eat dinner
+personx arrives home that ___	xattr	relieved
+personx arrives home that ___	xattr	determined
+personx arrives home that ___	xattr	reliable
+personx arrives home that ___	xattr	capable
+personx sells persony 's ___ to the bidder	oreact	none
+personx sells persony 's ___ to the bidder	xintent	to make some money
+personx sells persony 's ___ to the bidder	xreact	wealthier
+personx sells persony 's ___ to the bidder	oreact	like they lost something
+personx sells persony 's ___ to the bidder	xintent	to get money
+personx sells persony 's ___ to the bidder	xreact	richer
+personx sells persony 's ___ to the bidder	oreact	assisted
+personx sells persony 's ___ to the bidder	xintent	to assist persony
+personx sells persony 's ___ to the bidder	xreact	helpful
+personx sells persony 's ___ to the bidder	oeffect	person y has less blood
+personx sells persony 's ___ to the bidder	oeffect	person y becomes ill
+personx sells persony 's ___ to the bidder	xeffect	gets money from the sale
+personx sells persony 's ___ to the bidder	xeffect	can buy things he wants
+personx sells persony 's ___ to the bidder	oeffect	make money on their stuff
+personx sells persony 's ___ to the bidder	oeffect	gain more space in home
+personx sells persony 's ___ to the bidder	xeffect	makes money
+personx sells persony 's ___ to the bidder	xeffect	gets richer
+personx sells persony 's ___ to the bidder	oeffect	make money
+personx sells persony 's ___ to the bidder	oeffect	get rid of something
+personx sells persony 's ___ to the bidder	xeffect	makes a sale
+personx sells persony 's ___ to the bidder	xeffect	makes money
+personx sells persony 's ___ to the bidder	xneed	to know their skills
+personx sells persony 's ___ to the bidder	xneed	to find the bidders
+personx sells persony 's ___ to the bidder	xneed	to conduct an auction
+personx sells persony 's ___ to the bidder	xneed	to find possible buyers
+personx sells persony 's ___ to the bidder	owant	the item they are bidding on
+personx sells persony 's ___ to the bidder	owant	a bill of sale
+personx sells persony 's ___ to the bidder	xwant	to pick the bidder
+personx sells persony 's ___ to the bidder	xwant	make a transaction between themselves and the bidder
+personx sells persony 's ___ to the bidder	owant	to receive their purchase
+personx sells persony 's ___ to the bidder	owant	to post feedback for x
+personx sells persony 's ___ to the bidder	xwant	to spend the money
+personx sells persony 's ___ to the bidder	xwant	to leave positive feedback
+personx sells persony 's ___ to the bidder	owant	to put the money in the safe
+personx sells persony 's ___ to the bidder	owant	to get the money and put it in the bank
+personx sells persony 's ___ to the bidder	xwant	to collect money
+personx sells persony 's ___ to the bidder	xwant	to give the money to persony
+personx sells persony 's ___ to the bidder	xattr	businesslike
+personx sells persony 's ___ to the bidder	xattr	money minded
+personx sells persony 's ___ to the bidder	xattr	resourceful
+personx sells persony 's ___ to the bidder	xattr	enterprising
+personx holds persony 's ___ in personx 's hands	oreact	powerless
+personx holds persony 's ___ in personx 's hands	xintent	to be powerful
+personx holds persony 's ___ in personx 's hands	xreact	powerful
+personx holds persony 's ___ in personx 's hands	oreact	hopeless
+personx holds persony 's ___ in personx 's hands	xintent	none
+personx holds persony 's ___ in personx 's hands	xreact	helpless
+personx holds persony 's ___ in personx 's hands	oeffect	falls asleep
+personx holds persony 's ___ in personx 's hands	oeffect	smiles
+personx holds persony 's ___ in personx 's hands	xeffect	none
+personx holds persony 's ___ in personx 's hands	oeffect	none
+personx holds persony 's ___ in personx 's hands	xeffect	none
+personx holds persony 's ___ in personx 's hands	oeffect	gets protected
+personx holds persony 's ___ in personx 's hands	oeffect	becomes dependent
+personx holds persony 's ___ in personx 's hands	xeffect	keeps holding y
+personx holds persony 's ___ in personx 's hands	xeffect	protects y
+personx holds persony 's ___ in personx 's hands	owant	cradle the item
+personx holds persony 's ___ in personx 's hands	owant	assure personx
+personx holds persony 's ___ in personx 's hands	xneed	reach out arms
+personx holds persony 's ___ in personx 's hands	xneed	release their grip
+personx holds persony 's ___ in personx 's hands	xwant	wipe hands off
+personx holds persony 's ___ in personx 's hands	xwant	wash off hands
+personx holds persony 's ___ in personx 's hands	owant	to be comforted
+personx holds persony 's ___ in personx 's hands	owant	to say thank you
+personx holds persony 's ___ in personx 's hands	xneed	be with the other person
+personx holds persony 's ___ in personx 's hands	xneed	reach for the thing to hold
+personx holds persony 's ___ in personx 's hands	xwant	to comfort someone
+personx holds persony 's ___ in personx 's hands	xwant	to provide support
+personx holds persony 's ___ in personx 's hands	owant	to get it back
+personx holds persony 's ___ in personx 's hands	owant	to tell they your welcome
+personx holds persony 's ___ in personx 's hands	xneed	to ask for the phone
+personx holds persony 's ___ in personx 's hands	xneed	to be given it
+personx holds persony 's ___ in personx 's hands	xwant	to use it
+personx holds persony 's ___ in personx 's hands	xwant	to thank persony for it
+personx holds persony 's ___ in personx 's hands	xattr	capable
+personx holds persony 's ___ in personx 's hands	xattr	strong
+personx holds persony 's ___ in personx 's hands	xattr	caring
+personx holds persony 's ___ in personx 's hands	xattr	generous
+personx holds persony 's ___ in personx 's hands	xattr	helpful
+personx holds persony 's ___ in personx 's hands	xattr	useful
+personx holds persony 's ___ in personx 's hands	xattr	kind
+personx holds persony 's ___ in personx 's hands	xattr	loving
+personx holds persony 's ___ in personx 's hands	xattr	happy
+personx prevents the ___ from rising	oreact	none
+personx prevents the ___ from rising	xintent	to keep a cap on things
+personx prevents the ___ from rising	xreact	watchful
+personx prevents the ___ from rising	oreact	the people are happy and free from natural disaster
+personx prevents the ___ from rising	xintent	to control the global warming temperature to save the earth
+personx prevents the ___ from rising	xreact	be proud himself and satisfied by saving the earth
+personx prevents the ___ from rising	oeffect	none
+personx prevents the ___ from rising	xeffect	suffocates
+personx prevents the ___ from rising	xeffect	gets poisoned
+personx prevents the ___ from rising	oeffect	none
+personx prevents the ___ from rising	xeffect	pushes back
+personx prevents the ___ from rising	xeffect	holds
+personx prevents the ___ from rising	owant	none
+personx prevents the ___ from rising	xneed	to be holding pipe
+personx prevents the ___ from rising	xneed	to be having control of water station
+personx prevents the ___ from rising	xwant	to cut off water supply
+personx prevents the ___ from rising	xwant	to impose penalty on water misuse
+personx prevents the ___ from rising	owant	none
+personx prevents the ___ from rising	xneed	to put a cap
+personx prevents the ___ from rising	xneed	to cover it
+personx prevents the ___ from rising	xwant	to close it
+personx prevents the ___ from rising	xwant	to see what happens
+personx prevents the ___ from rising	xattr	competent
+personx prevents the ___ from rising	xattr	willful
+personx prevents the ___ from rising	xattr	powerful
+personx prevents the ___ from rising	xattr	restricting
+personx prevents the ___ from rising	xattr	cautious
+personx prevents the ___ from rising	xattr	resourceful
+personx pays a ___ for the privilege	oreact	none
+personx pays a ___ for the privilege	xintent	to pay for his share
+personx pays a ___ for the privilege	xreact	accomplished
+personx pays a ___ for the privilege	oreact	none
+personx pays a ___ for the privilege	xintent	to (be)
+personx pays a ___ for the privilege	xreact	to get a special benefit or right
+personx pays a ___ for the privilege	oeffect	none
+personx pays a ___ for the privilege	xeffect	gets the privilege
+personx pays a ___ for the privilege	xeffect	has less money
+personx pays a ___ for the privilege	oeffect	none
+personx pays a ___ for the privilege	xeffect	gets something exclusive
+personx pays a ___ for the privilege	xeffect	is part of an elite group
+personx pays a ___ for the privilege	oeffect	none
+personx pays a ___ for the privilege	xeffect	happy
+personx pays a ___ for the privilege	xeffect	feeling good
+personx pays a ___ for the privilege	owant	none
+personx pays a ___ for the privilege	xneed	none
+personx pays a ___ for the privilege	xwant	to savor the experience
+personx pays a ___ for the privilege	xwant	to enjoy the privilege
+personx pays a ___ for the privilege	owant	money
+personx pays a ___ for the privilege	owant	to be paid
+personx pays a ___ for the privilege	xneed	have money
+personx pays a ___ for the privilege	xneed	a car
+personx pays a ___ for the privilege	xwant	to get it done fast
+personx pays a ___ for the privilege	xwant	to be pampered
+personx pays a ___ for the privilege	owant	none
+personx pays a ___ for the privilege	xneed	pass the qualification
+personx pays a ___ for the privilege	xneed	has money
+personx pays a ___ for the privilege	xwant	use the privilege
+personx pays a ___ for the privilege	xwant	evaluate the privilege
+personx pays a ___ for the privilege	xattr	rich
+personx pays a ___ for the privilege	xattr	spoiled
+personx pays a ___ for the privilege	xattr	rich
+personx pays a ___ for the privilege	xattr	smart
+personx spends some ___ talking	oreact	none
+personx spends some ___ talking	xintent	to be very happy and relief
+personx spends some ___ talking	xreact	so happy
+personx spends some ___ talking	oreact	involved
+personx spends some ___ talking	xintent	to have a convesation
+personx spends some ___ talking	xreact	involved
+personx spends some ___ talking	oreact	none
+personx spends some ___ talking	xintent	happy because the movie was good
+personx spends some ___ talking	xreact	good
+personx spends some ___ talking	oeffect	none
+personx spends some ___ talking	xeffect	has to move their mouth
+personx spends some ___ talking	xeffect	has to think of what to say
+personx spends some ___ talking	xeffect	has to use their brain
+personx spends some ___ talking	oeffect	listen to person xs words
+personx spends some ___ talking	oeffect	think of their own opinions
+personx spends some ___ talking	oeffect	judge validity of what he says
+personx spends some ___ talking	xeffect	moves mouth
+personx spends some ___ talking	xeffect	moves vocal cords
+personx spends some ___ talking	xeffect	shares ideas and opinions
+personx spends some ___ talking	oeffect	none
+personx spends some ___ talking	xeffect	dry mouth from speech
+personx spends some ___ talking	xeffect	voice becomes hoarse
+personx spends some ___ talking	owant	listen to personx
+personx spends some ___ talking	owant	ask questions
+personx spends some ___ talking	xneed	start a conversation
+personx spends some ___ talking	xneed	listen to someone else
+personx spends some ___ talking	xwant	make a point
+personx spends some ___ talking	xwant	say goodbye
+personx spends some ___ talking	owant	none
+personx spends some ___ talking	xneed	goes to work
+personx spends some ___ talking	xneed	helps a customer
+personx spends some ___ talking	xwant	find the product
+personx spends some ___ talking	xwant	walks away
+personx spends some ___ talking	owant	take notes on what was said
+personx spends some ___ talking	owant	ask some questions
+personx spends some ___ talking	xneed	none
+personx spends some ___ talking	xwant	drink some water
+personx spends some ___ talking	xwant	see if people were listening
+personx spends some ___ talking	xneed	to call someone up
+personx spends some ___ talking	xneed	to have something to talk about
+personx spends some ___ talking	xneed	none
+personx spends some ___ talking	xneed	to plan the topic to talk
+personx spends some ___ talking	xneed	to see if he would have time for that
+personx spends some ___ talking	xattr	patient
+personx spends some ___ talking	xattr	gregarious
+personx spends some ___ talking	xattr	talkative
+personx spends some ___ talking	xattr	annoying
+personx lays ___ upon persony	oreact	scared
+personx lays ___ upon persony	oreact	angry
+personx lays ___ upon persony	oreact	hurt
+personx lays ___ upon persony	xintent	to hurt persony
+personx lays ___ upon persony	xintent	to intimidate persony
+personx lays ___ upon persony	xreact	vengeful
+personx lays ___ upon persony	xreact	powerful
+personx lays ___ upon persony	oreact	admired
+personx lays ___ upon persony	oreact	attended to
+personx lays ___ upon persony	xintent	to serve
+personx lays ___ upon persony	xintent	to look at
+personx lays ___ upon persony	xintent	to admire
+personx lays ___ upon persony	xreact	awed
+personx lays ___ upon persony	xreact	curious
+personx lays ___ upon persony	xreact	productive
+personx lays ___ upon persony	oreact	sexual
+personx lays ___ upon persony	oreact	sensual
+personx lays ___ upon persony	xintent	be intimate with persony
+personx lays ___ upon persony	xreact	aroused
+personx lays ___ upon persony	oeffect	felt love
+personx lays ___ upon persony	oeffect	felt anger
+personx lays ___ upon persony	xeffect	none
+personx lays ___ upon persony	oeffect	cannot move because of the physical restraints
+personx lays ___ upon persony	oeffect	sweaty and tense because of the stress
+personx lays ___ upon persony	oeffect	can't breathe because personx 's hands are around their neck
+personx lays ___ upon persony	xeffect	none
+personx lays ___ upon persony	xneed	none
+personx lays ___ upon persony	xneed	to reason
+personx lays ___ upon persony	xneed	permission
+personx lays ___ upon persony	owant	pleasure
+personx lays ___ upon persony	owant	entertainment
+personx lays ___ upon persony	xwant	to pleasure y
+personx lays ___ upon persony	xwant	to go on date
+personx lays ___ upon persony	owant	to pray
+personx lays ___ upon persony	owant	to cry
+personx lays ___ upon persony	xwant	to pray
+personx lays ___ upon persony	xwant	to sing
+personx lays ___ upon persony	xattr	intimidating
+personx lays ___ upon persony	xattr	violent
+personx lays ___ upon persony	xattr	small
+personx lays ___ upon persony	xattr	sleepy
+personx lays ___ upon persony	xattr	close
+personx lays ___ upon persony	xattr	intimate
+personx lays ___ upon persony	xattr	supportive
+personx lays ___ upon persony	xattr	helpful
+personx spends a ___ talking	oreact	none
+personx spends a ___ talking	xintent	i like this speech
+personx spends a ___ talking	xreact	happy
+personx spends a ___ talking	oreact	annoyed
+personx spends a ___ talking	xintent	to be important
+personx spends a ___ talking	xreact	exhausted
+personx spends a ___ talking	oeffect	none
+personx spends a ___ talking	xeffect	booed
+personx spends a ___ talking	xeffect	sent of stage
+personx spends a ___ talking	oeffect	none
+personx spends a ___ talking	xeffect	is organized
+personx spends a ___ talking	xeffect	is eloquent
+personx spends a ___ talking	owant	to listen to personx

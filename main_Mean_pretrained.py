@@ -52,7 +52,7 @@ class Experiment:
         embs = [[0. for i in range(300)], ]
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
-                print('line = '+str(line))
+                #print('line = '+str(line))
                 word, emb = line.strip().split("\t")
                 emb = [float(i) for i in emb.split(',')]
                 vocab += word
