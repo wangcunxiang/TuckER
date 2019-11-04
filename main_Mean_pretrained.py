@@ -71,6 +71,9 @@ class Experiment:
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
+            for i, word in enumerate(sent):
+                if word not in vocab_:
+                    sent[i] = 'UNK'
             word_ids = [vocab_[word] for word in sent]
             data_ids.append(word_ids)
         return data_ids, vocab
