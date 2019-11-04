@@ -55,8 +55,8 @@ class Experiment:
                 #print('line = '+str(line))
                 word, emb = line.strip().split("\t")
                 emb = [float(i) for i in emb.split(',')]
-                vocab += word
-                embs += emb
+                vocab.append(word)
+                embs.append(emb)
         return vocab, embs
 
     def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
