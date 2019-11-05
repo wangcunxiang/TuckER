@@ -26,7 +26,6 @@ class Experiment:
         self.textdata = None  # = Etextdata + Rtextdata; np.array()
         self.Etextdata = None
         self.Rtextdata = None
-        self.id2text = {}
         self.max_test_hit1 = 0.
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
@@ -183,7 +182,7 @@ class Experiment:
 
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
-        #print('d.entities='+str(len(d.entities)))
+        #print('d.entities='+str((d.entities)))
         entities_ids, self.Evocab = self.strings_to_ids(data=d.entities, vocab=self.Evocab)
 
         #print("entities_ids = " + str(entities_ids))
@@ -267,18 +266,6 @@ class Experiment:
                 sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
                 #print("sort_values="+str(sort_values))
 
-                sort_idxs = sort_idxs.cpu().numpy()
-                targets_ = targets.cpu().numpy()
-                for k in range(data_batch.shape[0]):
-                    rank = np.where(np.isin(sort_idxs[k], np.where(targets_[k] == 1.0)[0]))[0][0]
-                    ranks.append(rank + 1)
-
-
-                    for hits_level in range(10):
-                        if rank <= hits_level:
-                            hits[hits_level].append(1.0)
-                        else:
-                            hits[hits_level].append(0.0)
 
                 if self.label_smoothing:
                     targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))

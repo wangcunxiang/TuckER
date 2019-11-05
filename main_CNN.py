@@ -30,6 +30,7 @@ class Experiment:
         self.Rtextdata = None
         self.Elen = None
         self.Rlen = None
+        self.max_test_hit1 = 0.
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
@@ -52,18 +53,33 @@ class Experiment:
     #         data_ids.append(triple_ids)
     #     return data_ids, vocab
 
-    def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
+    def get_vocab_emb(self, data_dir="data/embedding1/", data_type="tucker_all_word_embs"):
+        vocab = ['NULL',]
+        embs = [[0. for i in range(300)], ]
+        with open("%s%s" % (data_dir, data_type), "r") as f:
+            for line in f.readlines():
+                #print('line = '+str(line))
+                word, emb = line.strip().split("\t")
+                emb = [float(i) for i in emb.split(',')]
+                vocab.append(word)
+                embs.append(emb)
+        return vocab, embs
 
-        tmp = []
-        for sent in data:
-            sent = sent.strip().split()
-            tmp += sent
-        vocab += sorted(list(set(tmp)))
+    def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
+        if vocab == ['NULL', ]:
+            tmp = []
+            for sent in data:
+                sent = sent.strip().split()
+                tmp += sent
+            vocab += sorted(list(set(tmp)))
 
         vocab_ = {vocab[i]: i for i in range(len(vocab))}
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
+            for i, word in enumerate(sent):
+                if word not in vocab_:
+                    sent[i] = 'UNK'
             word_ids = [vocab_[word] for word in sent]
             data_ids.append(word_ids)
         return data_ids, vocab
@@ -89,6 +105,14 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
+    def print_results(self, e1s, rs, e2s, f):
+        # print(len(e1s))
+        # print(len(rs))
+        # print(len(e2s))
+        for i, e1 in enumerate(e1s):
+            tail = e2s[i][0]
+            f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
+
     def evaluate(self, model, data):
         hits = []
         ranks = []
@@ -99,7 +123,9 @@ class Experiment:
         er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
 
         print("Number of data points: %d" % len(test_data_idxs))
-
+        all_e1s = []
+        all_rs = []
+        all_sort_idxs = []
         for i in range(0, len(test_data_idxs), self.batch_size):
             data_batch, _ = self.get_batch(er_vocab, test_data_idxs, i)
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
@@ -119,9 +145,14 @@ class Experiment:
                 predictions[j, filt] = 0.0
                 predictions[j, e2_idx[j]] = target_value
 
-            sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
+            sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
             sort_idxs = sort_idxs.cpu().numpy()
+
+            all_e1s += data_batch[:, 0].tolist()
+            all_rs += data_batch[:, 1].tolist()
+            all_sort_idxs += sort_idxs.tolist()
+
             for j in range(data_batch.shape[0]):
                 rank = np.where(sort_idxs[j] == e2_idx[j].item())[0][0]
                 ranks.append(rank + 1)
@@ -131,6 +162,15 @@ class Experiment:
                         hits[hits_level].append(1.0)
                     else:
                         hits[hits_level].append(0.0)
+        if self.max_test_hit1 < float(np.mean(hits[0])):
+            self.max_test_hit1 = float(np.mean(hits[0]))
+            f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
+            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
+            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
+            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
+            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
+            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
+            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
@@ -155,6 +195,7 @@ class Experiment:
         # print("Number of all data points: %d" % len(data_idxs))
 
         ########
+        self.Evocab, Eembs = self.get_vocab_emb()
         # print("entities="+str(d.entities))
         entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
         # print("entities_ids = "+str(entities_ids))
@@ -180,6 +221,7 @@ class Experiment:
                            cfg=cfg, max_length=self.maxlength, window_size=self.windowsize,
                           Evocab=len(self.Evocab), Rvocab=len(self.Rvocab),
                            **self.kwargs)
+        model.Eembed.weight.data.copy_(torch.from_numpy(np.array(Eembs)))
         print("model ready")
 
         ########
