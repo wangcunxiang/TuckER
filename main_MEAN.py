@@ -26,6 +26,8 @@ class Experiment:
         self.textdata = None  # = Etextdata + Rtextdata; np.array()
         self.Etextdata = None
         self.Rtextdata = None
+        self.id2text = {}
+        self.max_test_hit1 = 0.3
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
@@ -55,6 +57,7 @@ class Experiment:
         vocab += sorted(list(set(tmp)))
 
         vocab_ = {vocab[i]: i for i in range(len(vocab))}
+        self.id2text = {i:vocab[i] for i in range(len(vocab))}
         data_ids = []
         for sent in data:
             sent = sent.strip().split()
@@ -83,6 +86,15 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
+    def print_results(self, e1s, rs, e2s, f):
+        print(len(e1s))
+        print(len(rs))
+        print(len(e2s))
+        for i, e1 in enumerate(e1s):
+            tail = e2s[i][0]
+            f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
+
+
     def evaluate(self, model, data):
         hits = []
         ranks = []
@@ -96,9 +108,11 @@ class Experiment:
         test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
 
         print("Number of data points: %d" % len(test_data_idxs))
-
-
+        all_e1s = []
+        all_rs = []
+        all_sort_idxs = []
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
+            #print(i)
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
 
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
@@ -126,12 +140,19 @@ class Experiment:
                         hits[hits_level].append(1.0)
                     else:
                         hits[hits_level].append(0.0)
+            all_e1s += data_batch[:, 0].tolist()
+            all_rs += data_batch[:, 1].tolist()
+            all_sort_idxs += sort_idxs.tolist()
+            #print(len(all_sort_idxs))
 
             if self.label_smoothing:
                 targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
             loss = model.loss(predictions, targets)
             losses.append(loss.item())
-
+        if self.max_test_hit1 < float(np.mean(hits[0])):
+            self.max_test_hit1 = float(np.mean(hits[0]))
+            f = open('/results/predictions/Mean_{}'.format(args.dataset), 'w')
+            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
         print('Hits @1: {0}'.format(np.mean(hits[0])))
@@ -158,10 +179,10 @@ class Experiment:
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
         #print('d.entities='+str(len(d.entities)))
-        entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
+        entities_ids, self.Evocab = self.strings_to_ids(data=d.entities, vocab=self.Evocab)
 
         #print("entities_ids = " + str(entities_ids))
-        relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
+        relation_ids, self.Rvocab = self.strings_to_ids(data=d.relations, vocab=self.Rvocab)
         print("entities_ids len=%d" % len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
         #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
@@ -273,12 +294,12 @@ class Experiment:
             with torch.no_grad():
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
-                if not it % 2:
-                    if it % 10 == 0:
-                        print("Train:")
-                        start_test = time.time()
-                        self.evaluate(model, d.train_data)
-                        print(time.time() - start_test)
+                #if not it % 2:
+                    # if it % 10 == 0:
+                    #     print("Train:")
+                    #     start_test = time.time()
+                    #     self.evaluate(model, d.train_data)
+                    #     print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)

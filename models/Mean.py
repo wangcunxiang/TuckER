@@ -76,14 +76,14 @@ class MeanTuckER(nn.Module):
 
 
     def mean_(self, tensor):
-        #print('tensor[:, :, 0] != 0: '+str(tensor[:, :, 0] != 0))
-        lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
-        assert torch.nonzero(lens).size(0) == lens.size(0)
-        lens = lens.unsqueeze(1)
-        tensor_  = torch.sum(tensor, dim=1)
-        #print('tensor_ =' + str(tensor_))
-        tensor__ = torch.div(tensor_, lens)
-        return tensor__
+        # #print('tensor[:, :, 0] != 0: '+str(tensor[:, :, 0] != 0))
+        # lens = torch.sum((tensor[:, :, 0] != 0).float(), dim=1)
+        # assert torch.nonzero(lens).size(0) == lens.size(0)
+        # lens = lens.unsqueeze(1)
+        # tensor_  = torch.sum(tensor, dim=1)
+        # #print('tensor_ =' + str(tensor_))
+        # tensor__ = torch.div(tensor_, lens)
+        return torch.mean(tensor, dim=1)
 
     def forward(self, e, r):
         # #print('e.szie:' + str(e.size()))
