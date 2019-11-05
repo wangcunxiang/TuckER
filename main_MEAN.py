@@ -27,7 +27,7 @@ class Experiment:
         self.Etextdata = None
         self.Rtextdata = None
         self.id2text = {}
-        self.max_test_hit1 = 0.3
+        self.max_test_hit1 = 0.
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
@@ -87,9 +87,9 @@ class Experiment:
         return np.array(batch), targets
 
     def print_results(self, e1s, rs, e2s, f):
-        print(len(e1s))
-        print(len(rs))
-        print(len(e2s))
+        # print(len(e1s))
+        # print(len(rs))
+        # print(len(e2s))
         for i, e1 in enumerate(e1s):
             tail = e2s[i][0]
             f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
@@ -151,7 +151,12 @@ class Experiment:
             losses.append(loss.item())
         if self.max_test_hit1 < float(np.mean(hits[0])):
             self.max_test_hit1 = float(np.mean(hits[0]))
-            f = open('/results/predictions/Mean_{}'.format(args.dataset), 'w')
+            f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
+            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
+            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
+            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
+            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
+            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
             self.print_results(all_e1s, all_rs, all_sort_idxs, f)
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
