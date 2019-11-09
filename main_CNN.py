@@ -279,11 +279,11 @@ class Experiment:
             model.eval()
             with torch.no_grad():
                 if not it % 2:
-                    if it % 10 == 0:
-                        print("Train:")
-                        start_test = time.time()
-                        self.evaluate(model, d.train_data)
-                        print(time.time() - start_test)
+                    # if it % 10 == 0:
+                    #     print("Train:")
+                    #     start_test = time.time()
+                    #     self.evaluate(model, d.train_data)
+                    #     print(time.time() - start_test)
                     # print("Valid:")
                     # start_test = time.time()
                     # self.evaluate(model, d.valid_data)
