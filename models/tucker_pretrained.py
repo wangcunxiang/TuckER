@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-import torch.nn.Linear
+from torch.nn import Linear
 from torch.nn.init import xavier_normal_
 
 
@@ -10,9 +10,9 @@ class TuckER(torch.nn.Module):
         super(TuckER, self).__init__()
 
         self.E = torch.nn.Embedding(len(d.entities), 768, padding_idx=0)
-        self.E2E = torch.nn.Linear(768, d1)
+        self.E2E = Linear(768, d1)
         self.R = torch.nn.Embedding(len(d.relations), 768, padding_idx=0)
-        self.R2R = torch.nn.Linear(768, d2)
+        self.R2R = Linear(768, d2)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                                  dtype=torch.float, device="cuda", requires_grad=True))
 

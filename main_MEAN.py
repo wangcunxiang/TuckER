@@ -92,8 +92,8 @@ class Experiment:
         for i, e1 in enumerate(e1s):
             tail = e2s[i][0]
             #print('tail='+str(tail))
-            print(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail])
-            #f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
+            #print(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail])
+            f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
 
 
     def evaluate(self, model, data):
@@ -141,24 +141,26 @@ class Experiment:
                         hits[hits_level].append(1.0)
                     else:
                         hits[hits_level].append(0.0)
-            all_e1s += data_batch[:, 0].tolist()
-            all_rs += data_batch[:, 1].tolist()
-            all_sort_idxs += sort_idxs.tolist()
+
             #print(len(all_sort_idxs))
 
             if self.label_smoothing:
                 targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
             loss = model.loss(predictions, targets)
             losses.append(loss.item())
-        if self.max_test_hit1 < float(np.mean(hits[9])):
-            self.max_test_hit1 = float(np.mean(hits[9]))
-            #f = open('./results/predictions/CNN_{}.txt'.format(args.dataset), 'w')
-            # f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
-            # f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
-            # f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
-            # f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
-            # f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
-            self.print_results(all_e1s, all_rs, all_sort_idxs)
+
+            all_e1s += data_batch[:, 0].tolist()
+            all_rs += data_batch[:, 1].tolist()
+            all_sort_idxs += sort_idxs.tolist()
+        if self.max_test_hit1 < float(np.mean(hits[0])):
+            self.max_test_hit1 = float(np.mean(hits[0]))
+            f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
+            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
+            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
+            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
+            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
+            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
+            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
         print('Hits @1: {0}'.format(np.mean(hits[0])))

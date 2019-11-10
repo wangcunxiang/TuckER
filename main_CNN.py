@@ -164,7 +164,7 @@ class Experiment:
                         hits[hits_level].append(0.0)
         if self.max_test_hit1 < float(np.mean(hits[0])):
             self.max_test_hit1 = float(np.mean(hits[0]))
-            f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
+            f = open('./results/predictions/CNN_pretrained_{}.txt'.format(args.dataset), 'w')
             f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
             f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
             f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')

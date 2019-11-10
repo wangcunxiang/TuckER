@@ -29,6 +29,7 @@ class Experiment:
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.vocab_size = vocab_size
+        self.max_test_hit1 = 0.
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
 
@@ -99,6 +100,15 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
+    def print_results(self, e1s, rs, e2s, f=None):
+        # print(len(e1s))
+        # print(len(rs))
+        # print(len(e2s))
+        for i, e1 in enumerate(e1s):
+            tail = e2s[i][0]
+            #print('tail='+str(tail))
+            #print(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail])
+            f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
     def evaluate(self, model, data):
         hits = []
         ranks = []
@@ -112,7 +122,9 @@ class Experiment:
         test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
 
         print("Number of data points: %d" % len(test_data_idxs))
-
+        all_e1s = []
+        all_rs = []
+        all_sort_idxs = []
 
         for i in range(0, len(test_er_vocab_pairs), self.batch_size):
             data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
@@ -147,6 +159,19 @@ class Experiment:
                 targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
             loss = model.loss(predictions, targets)
             losses.append(loss.item())
+
+            all_e1s += data_batch[:, 0].tolist()
+            all_rs += data_batch[:, 1].tolist()
+            all_sort_idxs += sort_idxs.tolist()
+        if self.max_test_hit1 < float(np.mean(hits[0])):
+            self.max_test_hit1 = float(np.mean(hits[0]))
+            f = open('./results/predictions/Mean_pretrained_{}.txt'.format(args.dataset), 'w')
+            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
+            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
+            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
+            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
+            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
+            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
@@ -293,11 +318,11 @@ class Experiment:
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
                 if not it % 2:
-                    if it % 10 == 0:
-                        print("Train:")
-                        start_test = time.time()
-                        self.evaluate(model, d.train_data)
-                        print(time.time() - start_test)
+                    # if it % 10 == 0:
+                    #     print("Train:")
+                    #     start_test = time.time()
+                    #     self.evaluate(model, d.train_data)
+                    #     print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
