@@ -48,10 +48,10 @@ class Experiment:
 
     def get_embs(self, data_dir="data/embeddingbert/", data_type="conceptNet_en_rel_bert_embs.txt"):
                     #ent_file="conceptNet_all_ents.txt", rel_file="conceptNet_all_rels.txt"):
-        # ents = []
-        # rels = []
-        ent_embs = []
-        rel_embs = []
+        if args.dataset == 'ConceptNet':
+            data_type = "conceptNet_en_rel_bert_embs.txt"
+        elif args.dataset == 'ATOMIC4':
+            data_type = "atomic_en_rel_bert_embs.txt"
         embs = {}
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
@@ -60,14 +60,7 @@ class Experiment:
                 emb = [float(i) for i in emb.split(',')]
                 embs[word] = emb
 
-        # with open("%s%s" % (data_dir, ent_file), "r") as fent:
-        #     for line in fent.readlines():
-        #         ents.append(line.strip())
         ent_embs = [embs[i] for i in d.entities]
-        #
-        # with open("%s%s" % (data_dir, rel_file), "r") as frel:
-        #     for line in frel.readlines():
-        #         rels.append(line.strip())
         rel_embs = [embs[i] for i in d.relations]
 
         return ent_embs, rel_embs
