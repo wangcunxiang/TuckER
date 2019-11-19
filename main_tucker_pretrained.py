@@ -187,6 +187,7 @@ class Experiment:
             ent_embs, rel_embs = self.get_embs()
             model.E.weight.data.copy_(torch.from_numpy(np.array(ent_embs)))
             model.R.weight.data.copy_(torch.from_numpy(np.array(rel_embs)))
+            print("Embeddings Loaded")
 
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
