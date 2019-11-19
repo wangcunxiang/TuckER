@@ -1,6 +1,7 @@
 from load_data import Data
 import numpy as np
 import torch
+import random
 import time
 from collections import defaultdict
 from models.tucker_pretrained import *
@@ -47,6 +48,31 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
+    def get_batch_eval(self, er_vocab, er_vocab_pairs, idx):
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
+        targets = np.zeros((len(batch), len(d.entities)))
+        for idx, pair in enumerate(batch):
+            #print('er_vocab[pair]='+str(er_vocab[pair]))
+            targets[idx, er_vocab[pair]] = 1.
+        targets = torch.FloatTensor(targets)
+        if self.cuda:
+            targets = targets.cuda()
+        return np.array(batch), targets
+
+    def get_batch_train(self, er_vocab, er_vocab_pairs, idx):
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
+        batch_ = list((t[0],t[1]) for t in batch)
+        #print('batch_ = '+str(batch_))
+        #print('er_vocab='+str(er_vocab))
+        negs = np.random.randint(len(d.entities), size=len(batch))
+        for idx, pair in enumerate(batch_):
+            while negs[idx] in er_vocab[pair]:
+                negs[idx] = random.randint(0, len(d.entities)-1)
+        negs = torch.LongTensor(negs)
+        if self.cuda:
+            negs = negs.cuda()
+        return np.array(batch), negs
+
     def get_embs(self, data_dir="data/embeddingbert/", data_type="conceptNet_en_rel_bert_embs.txt"):
                     #ent_file="conceptNet_all_ents.txt", rel_file="conceptNet_all_rels.txt"):
         if args.dataset == 'ConceptNet':
@@ -88,6 +114,10 @@ class Experiment:
         test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
         test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
 
+        es_idx = torch.LongTensor([i for i,_ in enumerate(d.entities)])
+        if self.cuda:
+            es_idx = es_idx.cuda()
+
         print("Number of data points: %d" % len(test_data_idxs))
         all_e1s = []
         all_rs = []
@@ -101,7 +131,7 @@ class Experiment:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
                 #e2_idx = e2_idx.cuda()
-            predictions = model.forward(e1_idx, r_idx)
+            predictions = model.evaluate(e1_idx, r_idx, es_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
@@ -153,40 +183,44 @@ class Experiment:
         if self.cuda:
             model.cuda()
         model.init()
-        ent_embs, rel_embs = self.get_embs()
-        model.E.weight.data.copy_(torch.from_numpy(np.array(ent_embs)))
-        model.R.weight.data.copy_(torch.from_numpy(np.array(rel_embs)))
+        if args.do_pretrain:
+            ent_embs, rel_embs = self.get_embs()
+            model.E.weight.data.copy_(torch.from_numpy(np.array(ent_embs)))
+            model.R.weight.data.copy_(torch.from_numpy(np.array(rel_embs)))
 
         opt = torch.optim.Adam(model.parameters(), lr=self.learning_rate)
         if self.decay_rate:
             scheduler = ExponentialLR(opt, self.decay_rate)
 
         er_vocab = self.get_er_vocab(train_data_idxs)
-        er_vocab_pairs = list(er_vocab.keys())
+        #er_vocab_pairs = list(er_vocab.keys())
 
         print("Starting training...")
         for it in range(1, self.num_iterations + 1):
-            hits = []
-            ranks = []
-            for i in range(10):
-                hits.append([])
             start_train = time.time()
             model.train()
             losses = []
-            np.random.shuffle(er_vocab_pairs)
-            for j in range(0, len(er_vocab_pairs), self.batch_size):
-                data_batch, targets = self.get_batch(er_vocab, er_vocab_pairs, j)
+            np.random.shuffle(train_data_idxs)
+            for j in range(0, len(train_data_idxs), self.batch_size):
+                data_batch, e2n_idx= self.get_batch_train(er_vocab, train_data_idxs, j)
                 opt.zero_grad()
                 e1_idx = torch.LongTensor(data_batch[:, 0])
                 r_idx = torch.LongTensor(data_batch[:, 1])
+                e2p_idx = torch.LongTensor(data_batch[:, 2])
+                targets = torch.cat((torch.ones(e2p_idx.size(0)), torch.zeros(e2n_idx.size(0))),0)
                 if self.cuda:
                     e1_idx = e1_idx.cuda()
                     r_idx = r_idx.cuda()
-                predictions = model.forward(e1_idx, r_idx)
+                    e2p_idx = e2p_idx.cuda()
+                    e2n_idx = e2n_idx.cuda()
+                    targets = targets.cuda()
+                pred_p, pred_n = model.forward(e1_idx, r_idx, e2p_idx, e2n_idx)
+
+                predication = torch.cat((pred_p, pred_n),0)
 
                 if self.label_smoothing:
-                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-                loss = model.loss(predictions, targets)
+                    targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / len(d.entities))
+                loss = model.loss(predication, targets)
                 loss.backward()
                 opt.step()
                 losses.append(loss.item())
@@ -200,11 +234,11 @@ class Experiment:
                 #print("Validation:")
                 #self.evaluate(model, d.valid_data)
                 if not it % 2:
-                    if it % 10 == 0:
-                        print("Train:")
-                        start_test = time.time()
-                        self.evaluate(model, d.train_data)
-                        print(time.time() - start_test)
+                    # if it % 10 == 0:
+                    #     print("Train:")
+                    #     start_test = time.time()
+                    #     self.evaluate(model, d.train_data)
+                    #     print(time.time() - start_test)
                     print("Test:")
                     start_test = time.time()
                     self.evaluate(model, d.test_data)
@@ -219,6 +253,9 @@ if __name__ == '__main__':
                         help="Number of iterations.")
     parser.add_argument("--batch_size", type=int, default=128, nargs="?",
                         help="Batch size.")
+    parser.add_argument("--do_pretrain",
+                        action='store_true',
+                        help="Whether to get pretrained embedding")
     parser.add_argument("--lr", type=float, default=0.0005, nargs="?",
                         help="Learning rate.")
     parser.add_argument("--dr", type=float, default=1.0, nargs="?",

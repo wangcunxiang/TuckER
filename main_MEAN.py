@@ -85,15 +85,16 @@ class Experiment:
             targets = targets.cuda()
         return np.array(batch), targets
 
-    def print_results(self, e1s, rs, e2s, f=None):
+    def print_results(self, e1s, rs, e2s, ranks, f=None):
         # print(len(e1s))
         # print(len(rs))
         # print(len(e2s))
         for i, e1 in enumerate(e1s):
             tail = e2s[i][0]
-            #print('tail='+str(tail))
-            #print(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail])
-            f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
+            print(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\t'+str(ranks[i]))
+            if d.entities[tail] == 'to':
+                raise ("entity error")
+            #f.write(d.entities[e1]+'\t'+d.relations[rs[i]]+'\t'+d.entities[tail]+'\n')
 
 
     def evaluate(self, model, data):
@@ -154,13 +155,13 @@ class Experiment:
             all_sort_idxs += sort_idxs.tolist()
         if self.max_test_hit1 < float(np.mean(hits[0])):
             self.max_test_hit1 = float(np.mean(hits[0]))
-            f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
-            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
-            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
-            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
-            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
-            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
-            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
+            # f = open('./results/predictions/Mean_{}.txt'.format(args.dataset), 'w')
+            # f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
+            # f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
+            # f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
+            # f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
+            # f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
+            self.print_results(all_e1s, all_rs, all_sort_idxs, ranks)
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
         print('Hits @1: {0}'.format(np.mean(hits[0])))
@@ -186,7 +187,7 @@ class Experiment:
 
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
-        #print('d.entities='+str((d.entities)))
+        print('d.entities='+str((d.entities)))
         entities_ids, self.Evocab = self.strings_to_ids(data=d.entities, vocab=self.Evocab)
 
         #print("entities_ids = " + str(entities_ids))

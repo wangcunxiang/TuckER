@@ -79,8 +79,6 @@ class CNNTuckER(nn.Module):
 
         return es_encoded
 
-
-
     def forward(self, e, r):
         e = self.Eembed(e)
         r = self.Rembed(r)

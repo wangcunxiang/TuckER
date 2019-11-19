@@ -4,6 +4,7 @@ from collections import defaultdict
 from models.model import *
 from torch.optim.lr_scheduler import ExponentialLR
 from models.Mean import MeanTuckER
+from models.CNN import CNNTuckER
 import argparse
 import torch.tensor
 
@@ -209,12 +210,6 @@ class Experiment:
         print("relation_ids len=%d" % len(relation_ids))
         #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
         #print('YYY = ' + str([len(i) for i in entities_ids].index(0)))
-        ent_lens = [0, ]+[len(i) for i in entities_ids]
-        rel_lens = [0, ]+[len(i) for i in relation_ids]
-        ent_lens = torch.FloatTensor(ent_lens)
-        rel_lens = torch.FloatTensor(rel_lens)
-        # print('entity lens = '+str(ent_lens))
-        # print('relation lens = ' + str(rel_lens))
         print("read vocab ready.")
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
@@ -225,11 +220,17 @@ class Experiment:
         print("text data ready")
         es_idx = torch.LongTensor(self.Etextdata)
         if self.cuda:
-            ent_lens = ent_lens.cuda()
-            rel_lens = rel_lens.cuda()
             es_idx = es_idx.cuda()
-        model = MeanTuckER(d, es_idx, ent_lens, rel_lens, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
-                           Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)  # n_ctx = 52为COMET中计算出的
+        if args.model == 'TuckER':
+            model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
+        elif args.model == 'MeanTuckER':
+            model = MeanTuckER(d, es_idx, self.ent_vec_dim, self.rel_vec_dim, Evocab=len(self.Evocab),
+                           Rvocab=len(self.Rvocab), n_ctx=self.maxlength, **self.kwargs)
+        elif args.model == 'CNNTuckER':
+            model = CNNTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim,
+                              cfg=cfg, max_length=self.maxlength, window_size=self.windowsize,
+                              Evocab=len(self.Evocab), Rvocab=len(self.Rvocab),
+                              **self.kwargs)
         model.Eembed.weight.data.copy_(torch.from_numpy(np.array(Eembs)))
         print("model ready")
 
@@ -333,6 +334,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", type=str, default="FB15k-237", nargs="?",
                         help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
+    parser.add_argument("--model", type=str, default="TuckER", nargs="?",
+                        help="TuckER, MeanTuckER, CNNTuckER")
+    parser.add_argument("--pretrain", type=bool, default=True, nargs="?",
+                        help="Whether to use pretrained embeddings")
     parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
                         help="the config file path")
     parser.add_argument("--num_iterations", type=int, default=500, nargs="?",
