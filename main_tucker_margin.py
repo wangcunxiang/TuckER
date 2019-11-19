@@ -116,7 +116,7 @@ class Experiment:
         print('loss: {0}'.format(np.mean(losses)))
 
     def train_and_eval(self):
-        print("Training the TuckER Margin on {}...".format(args.dataset))
+        print("Training the TuckER PN on {}...".format(args.dataset))
         self.entity_idxs = {d.entities[i]: i for i in range(len(d.entities))}
         self.relation_idxs = {d.relations[i]: i for i in range(len(d.relations))}
 
