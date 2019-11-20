@@ -30,12 +30,15 @@ class TuckER(torch.nn.Module):
 
     def evaluate(self, e1_idx, r_idx, es_idx):
         e1 = self.E(e1_idx)
+        e1 = self.E2E(e1)
         es = self.E(es_idx)
+        es = self.E2E(es)
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
 
         r = self.R(r_idx)
+        r = self.R2R(r)
         W_mat = torch.mm(r, self.W.view(r.size(1), -1))  # torch.mm() 矩阵相乘
         W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
         W_mat = self.hidden_dropout1(W_mat)
