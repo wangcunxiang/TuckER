@@ -33,7 +33,6 @@ class CNNTuckER(nn.Module):
             es_tmp = self.ecnn(es_tmp)
 
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
-
         return es_encoded
 
 
@@ -51,7 +50,7 @@ class CNNTuckER(nn.Module):
         e1_encoded = e1_encoded.reshape(-1, e1_encoded.size(1))
         r_encoded = r_encoded.reshape(-1, r_encoded.size(1))
 
-        return self.tucker.evluate(e1_encoded, r_encoded, self.cal_es_emb())
+        return self.tucker.evaluate(e1_encoded, r_encoded, self.cal_es_emb())
 
     def forward(self, e1, r, e2p, e2n):
         e1 = self.Eembed(e1)
@@ -75,7 +74,7 @@ class CNNTuckER(nn.Module):
         e2n_encoded = e2n_encoded.reshape(-1, e2n_encoded.size(1))
 
 
-        return self.tucker(e1_encoded, r_encoded, e2p_encoded, e2p_encoded)
+        return self.tucker(e1_encoded, r_encoded, e2p_encoded, e2n_encoded)
 
 
 

@@ -139,7 +139,7 @@ class Experiment:
             if e1_idx.size(0) == 1:
                 print(j)
                 continue
-            predictions = model.forward(e1_idx, r_idx)
+            predictions = model.evaluate(e1_idx, r_idx)
 
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
