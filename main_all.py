@@ -214,6 +214,7 @@ class Experiment:
 
         print("text data ready")
         es_idx = torch.LongTensor(self.Etextdata)
+        print("es ready")
         if self.cuda:
             es_idx = es_idx.cuda()
         if args.model == 'TuckER':
@@ -317,7 +318,7 @@ if __name__ == '__main__':
                         help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
     parser.add_argument("--model", type=str, default="TuckER", nargs="?",
                         help="TuckER, MeanTuckER, CNNTuckER")
-    parser.add_argument("--pretrain", type=bool, default=True, nargs="?",
+    parser.add_argument("--do_pretrain", type=bool, default=True, nargs="?",
                         help="Whether to use pretrained embeddings")
     parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
                         help="the config file path")
@@ -351,9 +352,7 @@ if __name__ == '__main__':
     d = DataText(data_dir=data_dir, reverse=False)
     experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr,
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
-                            input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
-                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing,
-                            maxlength=args.max_length
+                            label_smoothing=args.label_smoothing, maxlength=args.max_length
                             )
     experiment.train_and_eval()
 
