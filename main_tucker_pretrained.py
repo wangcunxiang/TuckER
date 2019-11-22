@@ -83,7 +83,7 @@ class Experiment:
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
                 #print('line = '+str(line))
-                word, emb = line.strip().split("\t")
+                word, emb = line.split("\t")
                 emb = [float(i) for i in emb.split(',')]
                 embs[word] = emb
 
@@ -172,7 +172,7 @@ class Experiment:
         print('loss: {0}'.format(np.mean(losses)))
 
     def train_and_eval(self):
-        print("Training the TuckER on {}...".format(args.dataset))
+        print("Training the (pretrained) TuckER on {}...".format(args.dataset))
         self.entity_idxs = {d.entities[i]: i for i in range(len(d.entities))}
         self.relation_idxs = {d.relations[i]: i for i in range(len(d.relations))}
 
