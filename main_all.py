@@ -214,9 +214,9 @@ class Experiment:
 
         print("text data ready")
         es_idx = torch.LongTensor(self.Etextdata)
-        print("es ready")
         if self.cuda:
             es_idx = es_idx.cuda()
+            print("es ready")
         if args.model == 'TuckER':
             model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg)
         elif args.model == 'Mean':
