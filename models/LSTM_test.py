@@ -19,7 +19,7 @@ class LSTMTuckER(nn.Module):
         self.rlstm = LSTM(cfg.hSize, int(rel_vec_dim/2), num_layers=2, batch_first=True, dropout=0.2, bidirectional=True)
         self.loss = torch.nn.BCELoss()
 
-    def update_es_emb(self):
+    def cal_es_emb(self):
         es = self.Eembed(self.es_idx)
         es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
         es_encoded = torch.mean(es_encoded, dim=1)
@@ -42,7 +42,7 @@ class LSTMTuckER(nn.Module):
         r_encoded, tmp = self.rlstm(r)
         r_encoded = torch.mean(r_encoded, dim=1)
 
-        return self.tucker.evaluate(e_encoded, r_encoded, self.es_embed)
+        return self.tucker.evaluate(e_encoded, r_encoded, self.cal_es_emb())
 
     def forward(self, e, r, e2p, e2n):
 
