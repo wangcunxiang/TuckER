@@ -224,10 +224,10 @@ class Experiment:
             es_idx = es_idx.cuda()
             print("es ready")
         if args.model == 'TuckER':
-            model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg)
+            model = TuckER(d, cfg.hSize, self.rel_vec_dim, cfg)
         elif args.model == 'Mean':
             model = MeanTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim,
-                               cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab), n_ctx=self.maxlength)
+                               cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab))
         elif args.model == 'CNN':
             model = CNNTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim,
                               cfg=cfg, max_length=self.maxlength,

@@ -7,8 +7,8 @@ class TuckER(torch.nn.Module):
     def __init__(self, d, d1, d2, cfg):
         super(TuckER, self).__init__()
 
-        self.E = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
-        self.R = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
+        self.Eembed = torch.nn.Embedding(len(d.entities), d1, padding_idx=0)
+        self.Rembdd = torch.nn.Embedding(len(d.relations), d2, padding_idx=0)
         self.W = torch.nn.Parameter(torch.tensor(np.random.uniform(-1, 1, (d2, d1, d1)),
                                                  dtype=torch.float, device="cuda", requires_grad=True))
 
@@ -26,13 +26,13 @@ class TuckER(torch.nn.Module):
         xavier_normal_(self.R.weight.data)
 
     def evaluate(self, e1_idx, r_idx, es_idx):
-        e1 = self.E(e1_idx)
-        es = self.E(es_idx)
+        e1 = self.Eembed(e1_idx)
+        es = self.Eembed(es_idx)
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
 
-        r = self.R(r_idx)
+        r = self.Rembdd(r_idx)
         W_mat = torch.mm(r, self.W.view(r.size(1), -1))  # torch.mm() 矩阵相乘
         W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
         W_mat = self.hidden_dropout1(W_mat)
@@ -46,14 +46,14 @@ class TuckER(torch.nn.Module):
         return pred
 
     def forward(self, e1_idx, r_idx, e2p_idx, e2n_idx):
-        e1 = self.E(e1_idx)
-        e2p = self.E(e2p_idx)
-        e2n = self.E(e2n_idx)
+        e1 = self.Eembed(e1_idx)
+        e2p = self.Eembed(e2p_idx)
+        e2n = self.Eembed(e2n_idx)
         x = self.bn0(e1)
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
 
-        r = self.R(r_idx)
+        r = self.Rembdd(r_idx)
         W_mat = torch.mm(r, self.W.view(r.size(1), -1))  # torch.mm() 矩阵相乘
         W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
         W_mat = self.hidden_dropout1(W_mat)
