@@ -35,7 +35,7 @@ class Experiment:
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.max_test_hit1 = 0.
 
-    def get_vocab_emb(self, vocab, data_dir="data/embedding1/", data_type="tucker_all_word_bert_embs.txt"):
+    def get_vocab_emb(self, vocab, data_dir="embedding/", data_type="word_embs.txt"):
         vocab2embs = {'NULL':[0. for i in range(self.ent_vec_dim)], }
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
