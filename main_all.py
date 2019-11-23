@@ -36,6 +36,8 @@ class Experiment:
         self.max_test_hit1 = 0.
 
     def get_vocab_emb(self, vocab, data_dir="embedding/", data_type="word_embs.txt"):
+        if args.model == 'TuckER':
+            data_type = "sen_embs.txt"
         vocab2embs = {'NULL':[0. for i in range(self.ent_vec_dim)], }
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
@@ -203,11 +205,12 @@ class Experiment:
         print("relation_ids len=%d" % len(relation_ids))
         #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
         #print('YYY = ' + str([len(i) for i in entities_ids].index(0)))
+        cfg = config(dict(read_json(args.config)))
         if args.do_pretrain == True:
-            self.ent_vec_dim = 768
+            cfg.hSize = 768
             Eembs = self.get_vocab_emb(self.Evocab)
         print("read vocab ready.")
-        cfg = config(dict(read_json(args.config)))
+
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
         d.Rtextdata = d.get_index(relation_ids, self.maxlength)
