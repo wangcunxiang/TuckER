@@ -35,10 +35,10 @@ class Experiment:
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.max_test_hit1 = 0.
 
-    def get_vocab_emb(self, vocab, data_dir="embedding/", data_type="word_embs.txt"):
+    def get_vocab_emb(self, vocab, hSize, data_dir="embedding/", data_type="word_embs.txt"):
         if args.model == 'TuckER':
             data_type = "sen_embs.txt"
-        vocab2embs = {'NULL':[0. for i in range(self.ent_vec_dim)], }
+        vocab2embs = {'NULL':[0. for i in range(hSize)], }
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
                 #print('line = '+str(line))
@@ -48,7 +48,7 @@ class Experiment:
         for item in vocab:
             if item not in vocab2embs:
                 print('{} is missing'.format(item))
-                vocab2embs[item]=[0. for i in range(self.ent_vec_dim)]
+                vocab2embs[item]=[0. for i in range(hSize)]
 
         embs = [ vocab2embs[word] for word in vocab ]
         return embs
@@ -208,7 +208,7 @@ class Experiment:
         cfg = config(dict(read_json(args.config)))
         if args.do_pretrain == True:
             cfg.hSize = 768
-            Eembs = self.get_vocab_emb(self.Evocab)
+            Eembs = self.get_vocab_emb(self.Evocab, cfg.hSize)
         print("read vocab ready.")
 
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
