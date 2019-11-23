@@ -43,6 +43,11 @@ class Experiment:
                 word, emb = line.strip().split("\t")
                 emb = [float(i) for i in emb.split(',')]
                 vocab2embs[word] = emb
+        for item in vocab:
+            if item not in vocab2embs:
+                print('{} is missing'.format(item))
+                vocab2embs[item]=[0. for i in range(self.ent_vec_dim)]
+
         embs = [ vocab2embs[word] for word in vocab ]
         return embs
 
@@ -99,9 +104,6 @@ class Experiment:
         return np.array(batch), targets
 
     def print_results(self, e1s, rs, e2s, f=None):
-        # print(len(e1s))
-        # print(len(rs))
-        # print(len(e2s))
         for i, e1 in enumerate(e1s):
             tail = e2s[i][0]
             #print('tail='+str(tail))
