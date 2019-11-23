@@ -31,7 +31,7 @@ class LSTMTuckER(nn.Module):
             es_tmp = torch.mean(es_tmp, dim=1)
 
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
-        self.es_embed = es_encoded
+        return es_encoded
 
     def evaluate(self, e, r):
         e = self.Eembed(e)
