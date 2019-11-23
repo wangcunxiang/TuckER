@@ -1,14 +1,11 @@
 import torch
 from torch import nn
-from torch.nn.init import xavier_normal_
-from torch.nn import LSTM
-import numpy as np
 from .Tucker_pn import TuckER
 
 class MeanTuckER(nn.Module):
     """Text Encoding Model Mean"""
 
-    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13, **kwargs):
+    def __init__(self, d, es_idx, ent_vec_dim, rel_vec_dim, cfg, Evocab=40990, Rvocab=13):
         super(MeanTuckER, self).__init__()
         self.Eembed = nn.Embedding(Evocab, ent_vec_dim, padding_idx=0)
         self.Rembed = nn.Embedding(Rvocab, rel_vec_dim, padding_idx=0)

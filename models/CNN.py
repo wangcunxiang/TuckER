@@ -33,6 +33,7 @@ class CNNTuckER(nn.Module):
             es_tmp = self.ecnn(es_tmp)
 
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
+        es_encoded = es_encoded.reshape(-1, es_encoded.size(1))
         return es_encoded
 
 

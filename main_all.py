@@ -7,7 +7,7 @@ import random
 import numpy as np
 from torch.optim.lr_scheduler import ExponentialLR
 
-from models.Tucker_pn import TuckER
+from models.Tucker_margin import TuckER
 from models.Mean import MeanTuckER
 from models.CNN import CNNTuckER
 from models.LSTM_test import LSTMTuckER
@@ -35,17 +35,16 @@ class Experiment:
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.max_test_hit1 = 0.
 
-    def get_vocab_emb(self, data_dir="data/embedding1/", data_type="tucker_all_word_embs"):
-        vocab = ['NULL',]
-        embs = [[0. for i in range(300)], ]
+    def get_vocab_emb(self, vocab, data_dir="data/embedding1/", data_type="tucker_all_word_bert_embs.txt"):
+        vocab2embs = {'NULL':[0. for i in range(self.ent_vec_dim)], }
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
                 #print('line = '+str(line))
                 word, emb = line.strip().split("\t")
                 emb = [float(i) for i in emb.split(',')]
-                vocab.append(word)
-                embs.append(emb)
-        return vocab, embs
+                vocab2embs[word] = emb
+        embs = [ vocab2embs[word] for word in vocab ]
+        return embs
 
     def strings_to_ids(self, data, vocab=['NULL', ]):  # padding_idx=0; designed for [sentences, words]
         if vocab == ['NULL', ]:
@@ -190,19 +189,21 @@ class Experiment:
         print("Number of training data points: %d" % len(train_data_idxs))
         # print("Number of all data points: %d" % len(data_idxs))
 
-        if args.do_pretrain:
-            self.Evocab, Eembs = self.get_vocab_emb()
+
         ########
         # data_ids, self.vocab = self.strings_to_ids(vocab=self.vocab, data=d.data)
         #print('d.entities='+str(len(d.entities)))
-        entities_ids, self.Evocab = self.strings_to_ids(vocab=self.Evocab, data=d.entities)
+        entities_ids, self.Evocab = self.strings_to_ids(vocab=['NULL', ], data=d.entities)
 
         #print("entities_ids = " + str(entities_ids))
-        relation_ids, self.Rvocab = self.strings_to_ids(vocab=self.Rvocab, data=d.relations)
+        relation_ids, self.Rvocab = self.strings_to_ids(vocab=['NULL', ], data=d.relations)
         print("entities_ids len=%d" % len(entities_ids))
         print("relation_ids len=%d" % len(relation_ids))
         #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
         #print('YYY = ' + str([len(i) for i in entities_ids].index(0)))
+        if args.do_pretrain == True:
+            self.ent_vec_dim = 768
+            Eembs = self.get_vocab_emb(self.Evocab)
         print("read vocab ready.")
         cfg = config(dict(read_json(args.config)))
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
@@ -233,7 +234,7 @@ class Experiment:
             print("No Model")
             exit(0)
         print("model ready")
-        if args.do_pretrain:
+        if args.do_pretrain == True:
             model.Eembed.weight.data.copy_(torch.from_numpy(np.array(Eembs)))
             print("Embedding Loaded")
 
