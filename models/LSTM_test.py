@@ -20,17 +20,17 @@ class LSTMTuckER(nn.Module):
         self.loss = torch.nn.BCELoss()
 
     def cal_es_emb(self):
-        es = self.Eembed(self.es_idx)
-        es_encoded, tmp = self.elstm(torch.unsqueeze(es[0], 0))
+        es_tmp = self.Eembed(self.es_idx[0])
+        es_encoded, tmp = self.elstm(torch.unsqueeze(es_tmp, 0))
         es_encoded = torch.mean(es_encoded, dim=1)
-        length = es.size(0)
+        length = self.es_idx.size(0)
         for i in range(1, length, int(length / 10)):
-            es_tmp = es[i:min(i + int(length / 10), length)]
+            es_tmp = self.Eembed(self.es_idx[i:min(i + int(length / 10), length)])
             # print("i="+str(i))
             es_tmp, tmp = self.elstm(es_tmp)
             es_tmp = torch.mean(es_tmp, dim=1)
-
             es_encoded = torch.cat((es_encoded, es_tmp), 0)
+
         return es_encoded
 
     def evaluate(self, e, r):

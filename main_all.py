@@ -36,8 +36,6 @@ class Experiment:
         self.max_test_hit1 = 0.
 
     def get_vocab_emb(self, vocab, hSize, data_dir="embedding/", data_type="word_embs.txt"):
-        if args.model == 'TuckER':
-            data_type = "sen_embs.txt"
         vocab2embs = {'NULL':[0. for i in range(hSize)], }
         with open("%s%s" % (data_dir, data_type), "r") as f:
             for line in f.readlines():
@@ -223,9 +221,7 @@ class Experiment:
         if self.cuda:
             es_idx = es_idx.cuda()
             print("es ready")
-        if args.model == 'TuckER':
-            model = TuckER(d, cfg.hSize, self.rel_vec_dim, cfg)
-        elif args.model == 'Mean':
+        if args.model == 'Mean':
             model = MeanTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim,
                                cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab))
         elif args.model == 'CNN':
