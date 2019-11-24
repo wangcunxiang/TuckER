@@ -29,7 +29,7 @@ class CNNTuckER(nn.Module):
         es_encoded = self.ecnn(es_tmp)
         length = self.es_idxs.size(0)
         for i in range(1, length, int(length / 10)):
-            es_tmp = self.Eembed(self.es_idxs[i:min(i + int(length / 10), length)])
+            es_tmp = self.Eembed(self.es_idx[i:min(i + int(length / 10), length)])
             es_tmp = es_tmp.permute(0, 2, 1)
             es_tmp = self.ecnn(es_tmp)
 
