@@ -204,7 +204,7 @@ class Experiment:
         #print('XXX = ' + str([len(i) for i in entities_ids].index(0)))
         #print('YYY = ' + str([len(i) for i in entities_ids].index(0)))
         cfg = config(dict(read_json(args.config)))
-        if args.do_pretrain == True:
+        if args.do_pretrain == 1:
             cfg.hSize = 768
             Eembs = self.get_vocab_emb(self.Evocab, cfg.hSize)
         print("read vocab ready.")
@@ -235,7 +235,7 @@ class Experiment:
             print("No Model")
             exit(0)
         print("model ready")
-        if args.do_pretrain == True:
+        if args.do_pretrain == 1:
             model.Eembed.weight.data.copy_(torch.from_numpy(np.array(Eembs)))
             print("Embedding Loaded")
 
@@ -320,7 +320,7 @@ if __name__ == '__main__':
                         help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
     parser.add_argument("--model", type=str, default="TuckER", nargs="?",
                         help="TuckER, MeanTuckER, CNNTuckER")
-    parser.add_argument("--do_pretrain", type=bool, default=True, nargs="?",
+    parser.add_argument("--do_pretrain", type=int, default=1, nargs="?",
                         help="Whether to use pretrained embeddings")
     parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
                         help="the config file path")
