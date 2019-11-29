@@ -320,7 +320,7 @@ if __name__ == '__main__':
                         help="Which dataset to use: FB15k, FB15k-237, WN18 or WN18RR.")
     parser.add_argument("--model", type=str, default="TuckER", nargs="?",
                         help="TuckER, MeanTuckER, CNNTuckER")
-    parser.add_argument("--do_pretrain", type=int, default=1, nargs="?",
+    parser.add_argument("--do_pretrain", type=int, default=0, nargs="?",
                         help="Whether to use pretrained embeddings")
     parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
                         help="the config file path")
