@@ -19,7 +19,7 @@ class Experiment:
 
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
-                 label_smoothing=0., maxlength=25):
+                 label_smoothing=0., maxlength=5):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -34,6 +34,10 @@ class Experiment:
         self.Evocab = ['NULL', ]  # padding_idx=0
         self.Rvocab = ['NULL', ]  # padding_idx=0
         self.max_test_hit1 = 0.
+        self.max_test_hit3 = 0.
+        self.max_test_hit10 = 0.
+        self.max_test_MR = 999999999.
+        self.max_test_MRR = 0.
 
     def get_vocab_emb(self, vocab, hSize, data_dir="embedding/", data_type="word_embs.txt"):
         vocab2embs = {'NULL':[0. for i in range(hSize)], }
@@ -164,15 +168,21 @@ class Experiment:
             all_e1s += data_batch[:, 0].tolist()
             all_rs += data_batch[:, 1].tolist()
             all_sort_idxs += sort_idxs.tolist()
-        if self.max_test_hit1 < float(np.mean(hits[0])):
-            self.max_test_hit1 = float(np.mean(hits[0]))
-            f = open('./results/predictions/{}_{}_pretrain({}).txt'.format(args.model, args.dataset, args.do_pretrain), 'w')
-            f.write('Hits @10: {0}'.format(np.mean(hits[9]))+'\n')
-            f.write('Hits @3: {0}'.format(np.mean(hits[2]))+'\n')
-            f.write('Hits @1: {0}'.format(np.mean(hits[0]))+'\n')
-            f.write('Mean rank: {0}'.format(np.mean(ranks))+'\n')
-            f.write('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks)))+'\n')
-            self.print_results(all_e1s, all_rs, all_sort_idxs, f)
+
+        self.max_test_hit1 = max(self.max_test_hit1, float(np.mean(hits[0])))
+        self.max_test_hit3 = max(self.max_test_hit3, float(np.mean(hits[2])))
+        self.max_test_hit10 = max(self.max_test_hit10, float(np.mean(hits[9])))
+        self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
+        self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
+
+        f = open('./results/predictions/{}_{}_pretrain({}).txt'
+                 .format(args.model, args.dataset, args.do_pretrain), 'w')
+        f.write('Hits @10: {0}'.format(self.max_test_hit1)+'\n')
+        f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
+        f.write('Hits @1: {0}'.format(self.max_test_hit10)+'\n')
+        f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
+        f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
+        #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
 
         print('Hits @10: {0}'.format(np.mean(hits[9])))
         print('Hits @3: {0}'.format(np.mean(hits[2])))
@@ -340,8 +350,8 @@ if __name__ == '__main__':
                         help="Whether to use cuda (GPU) or not (CPU).")
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
                         help="Amount of label smoothing.")
-    parser.add_argument("--max_length", type=int, default=15, nargs="?",
-                        help="Batch size.")
+    parser.add_argument("--max_length", type=int, default=5, nargs="?",
+                        help="max sequence length.")
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset
