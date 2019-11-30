@@ -1,4 +1,4 @@
-from load_data import Data
+from load_data import DataText, read_json
 import numpy as np
 import torch
 import time
@@ -7,13 +7,13 @@ from collections import defaultdict
 from models.Tucker_pn0 import *
 from torch.optim.lr_scheduler import ExponentialLR
 import argparse
+from config.config import config
 
 
 class Experiment:
 
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
-                 input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
                  label_smoothing=0.):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
@@ -23,8 +23,6 @@ class Experiment:
         self.decay_rate = decay_rate
         self.label_smoothing = label_smoothing
         self.cuda = cuda
-        self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
-                       "hidden_dropout2": hidden_dropout2}
 
     def get_data_idxs(self, data):
         data_idxs = [(self.entity_idxs[data[i][0]], self.relation_idxs[data[i][1]], \
@@ -122,7 +120,8 @@ class Experiment:
 
         print('d.entities='+str(len(d.entities)))
 
-        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
+        cfg = config(dict(read_json(args.config)))
+        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, cfg)
         if self.cuda:
             model.cuda()
         model.init()
@@ -193,12 +192,6 @@ if __name__ == '__main__':
                         help="Relation embedding dimensionality.")
     parser.add_argument("--cuda", type=bool, default=True, nargs="?",
                         help="Whether to use cuda (GPU) or not (CPU).")
-    parser.add_argument("--input_dropout", type=float, default=0.3, nargs="?",
-                        help="Input layer dropout.")
-    parser.add_argument("--hidden_dropout1", type=float, default=0.4, nargs="?",
-                        help="Dropout after the first hidden layer.")
-    parser.add_argument("--hidden_dropout2", type=float, default=0.5, nargs="?",
-                        help="Dropout after the second hidden layer.")
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
                         help="Amount of label smoothing.")
     args = parser.parse_args()
@@ -213,7 +206,6 @@ if __name__ == '__main__':
     d = Data(data_dir=data_dir, reverse=False)
     experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr,
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
-                            input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
-                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing)
+                            label_smoothing=args.label_smoothing)
     experiment.train_and_eval()
 
