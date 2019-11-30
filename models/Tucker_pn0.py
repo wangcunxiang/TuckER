@@ -22,8 +22,8 @@ class TuckER(torch.nn.Module):
         self.bn1 = torch.nn.BatchNorm1d(d1)
 
     def init(self):
-        xavier_normal_(self.E.weight.data)
-        xavier_normal_(self.R.weight.data)
+        xavier_normal_(self.Eembed.weight.data)
+        xavier_normal_(self.Rembed.weight.data)
 
     def evaluate(self, e1_idx, r_idx, es_idx):
         e1 = self.Eembed(e1_idx)
@@ -53,7 +53,7 @@ class TuckER(torch.nn.Module):
         x = self.input_dropout(x)
         x = x.view(-1, 1, e1.size(1))
 
-        r = self.Rembdd(r_idx)
+        r = self.Rembed(r_idx)
         W_mat = torch.mm(r, self.W.view(r.size(1), -1))  # torch.mm() 矩阵相乘
         W_mat = W_mat.view(-1, e1.size(1), e1.size(1))
         W_mat = self.hidden_dropout1(W_mat)

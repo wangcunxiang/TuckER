@@ -1,4 +1,4 @@
-from load_data import DataText, read_json
+from load_data import Data, read_json
 import numpy as np
 import torch
 import time
@@ -182,6 +182,8 @@ if __name__ == '__main__':
                         help="Number of iterations.")
     parser.add_argument("--batch_size", type=int, default=128, nargs="?",
                         help="Batch size.")
+    parser.add_argument("--config", type=str, default="config/config.json", nargs="?",
+                        help="the config file path")
     parser.add_argument("--lr", type=float, default=0.0005, nargs="?",
                         help="Learning rate.")
     parser.add_argument("--dr", type=float, default=1.0, nargs="?",
