@@ -4,7 +4,7 @@ import torch
 import time
 import random
 from collections import defaultdict
-from models.Tucker_margin import *
+from models.Tucker_pn0 import *
 from torch.optim.lr_scheduler import ExponentialLR
 import argparse
 
@@ -14,7 +14,7 @@ class Experiment:
     def __init__(self, learning_rate=0.0005, ent_vec_dim=200, rel_vec_dim=200,
                  num_iterations=500, batch_size=128, decay_rate=0., cuda=False,
                  input_dropout=0.3, hidden_dropout1=0.4, hidden_dropout2=0.5,
-                 label_smoothing=0., margin=1.):
+                 label_smoothing=0.):
         self.learning_rate = learning_rate
         self.ent_vec_dim = ent_vec_dim
         self.rel_vec_dim = rel_vec_dim
@@ -22,7 +22,6 @@ class Experiment:
         self.batch_size = batch_size
         self.decay_rate = decay_rate
         self.label_smoothing = label_smoothing
-        self.margin = margin
         self.cuda = cuda
         self.kwargs = {"input_dropout": input_dropout, "hidden_dropout1": hidden_dropout1,
                        "hidden_dropout2": hidden_dropout2}
@@ -52,8 +51,6 @@ class Experiment:
     def get_batch_train(self, er_vocab, er_vocab_pairs, idx):
         batch = er_vocab_pairs[idx:idx + self.batch_size]
         batch_ = list((t[0],t[1]) for t in batch)
-        #print('batch_ = '+str(batch_))
-        #print('er_vocab='+str(er_vocab))
         negs = np.random.randint(len(d.entities), size=len(batch))
         for idx, pair in enumerate(batch_):
             while negs[idx] in er_vocab[pair]:
@@ -125,7 +122,7 @@ class Experiment:
 
         print('d.entities='+str(len(d.entities)))
 
-        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, self.margin, **self.kwargs)
+        model = TuckER(d, self.ent_vec_dim, self.rel_vec_dim, **self.kwargs)
         if self.cuda:
             model.cuda()
         model.init()
@@ -172,18 +169,10 @@ class Experiment:
             print('loss: {0}'.format(np.mean(losses)))
             model.eval()
             with torch.no_grad():
-                #print("Validation:")
-                #self.evaluate(model, d.valid_data)
-                if not it % 2:
-                    if it % 10 == 0:
-                        print("Train:")
-                        start_test = time.time()
-                        self.evaluate(model, d.train_data)
-                        print(time.time() - start_test)
-                    print("Test:")
-                    start_test = time.time()
-                    self.evaluate(model, d.test_data)
-                    print(time.time() - start_test)
+                print("Test:")
+                start_test = time.time()
+                self.evaluate(model, d.test_data)
+                print(time.time() - start_test)
 
 
 if __name__ == '__main__':
@@ -212,8 +201,6 @@ if __name__ == '__main__':
                         help="Dropout after the second hidden layer.")
     parser.add_argument("--label_smoothing", type=float, default=0.1, nargs="?",
                         help="Amount of label smoothing.")
-    parser.add_argument("--margin", type=float, default=1., nargs="?",
-                        help="Margin.")
     args = parser.parse_args()
     dataset = args.dataset
     data_dir = "data/%s/" % dataset

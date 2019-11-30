@@ -177,9 +177,9 @@ class Experiment:
 
         f = open('./results/predictions/{}_{}_pretrain({}).txt'
                  .format(args.model, args.dataset, args.do_pretrain), 'w')
-        f.write('Hits @10: {0}'.format(self.max_test_hit1)+'\n')
+        f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
         f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
-        f.write('Hits @1: {0}'.format(self.max_test_hit10)+'\n')
+        f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
         f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
         f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
         #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
