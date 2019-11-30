@@ -311,16 +311,16 @@ class Experiment:
             with torch.no_grad():
                 # print("Validation:")
                 # self.evaluate(model, d.valid_data)
-                if not it % 2:
+                # if not it % 2:
                     # if it % 10 == 0:
                     #     print("Train:")
                     #     start_test = time.time()
                     #     self.evaluate(model, d.train_data)
                     #     print(time.time() - start_test)
-                    print("Test:")
-                    start_test = time.time()
-                    self.evaluate(model, d.test_data)
-                    print(time.time() - start_test)
+                print("Test:")
+                start_test = time.time()
+                self.evaluate(model, d.test_data)
+                print(time.time() - start_test)
 
 
 if __name__ == '__main__':
