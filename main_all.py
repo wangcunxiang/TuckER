@@ -174,8 +174,8 @@ class Experiment:
         self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
         self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
 
-        f = open('./results/predictions/{}_{}_pretrain({}).txt'
-                 .format(args.model, args.dataset, args.do_pretrain), 'w')
+        f = open('./results/predictions/{}_{}_pt({})_ml({}).txt'
+                 .format(args.model, args.dataset, args.do_pretrain, args.max_length), 'w')
         f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
         f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
         f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
