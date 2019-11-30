@@ -214,7 +214,6 @@ if __name__ == '__main__':
     experiment = Experiment(num_iterations=args.num_iterations, batch_size=args.batch_size, learning_rate=args.lr,
                             decay_rate=args.dr, ent_vec_dim=args.edim, rel_vec_dim=args.rdim, cuda=args.cuda,
                             input_dropout=args.input_dropout, hidden_dropout1=args.hidden_dropout1,
-                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing,
-                            margin=args.margin)
+                            hidden_dropout2=args.hidden_dropout2, label_smoothing=args.label_smoothing)
     experiment.train_and_eval()
 
