@@ -221,7 +221,7 @@ class Experiment:
 
         d.Etextdata = d.get_index(entities_ids, self.maxlength)  # list, contained padding entities
         self.Etextdata = np.array(d.Etextdata)
-        d.Rtextdata = d.get_index(relation_ids, self.maxlength)
+        d.Rtextdata = d.get_index(relation_ids, 1)
         self.Rtextdata = np.array(d.Rtextdata)
         # self.textdata = np.array(d.Etextdata + d.Rtextdata)
         #self.check_textdata()
