@@ -175,20 +175,20 @@ class Experiment:
         self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
         self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
 
-        f = open('./results/predictions/{}_{}_pt({})_ml({}_ls({})).txt'
-                 .format(args.model, args.dataset, args.do_pretrain, args.max_length, args.label_smoothing), 'w')
-        f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
-        f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
-        f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
-        f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
-        f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
-        #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
+        # with open('./results/predictions/{}_{}_pt({})_ml({}_ls({})).txt'
+        #          .format(args.model, args.dataset, args.do_pretrain, args.max_length, args.label_smoothing), 'w') as f:
+        #     f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
+        #     f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
+        #     f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
+        #     f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
+        #     f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
+        #     #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
 
-        print('Hits @10: {0}'.format(np.mean(hits[9])))
-        print('Hits @3: {0}'.format(np.mean(hits[2])))
-        print('Hits @1: {0}'.format(np.mean(hits[0])))
-        print('Mean rank: {0}'.format(np.mean(ranks)))
-        print('Mean reciprocal rank: {0}'.format(np.mean(1. / np.array(ranks))))
+        print('Hits @10: {0}-{1}'.format(np.mean(hits[9]), self.max_test_hit10))
+        print('Hits @3: {0}-{1}'.format(np.mean(hits[2]), self.max_test_hit3))
+        print('Hits @1: {0}-{1}'.format(np.mean(hits[0]), self.max_test_hit1))
+        print('Mean rank: {0}-{1}'.format(np.mean(ranks), self.max_test_MR))
+        print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
         print("loss="+str(np.mean(losses)))
 
     def train_and_eval(self):
