@@ -16,8 +16,8 @@ class CNNTuckER(nn.Module):
         self.Evocab = Evocab
         self.ecnn = Sequential(Conv1d(in_channels=cfg.hSize, out_channels=ent_vec_dim, kernel_size=cfg.window_size),
                              MaxPool1d(kernel_size=max_length-cfg.window_size+1))
-        self.rcnn = Sequential(Conv1d(in_channels=cfg.hSize, out_channels=rel_vec_dim, kernel_size=cfg.window_size),
-                             MaxPool1d(kernel_size=max_length-cfg.window_size+1))
+        self.rcnn = Sequential(Conv1d(in_channels=cfg.hSize, out_channels=rel_vec_dim, kernel_size=1),
+                             MaxPool1d(kernel_size=1))
 
         self.tucker = TuckER(d, ent_vec_dim, rel_vec_dim, cfg)
         self.loss = torch.nn.BCELoss()
