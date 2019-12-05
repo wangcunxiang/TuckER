@@ -191,6 +191,83 @@ class Experiment:
         print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
         print("loss="+str(np.mean(losses)))
 
+    def evaluate1(self, model, data):
+        hits = []
+        ranks = []
+        for i in range(10):
+            hits.append([])
+        losses = []
+
+        test_data_idxs = self.get_data_idxs(data)
+        er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
+        test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
+        test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
+
+        print("Number of test data points: %d" % len(test_data_idxs))
+        all_e1s = []
+        all_rs = []
+        all_sort_idxs = []
+
+        for i in range(0, len(test_er_vocab_pairs), self.batch_size):
+            data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
+
+            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+
+            if self.cuda:
+                e1_idx = e1_idx.cuda()
+                r_idx = r_idx.cuda()
+                #e2_idx = e2_idx.cuda()
+            if e1_idx.size(0) == 1:
+                print(j)
+                continue
+            predictions = model.evaluate(e1_idx, r_idx)
+
+            sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
+
+            sort_idxs = sort_idxs.cpu().numpy()
+            targets_ = targets.cpu().numpy()
+            for j in range(data_batch.shape[0]):
+                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0]))[0][0]
+                ranks.append(rank + 1)
+
+                for hits_level in range(10):
+                    if rank <= hits_level:
+                        hits[hits_level].append(1.0)
+                    else:
+                        hits[hits_level].append(0.0)
+
+            if self.label_smoothing:
+                targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
+            loss = model.loss(predictions, targets)
+            losses.append(loss.item())
+
+            all_e1s += data_batch[:, 0].tolist()
+            all_rs += data_batch[:, 1].tolist()
+            all_sort_idxs += sort_idxs.tolist()
+
+        self.max_test_hit1 = max(self.max_test_hit1, float(np.mean(hits[0])))
+        self.max_test_hit3 = max(self.max_test_hit3, float(np.mean(hits[2])))
+        self.max_test_hit10 = max(self.max_test_hit10, float(np.mean(hits[9])))
+        self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
+        self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
+
+        # with open('./results/predictions/{}_{}_pt({})_ml({}_ls({})).txt'
+        #          .format(args.model, args.dataset, args.do_pretrain, args.max_length, args.label_smoothing), 'w') as f:
+        #     f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
+        #     f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
+        #     f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
+        #     f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
+        #     f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
+        #     #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
+
+        print('Hits @10: {0}-{1}'.format(np.mean(hits[9]), self.max_test_hit10))
+        print('Hits @3: {0}-{1}'.format(np.mean(hits[2]), self.max_test_hit3))
+        print('Hits @1: {0}-{1}'.format(np.mean(hits[0]), self.max_test_hit1))
+        print('Mean rank: {0}-{1}'.format(np.mean(ranks), self.max_test_MR))
+        print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
+        print("loss="+str(np.mean(losses)))
+
     def train_and_eval(self):
         print("Training the {} model on {}...".format(args.model, args.dataset))
         self.entity_idxs = {d.entities[i]: i for i in range(len(d.entities))}
@@ -240,7 +317,8 @@ class Experiment:
                               Evocab=len(self.Evocab), Rvocab=len(self.Rvocab))
         elif args.model == 'LSTM':
             model = LSTMTuckER(d=d, es_idx=es_idx, ent_vec_dim=self.ent_vec_dim, rel_vec_dim=self.rel_vec_dim,
-                              cfg=cfg, Evocab=len(self.Evocab), Rvocab=len(self.Rvocab))
+                              cfg=cfg, max_length=self.maxlength,
+                               Evocab=len(self.Evocab), Rvocab=len(self.Rvocab))
         else:
             print("No Model")
             exit(0)
