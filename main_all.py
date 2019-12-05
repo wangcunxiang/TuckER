@@ -97,6 +97,17 @@ class Experiment:
         # if self.cuda:
         #     negs = negs.cuda()
         return np.array(batch), negs
+
+    def get_batch_test(self, er_vocab, er_vocab_pairs, idx):
+        batch = er_vocab_pairs[idx:idx + self.batch_size]
+        targets = np.zeros((len(batch), len(d.entities)))
+        for idx, pair in enumerate(batch):
+            targets[idx, er_vocab[pair]] = 1.
+        targets = torch.FloatTensor(targets)
+        if self.cuda:
+            targets = targets.cuda()
+        return np.array(batch), targets
+
     def get_batch(self, er_vocab, er_vocab_pairs, idx):
         batch = er_vocab_pairs[idx:idx + self.batch_size]
         targets = np.zeros((len(batch), len(d.entities)))
@@ -198,37 +209,43 @@ class Experiment:
             hits.append([])
         losses = []
 
+        # test_data_idxs = self.get_data_idxs(data)
+        # er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
+        # test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
+        # test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
         test_data_idxs = self.get_data_idxs(data)
         er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
-        test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
-        test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
-
         print("Number of test data points: %d" % len(test_data_idxs))
         all_e1s = []
         all_rs = []
         all_sort_idxs = []
 
-        for i in range(0, len(test_er_vocab_pairs), self.batch_size):
-            data_batch, targets = self.get_batch(er_vocab, test_er_vocab_pairs, i)
+        for i in range(0, len(test_data_idxs), self.batch_size):
+            data_batch, targets = self.get_batch(er_vocab, test_data_idxs, i)
 
             e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
             r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
-
+            e2_idx = torch.LongTensor(data_batch[:, 2])
             if self.cuda:
                 e1_idx = e1_idx.cuda()
                 r_idx = r_idx.cuda()
-                #e2_idx = e2_idx.cuda()
+                e2_idx = e2_idx.cuda()
             if e1_idx.size(0) == 1:
                 print(j)
                 continue
             predictions = model.evaluate(e1_idx, r_idx)
 
+            for j in range(data_batch.shape[0]):
+                filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
+                target_value = predictions[j, e2_idx[j]].item()
+                predictions[j, filt] = 0.0
+                predictions[j, e2_idx[j]] = target_value
             sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
 
             sort_idxs = sort_idxs.cpu().numpy()
-            targets_ = targets.cpu().numpy()
+
             for j in range(data_batch.shape[0]):
-                rank = np.where(np.isin(sort_idxs[j], np.where(targets_[j] == 1.0)[0]))[0][0]
+                rank = np.where(sort_idxs[j] == e2_idx[j].item())[0][0]
                 ranks.append(rank + 1)
 
                 for hits_level in range(10):
@@ -398,7 +415,7 @@ class Experiment:
                     #     print(time.time() - start_test)
                 print("Test:")
                 start_test = time.time()
-                self.evaluate(model, d.test_data)
+                self.evaluate1(model, d.test_data)
                 print(time.time() - start_test)
 
 
