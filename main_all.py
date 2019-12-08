@@ -202,88 +202,88 @@ class Experiment:
         print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
         print("loss="+str(np.mean(losses)))
 
-    def evaluate1(self, model, data):
-        hits = []
-        ranks = []
-        for i in range(10):
-            hits.append([])
-        losses = []
-
-        # test_data_idxs = self.get_data_idxs(data)
-        # er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
-        # test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
-        # test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
-        test_data_idxs = self.get_data_idxs(data)
-        er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
-        print("Number of test data points: %d" % len(test_data_idxs))
-        all_e1s = []
-        all_rs = []
-        all_sort_idxs = []
-
-        for i in range(0, len(test_data_idxs), self.batch_size):
-            data_batch, targets = self.get_batch(er_vocab, test_data_idxs, i)
-
-            e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
-            r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
-            e2_idx = torch.LongTensor(data_batch[:, 2])
-            if self.cuda:
-                e1_idx = e1_idx.cuda()
-                r_idx = r_idx.cuda()
-                e2_idx = e2_idx.cuda()
-            if e1_idx.size(0) == 1:
-                print(j)
-                continue
-            predictions = model.evaluate(e1_idx, r_idx)
-
-            for j in range(data_batch.shape[0]):
-                filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
-                target_value = predictions[j, e2_idx[j]].item()
-                predictions[j, filt] = 0.0
-                predictions[j, e2_idx[j]] = target_value
-            sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
-
-            sort_idxs = sort_idxs.cpu().numpy()
-
-            for j in range(data_batch.shape[0]):
-                rank = np.where(sort_idxs[j] == e2_idx[j].item())[0][0]
-                ranks.append(rank + 1)
-
-                for hits_level in range(10):
-                    if rank <= hits_level:
-                        hits[hits_level].append(1.0)
-                    else:
-                        hits[hits_level].append(0.0)
-
-            if self.label_smoothing:
-                targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
-            loss = model.loss(predictions, targets)
-            losses.append(loss.item())
-
-            all_e1s += data_batch[:, 0].tolist()
-            all_rs += data_batch[:, 1].tolist()
-            all_sort_idxs += sort_idxs.tolist()
-
-        self.max_test_hit1 = max(self.max_test_hit1, float(np.mean(hits[0])))
-        self.max_test_hit3 = max(self.max_test_hit3, float(np.mean(hits[2])))
-        self.max_test_hit10 = max(self.max_test_hit10, float(np.mean(hits[9])))
-        self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
-        self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
-
-        # with open('./results/predictions/{}_{}_pt({})_ml({}_ls({})).txt'
-        #          .format(args.model, args.dataset, args.do_pretrain, args.max_length, args.label_smoothing), 'w') as f:
-        #     f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
-        #     f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
-        #     f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
-        #     f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
-        #     f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
-        #     #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
-
-        print('Hits @10: {0}-{1}'.format(np.mean(hits[9]), self.max_test_hit10))
-        print('Hits @3: {0}-{1}'.format(np.mean(hits[2]), self.max_test_hit3))
-        print('Hits @1: {0}-{1}'.format(np.mean(hits[0]), self.max_test_hit1))
-        print('Mean rank: {0}-{1}'.format(np.mean(ranks), self.max_test_MR))
-        print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
-        print("loss="+str(np.mean(losses)))
+    # def evaluate1(self, model, data):
+    #     hits = []
+    #     ranks = []
+    #     for i in range(10):
+    #         hits.append([])
+    #     losses = []
+    #
+    #     # test_data_idxs = self.get_data_idxs(data)
+    #     # er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
+    #     # test_er_vocab = self.get_er_vocab(self.get_data_idxs(data))
+    #     # test_er_vocab_pairs = list(test_er_vocab.keys())  # list [...,(e1,r),...]
+    #     test_data_idxs = self.get_data_idxs(data)
+    #     er_vocab = self.get_er_vocab(self.get_data_idxs(d.data))
+    #     print("Number of test data points: %d" % len(test_data_idxs))
+    #     all_e1s = []
+    #     all_rs = []
+    #     all_sort_idxs = []
+    #
+    #     for i in range(0, len(test_data_idxs), self.batch_size):
+    #         data_batch, targets = self.get_batch(er_vocab, test_data_idxs, i)
+    #
+    #         e1_idx = torch.LongTensor(self.Etextdata[data_batch[:, 0]])
+    #         r_idx = torch.LongTensor(self.Rtextdata[data_batch[:, 1]])
+    #         e2_idx = torch.LongTensor(data_batch[:, 2])
+    #         if self.cuda:
+    #             e1_idx = e1_idx.cuda()
+    #             r_idx = r_idx.cuda()
+    #             e2_idx = e2_idx.cuda()
+    #         if e1_idx.size(0) == 1:
+    #             print(j)
+    #             continue
+    #         predictions = model.evaluate(e1_idx, r_idx)
+    #
+    #         for j in range(data_batch.shape[0]):
+    #             filt = er_vocab[(data_batch[j][0], data_batch[j][1])]
+    #             target_value = predictions[j, e2_idx[j]].item()
+    #             predictions[j, filt] = 0.0
+    #             predictions[j, e2_idx[j]] = target_value
+    #         sort_values, sort_idxs = torch.sort(predictions, dim=1, descending=True)
+    #
+    #         sort_idxs = sort_idxs.cpu().numpy()
+    #
+    #         for j in range(data_batch.shape[0]):
+    #             rank = np.where(sort_idxs[j] == e2_idx[j].item())[0][0]
+    #             ranks.append(rank + 1)
+    #
+    #             for hits_level in range(10):
+    #                 if rank <= hits_level:
+    #                     hits[hits_level].append(1.0)
+    #                 else:
+    #                     hits[hits_level].append(0.0)
+    #
+    #         if self.label_smoothing:
+    #             targets = ((1.0 - self.label_smoothing) * targets) + (1.0 / targets.size(1))
+    #         loss = model.loss(predictions, targets)
+    #         losses.append(loss.item())
+    #
+    #         all_e1s += data_batch[:, 0].tolist()
+    #         all_rs += data_batch[:, 1].tolist()
+    #         all_sort_idxs += sort_idxs.tolist()
+    #
+    #     self.max_test_hit1 = max(self.max_test_hit1, float(np.mean(hits[0])))
+    #     self.max_test_hit3 = max(self.max_test_hit3, float(np.mean(hits[2])))
+    #     self.max_test_hit10 = max(self.max_test_hit10, float(np.mean(hits[9])))
+    #     self.max_test_MR = min(self.max_test_MR, float(np.mean(ranks)))
+    #     self.max_test_MRR= max(self.max_test_MRR, float(np.mean(1. / np.array(ranks))))
+    #
+    #     # with open('./results/predictions/{}_{}_pt({})_ml({}_ls({})).txt'
+    #     #          .format(args.model, args.dataset, args.do_pretrain, args.max_length, args.label_smoothing), 'w') as f:
+    #     #     f.write('Hits @10: {0}'.format(self.max_test_hit10)+'\n')
+    #     #     f.write('Hits @3: {0}'.format(self.max_test_hit3)+'\n')
+    #     #     f.write('Hits @1: {0}'.format(self.max_test_hit1)+'\n')
+    #     #     f.write('Mean rank: {0}'.format(self.max_test_MR)+'\n')
+    #     #     f.write('Mean reciprocal rank: {0}'.format(self.max_test_MRR)+'\n')
+    #     #     #self.print_results(all_e1s, all_rs, all_sort_idxs, f)
+    #
+    #     print('Hits @10: {0}-{1}'.format(np.mean(hits[9]), self.max_test_hit10))
+    #     print('Hits @3: {0}-{1}'.format(np.mean(hits[2]), self.max_test_hit3))
+    #     print('Hits @1: {0}-{1}'.format(np.mean(hits[0]), self.max_test_hit1))
+    #     print('Mean rank: {0}-{1}'.format(np.mean(ranks), self.max_test_MR))
+    #     print('Mean reciprocal rank: {0}-{1}'.format(np.mean(1. / np.array(ranks)), self.max_test_MRR))
+    #     print("loss="+str(np.mean(losses)))
 
     def train_and_eval(self):
         print("Training the {} model on {}...".format(args.model, args.dataset))
@@ -415,7 +415,7 @@ class Experiment:
                     #     print(time.time() - start_test)
                 print("Test:")
                 start_test = time.time()
-                self.evaluate1(model, d.test_data)
+                self.evaluate(model, d.test_data)
                 print(time.time() - start_test)
 
 
